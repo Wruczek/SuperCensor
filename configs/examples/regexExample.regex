@@ -1,0 +1,21 @@
+# EXAMPLE: We want use Regex to censor word "dick" (thanks, Sinuce!) and to censor IPs.
+# If you dont know how its working
+#  - Plese visit wiki for more informations and complete tutorial: https://github.com/Wruczek/SuperCensor/wiki
+#  - http://goo.gl/XxDRMs this is link to wikipedia
+#  - http://goo.gl/9UaqU6 this is link to ticket about SC regex support
+# If IP censoring not working please read this: http://goo.gl/lJAVr5
+# REMEMBER: SuperCensor is splitting chat into separated words, its not checking whole message with regexes.
+# ERMEMBER: SuperCensor is loading regexes only from .regex files, because YAML praser have some problems with it
+
+# So in .regex files you need to define all of your regexes which will be using later in special arrays.
+# Format is: NameOfRegex (a-z, 0-9), colon, regex. For example: "Name1: regex"
+# Remeber! This is only for defining regexes. It will not block it by itself. Now, you need to use it in Special array (take look at specialExample.yml).
+
+# This will detect IPs (taken from mkyong.com)
+IP: ^([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])$
+
+# This will detect word "dick"
+Dick: \bd+[^A-Za-z0-9\u00C0-\u00FF]*(i|1|!|i|Î|I|í|i|î|\*)+[^A-Za-z0-9\u00C0-\u00FF]*c+[^A-Za-z0-9\u00C0-\u00FF]*k+[^A-Za-z0-9\u00C0-\u00FF]*
+
+# We will detect word "fuck"
+Fuck: \b(f+(\W|\d|_)*u+(\W|\d|_)*c+(\W|\d|_)*k+(\W|\d|_)*)

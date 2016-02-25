@@ -1,0 +1,112 @@
+# SuperCensor v3.1-DEV-ALPHA configuration file
+# Dev bukkit page: http://goo.gl/VNPQmp
+# For more informations and complete tutorial please visit: https://github.com/Wruczek/SuperCensor/wiki
+# Invalid configuration can crash the plugin. Before saving please check your config here: http://goo.gl/4QIux6
+# *** Additional informations ***
+# > Language: available languages: en, de, fr, it, pl, ro, tr
+# > AutoUpdater -> InformOnJoin: every player with permission "supercensor" will be informed
+# > SlowMode is an old SlowChat
+
+Language: en
+
+AutoUpdater:
+  Enabled: true
+  AutoDownload: true
+  CheckOnServerStartup: true
+  CheckOnJoin: true
+
+Logger:
+  Enabled: true
+  Prefix: "[%date% %time%] "
+  # http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
+  TimeFormat: "HH:mm:ss"
+  DateFormat: "dd-MM-yyyy"
+
+MessageFormat:
+  PluginPrefix: "&8[&6SC&8]&7"
+  UpdaterPrefix: "&8[&6UPDATER&8]&7"
+  CommandUsageFormat: "&8/&7sc &6%command% &6%usage%"
+  HelpEntryFormat: "&0- &8/&7sc &6%command%"
+  OldHelpEntryFormat: "&0- &8/&7sc &6%command% &8-&7 %description%"
+  OldPermissionEntryFormat: "&7\u2022 &6%permission% &8-&7 %description%"
+  PermissionEntryFormat: "&8\u2022 &b%permission%"
+
+AntiSpam:
+  # For more in depth tutorial please visit Wiki @ https://github.com/Wruczek/SuperCensor/wiki
+  AntiSpam:
+    Enabled: true
+    # In milliseconds
+    MinimumMessageRepeatTime: 600
+    MaximumNumberOfWarns: 10
+    # In Seconds
+    RemoveWarnEvery: 30
+    PenaltyPoints: 30
+  AntiRepeat:
+    Enabled: true
+    # You can repeat same message 3 times before begin blocked
+    AllowedRepeats: 3
+    CancelMessage: true
+    PenaltyPoints: 5
+
+ClearChat:
+  # Number of blank lines send to player / console
+  Lines:
+    Player: 100
+    Console: 300
+
+WordlistSettings:
+  #Plugin skip this charters in checking. For example:
+  #You added here charter "."
+  #Player typed "Fuc.k you"
+  #SuperCensor detect it, because charter "." is escaped and SuperCensor get word Fuck and censor it.
+  #Simple? Simple!
+  SpecialCharters: ",. -_+-"
+  # Prevent message from displaying on the chat
+  CancelMessage: true
+  DeepSearch: true
+  PenaltyPoints: 10
+  # I do not recommend using replacer, its not working perfectly. Better use regex.
+  Replace:
+    Enabled: false
+    # If enabled, plugin will replace swear word with random selected text
+    ReplaceTo:
+    - "*****"
+    - "love"
+    - "like"
+  RunCommands:
+    Enabled: false
+    Commands:
+    - kick %nick% You used inappropriate word (%swearword%)!
+    - say %nick% has been kicked for swearing!
+  Log:
+    Enabled: false
+    Format: "Player %nick% swears %swearword% on chat. (Full message: %message%)"
+
+SlowMode:
+  Enabled: true
+  Time: 3
+  AlwaysCleanupOnQuit: true
+  PenaltyPoints: 1
+
+FunStuff:
+  AutoMessage:
+    Enabled: false
+    Interval: 60
+    DisplayInConsole: true
+    PlayNiceSoundOnDisplay: true
+    PauseOnEmptyServer: true
+    # You can use color codes here.
+    # Messages starting with / will be run as a command
+    # Use %nick% to display name of player receiving AutoMessage
+    # Use \n to make a new line
+    Messages:
+    - "&7Hello &6%nick%! &e&nThis&e is test message from AutoMessage system in &nSuperCensor&e!"
+    - "&eThis is second message!\n&6You can make new line!"
+  JoinMessage:
+    Change: false
+    # Set to null to disable message
+    Message: "&8[&a+&8] &6%nick%&7 joined the server"
+  QuitMessage:
+    Change: false
+    # Set to null to disable message
+    Message: "&8[&c-&8] &6%nick%&7 left the server"

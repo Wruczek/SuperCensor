@@ -1,0 +1,114 @@
+# SuperCensor v3.0-DEV-ALPHA messages file
+# Dev bukkit page: http://goo.gl/VNPQmp
+# Invalid configuration can crash the plugin. Before saving please check your config here: http://goo.gl/4QIux6
+# Help translate SuperCensor: http://goo.gl/EgVMOa
+# REMEMBER: YOU DO NOT NEED TO TRANSLATE THIS FILE! Just change "Language" in your config.yml
+# REMEMBER: Do not use %prefix% if you are sending message to the console!
+# Information: %prefix% will be replaced with Misc -> PluginPrefix
+
+LocalizationInformations:
+  Language: Română
+  LanguageCode: Ro
+Misc:
+  PluginPrefix: "&8[&6SC&8]&7"
+SystemEnable:
+  MessagesLoaded: "Fișierul cu mesaje %languagename% (%languagecode%) a fost încărcat"
+  Loaded: "SuperCensor a fost încărcat în %time% ms"
+Updater:
+  UpdaterPrefix: "&8[&6UPDATER&8]&7"
+  ToConsole:
+    Success: "%updaterprefix% Succes! Noua versiune \"%newversion%\" a fost descărcată și va fi instalată la urmatoarea pornire a serverului!"
+    UpdateAvailable: "%updaterprefix% O nouă versiune SuperCensor este disponibilă! Versiunea curentă: %currentversion%, noua versiune: %newversion%, Link pentru descarcare: %downloadlink%"
+    NoUpdate: "%updaterprefix% Folosiți cea mai nouă versiune SuperCensor"
+  ToPlayer:
+    Success: "%prefix% %updaterprefix% Succes! Noua versiune \"%newversion%\" a fost descărcată și va fi instalată la urmatoarea pornire a serverului!"
+    UpdateAvailable: |-
+        %prefix% %updaterprefix% &cO noua versiune SuperCensor este disponibilă!
+        &7Versiune curentă: &6%currentversion%
+        &7Versiune nouă: &6%newversion%
+        &7Link descarcare: &6%downloadlink%
+Commands:
+  Usage: "&cFolosesti&8:"
+  UsageFormat: "&8/&7sc &3%command% &3%usage%"
+  NoPermissions: "%prefix% &cNu ai permisiunea %permission%!"
+  HelpEntryFormat: "&0- &8/&7sc &3%command% &8-&7 %description%"
+  Reload:
+    HelpDescription: "SuperCensor este reîncarcat"
+    Reloading: "%prefix% Reîncarcare..."
+    Reloaded: "%prefix% &aReîncarcărcat în %time% ms!"
+    Exception: "%prefix% &cA aparut o eroare în timp ce pluginul era reîncărcat! Te rugam sa verifici consola pentru mai multe informații!"
+  Info:
+    HelpDescription: "Prezinta informațiile despre plugin"
+    CheckingForUpdates: "%prefix% &7Se caută updat-uri, asteaptă puțin..."
+    Version: "&7Versiune: &3"
+    VersionStatus:
+      UpToDate: " &8(&7up to date!&8)"
+      UpdateAvailable: "&8(&6update disponibil!&8)"
+      NewVersionReady: "&8(&6noua versiune descarcată, va fi instalata la urmatoarea repornire!&8)"
+    Author: "&7Autor: &3"
+    UsefulLinks: "&7Link-uri utile:"
+    BungeeCord: "Versiunea pentru BungeeCord"
+    BugReporting: "Raporteaza probleme"
+    BukkitDev: BukkitDev
+    SpigotMC: SpigotMC
+    GitHub: GitHub
+    Donate: "Doneaza pentru a ajuta developmentul SuperCensor"
+  Permissions:
+    HelpDescription: "Arata lista cu permisiuni"
+    EntryFormat: "&7• &3%permission% &8-&7 %description%"
+  MuteChat:
+    HelpDescription: "Actvează sau Dezactivează chat-ul"
+    JoinReminder: "%prefix% &c&l> &6Chat-ul a fost dezactivat de catre administrator"
+    JoinReminderReason: "%prefix% &c&l> &6Chat-ul a fost dezactivat de catre administrator, motiv: %reason%"
+    CannotWrite: "%prefix% &cChat-ul este dezactivat, nu puteti scrie!"
+    CannotWriteReason: "%prefix% &cChat-ul este dezactivat,motiv: &6%reason%"
+    ChatEnabled: "%prefix% &7Chat has been &aenabled&7 in silent mode, so no one can see that message"
+    ChatEnabledBroadcast: "%prefix% &7Chat has been &aenabled&7 by %nick%&7!"
+    ChatDisabled: "%prefix% &7Chat has been &cdisabled&7 in silent mode, so no one can see that message"
+    ChatDisabledBroadcast: "%prefix% &7Chat has been &cdisabled&7 by %nick%&7!"
+    ChatDisabledReason: "%prefix% &7Chat has been &cdisabled&7 with reason &6%reason%&7 in silent mode, so no one can see that message"
+    ChatDisabledBroadcastReason: "%prefix% &7Chat has been &cdisabled&7 by %nick%&7, reason: &6%reason%"
+  SelfMute:
+    HelpDescription: "Allows to hide other players chat"
+    JoinReminder: "%prefix% &c&l> &6You have joined selfmuted. /sc selfmute to remove"
+    Self:
+      SelfMuted: "%prefix% You are now selfmuted. You will no longer see other players chat."
+      SelfMuteRemoved: "%prefix% You are no longer selfmuted"
+      OnlyPlayer: "%prefix% &cYou must be a player to SelfMute yourself"
+    OtherPlayer:
+      PlayerNotFound: "%prefix% &cCannot find player %nick%"
+      ErrorImmunity: "%prefix% &cCannot SelfMute %nick%&c, this player has immunity"
+      SelfMutedToSender: "%prefix% Selfmuted %nick%"
+      SelfMutedToTarget: "%prefix% SelfMute enabled by %nick%. You will no longer see other players chat."
+      SelfMuteRemovedToTarget: "%prefix% SelfMute has been removed from you by %nick%"
+      SelfMuteRemovedToSender: "%prefix% SelfMute removed from %nick%"
+  ClearChat:
+    HelpDescription: "Clears the chat"
+    CommandDescription: "&6Allows to clear your own / other players chat. You can use -a argument to clear chat anonymously. You can clear console by typing /sc cc own in console"
+    AnonymousMode: "%prefix% Clearing chat in anonymous mode, your nickname will be hidden"
+    AnonymousModeNoPermissions: "%prefix% &cYou dont have permissions to use anonymous mode!"
+    ClearAll:
+      Skipped: "&7Skipping &6%nick%&7 because of immunity..."
+      Summary: "%prefix% Clearing finished, chat of &6%cleared%&7 players cleared, skipped chat of &6%skipped%&7 players"
+    ClearSpecificPlayer:
+      PlayerNotFound: "%prefix% &cCannot find player %nick%"
+      ErrorImmunity: "%prefix% &cCannot clear %nick%&c`s chat, this player has immunity"
+      Success: "%prefix% Cleared %nick%&7`s chat"
+    ChatCleared:
+      AnonymousMode: "%prefix% Your chat has been cleared by administrator"
+      Normal: "%prefix% Your chat has been cleared by &6%nick%"
+  SubcommandNotFound: "%prefix% &cCommand do not exists. List of commands: /sc"
+  PPM:
+    HelpDescription: "PenalityPoints manager"
+    CommandDescription: "&6Allows to manage players PenalityPoints"
+    Check:
+      HelpDescription: "Shows how many PenalityPoints player has"
+      Response: "%prefix% &6%nick%&7 has &6%points%&7 PenalityPoints."
+    Set:
+      HelpDescription: "Sets PenalityPoints of player"
+      Response: "%prefix% &6%nick%&7 now has &6%points%&7 PenalityPoints."
+      OnlyNumbers: "%prefix% &cPlease specify a number"
+WordlistSettings:
+  MessageToPlayer: "%prefix% &cStop swearing!"
+SlowMode:
+  MessageToPlayer: "%prefix% &cYou must wait &6%time%&c seconds before sending next message!"

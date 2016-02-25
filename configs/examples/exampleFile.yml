@@ -1,0 +1,34 @@
+# Example SuperCensor file.
+# It shows how new file system works.
+# For more informations and complete tutorial please visit: https://github.com/Wruczek/SuperCensor/wiki
+# -----
+# For Regex example, please see regexExample.regex
+# For Wordreplacer example, please see wordreplacerExample.yml
+# For Special example, please see specialExample.yml
+# -----
+# Lets block few words using normal wordlist!
+# Again, for more informations like this and complete tutorial please visit: http://github.com/Wruczek/SuperCensor/wiki
+# Note: you can use simple regex here, or just add words like "shit" without using a regex. Some examples:
+#   "[1i]d[1i]ot" will detect: idiot, 1diot, 1d1ot
+#   "fu(c)?k" will detect: fuk and fuck, "(c)?" means that 
+#   "[$s]h[1i][3e]?t"
+#   "bi[t]?ch"
+#   "a[$s][$s]"
+# Of course, you dont need to use regex
+#   "idiot" will block idiot
+#   "fuck" will block fuck
+#   "shit" will block shit
+Wordlist:
+  - "[1i]d[1i]ot"
+  - "fu(c)?k"
+  - "[$s]h[1i][3e]?t"
+  - "bi[t]?ch"
+  - "a[$s][$s]"
+
+# Whitelist example
+# Remember! Whitelists works only with Wordlist! Its NOT working in Special arrays ect.
+Whitelist:
+  # Ok, so we blocked all IPs in config.yml, but we dont want to allow posting our server IP, so lets allow it.
+  - "123.465.789"
+  # We censored ass, but we dont want grass to be censored. Lets add grass here!
+  - grass

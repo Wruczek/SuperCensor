@@ -1,0 +1,108 @@
+# This example shows you how to use SpecialArray to act like WordReplacer from other versions
+# Read CloudeLecaw post to see how WordReplacer works: http://dev.bukkit.org/bukkit-plugins/supercensor/forum/ideas/68797-new-idea-word-replacerlist/
+# For more informations and complete tutorial please visit: https://github.com/Wruczek/SuperCensor/wiki
+Special:
+  Replaceur:
+    Normal: ur
+    ReplaceTo:
+    - your
+  Replaceu:
+    Normal: u
+    ReplaceTo:
+    - you
+  Replaceplz:
+    Normal: plz
+    ReplaceTo:
+    - please
+  Replacecu:
+    Normal: cu
+    ReplaceTo:
+    - see you
+  Replacexlnt:
+    Normal: xlnt
+    ReplaceTo:
+    - excellent
+  Replacewtf:
+    Normal: wtf
+    ReplaceTo:
+    - what the fuck
+  Replacesys:
+    Normal: sys
+    ReplaceTo:
+    - see you soon
+  Replacesup:
+    Normal: sup
+    ReplaceTo:
+    - what`s up
+  Replacesum1:
+    Normal: sum1
+    ReplaceTo:
+    - someone
+  Replacesry:
+    Normal: sry
+    ReplaceTo:
+    - sorry
+  Replacenp:
+    Normal: np
+    ReplaceTo:
+    - no problem
+  Replacenvm:
+    Normal: nvm
+    ReplaceTo:
+    - never mind
+  Replaceppl:
+    Normal: ppl
+    ReplaceTo:
+    - people
+  Replacepls:
+    Normal: pls
+    ReplaceTo:
+    - please
+  Replaceomg:
+    Normal: omg
+    ReplaceTo:
+    - oh my God
+  Replace2day:
+    Normal: 2day
+    ReplaceTo:
+    - today
+  Replace2moro:
+    Normal: 2moro
+    ReplaceTo:
+    - tomorrow
+  Replacefone:
+    Normal: fone
+    ReplaceTo:
+    - phone
+  Replacel8r:
+    Normal: l8r
+    ReplaceTo:
+    - later
+  Replacecul8r:
+    Normal: cul8r
+    ReplaceTo:
+    - see you later
+  Replacecuz:
+    Normal: cuz
+    ReplaceTo:
+    - because
+  Replacecya:
+    Normal: cya
+    ReplaceTo:
+    - see you
+  Replacecyal8r:
+    Normal: cyal8r
+    ReplaceTo:
+    - see you later
+  Replacebtw:
+    Normal: btw
+    ReplaceTo:
+    - by the way
+  Replacem8:
+    Normal: m8
+    ReplaceTo:
+    - mate
+  Replacer8:
+    Normal: r8
+    ReplaceTo:
+    - rate

@@ -1,0 +1,63 @@
+# Example SuperCensor file.
+# It shows how special array works.
+# Its more advenced version of Wordlist array.
+# For more informations and complete tutorial please visit: https://github.com/Wruczek/SuperCensor/wiki
+
+Special:
+  # Rule name
+  # Permission to bypass is: supercensor.bypass.special.DickPunishment
+  DickPunishment:
+    # You can use RegexIds or Normal. This is a list so you can define multiple regexes or words.
+    RegexIds:
+    - Dick
+    # If true, word will not appear on chat.
+    CancelChatEvent: true
+    # Add to player`s account 10 Penalty Points.
+    PenaltyPoints: 10
+    # Lets send message to player
+    MessagePlayer: |-
+      &c%nick%&6, please stop swearing!
+      &7Second line
+      &7Third line
+    RunCommands:
+      - "kick %nick% Please stop swearing!"
+      - "say %nick% has been kicked for swaring!"
+    # You can log everything into files, if you want
+    Log: "Player %nick% swears %swearword% on chat. (Full message: %message%)"
+  # Rule name
+  # Permission to bypass is: supercensor.bypass.special.Advertisement
+  Advertisement:
+    # We want to block posting IPs on chat.
+    RegexIds:
+    - IP
+    CancelChatEvent: true
+    # Add to player`s account 20 Penalty Points.
+    PenaltyPoints: 20
+   # Run command to kick player
+    RunCommands:
+      - "kick %nick% Advertising is NOT allowed!"
+  # Rule name
+  # Permission to bypass is: supercensor.bypass.special.ExampleWithNormal
+  ExampleWithNormal:
+    # We can still use word to trigger this check
+    Normal: cunt
+    # Add to player`s account 10 Penalty Points.
+    PenaltyPoints: 10
+    # It will replace censored word to one of this options. It will be choosed random
+    ReplaceTo:
+      - lovely
+      - sweetie
+      - sexy
+    # Lets show player what he is doing wrong
+    MessagePlayer: |-
+      &c%nick%&6, you used inappropriate word %censoredword%! You have been given %addedpenaltypoints% penalty points!
+  # Rule name
+  # Permission to bypass is: supercensor.bypass.special.CapsBlocker
+  CapsBlocker:
+    # Minimum caps percent to activate
+    OnCapsPercent: 80
+    # Minimum length
+    MinLength: 4
+    # Replace to lowercase
+    ReplaceToLowercase: true
+    MessagePlayer: '&cPlease, dont shout.'

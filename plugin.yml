@@ -1,0 +1,8 @@
+name: SuperCensor
+version: 3.1-BETA
+main: mr.wruczek.supercensor3.SCMain
+author: Wruczek
+commands:
+  supercensor:
+    aliases: ['sc']
+    description: Main SuperCensor command.

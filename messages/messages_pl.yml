@@ -1,0 +1,114 @@
+# SuperCensor v3.0-DEV-ALPHA messages file
+# Dev bukkit page: http://goo.gl/VNPQmp
+# Invalid configuration can crash the plugin. Before saving please check your config here: http://goo.gl/4QIux6
+# Help translate SuperCensor: http://goo.gl/EgVMOa
+# REMEMBER: YOU DO NOT NEED TO TRANSLATE THIS FILE! Just change "Language" in your config.yml
+# REMEMBER: Do not use %prefix% if you are sending message to the console!
+# Information: %prefix% will be replaced with Misc -> PluginPrefix
+
+LocalizationInformations:
+  Language: Polski
+  LanguageCode: PL
+Misc:
+  PluginPrefix: "&8[&6SC&8]&7"
+SystemEnable:
+  MessagesLoaded: "Wczytano plik wiadomosci: %languagename% (%languagecode%)"
+  Loaded: "Zaladowano SuperCensor w %time% ms"
+Updater:
+  UpdaterPrefix: "&8[&6UPDATER&8]&7"
+  ToConsole:
+    Success: "%updaterprefix% Sukces! Nowa wersja \"%newversion%\" zostala pobrana i bedzie zainstalowana przy nastepnym uruchomieniu serwera!"
+    UpdateAvailable: "%updaterprefix% Aktualizacja SuperCensora jest dostepna! Obecna wersja: %currentversion%, nowa wersja: %newversion%, link do pobrania: %downloadlink%"
+    NoUpdate: "%updaterprefix% Uzywasz najnowszej dostepnej wersji SuperCensora"
+  ToPlayer:
+    Success: "%prefix% %updaterprefix% Sukces! Nowa wersja \"%newversion%\" zostala pobrana i bedzie zainstalowana przy nastepnym uruchomieniu serwera!"
+    UpdateAvailable: |-
+        %prefix% %updaterprefix% &cAktualizacja SuperCensora jest dostepna!
+        &7Aktualna wersja: &6%currentversion%
+        &7Nowa wersja: &6%newversion%
+        &7Link do pobrania aktualizacji: &6%downloadlink%
+Commands:
+  Usage: "&cUzycie&8:"
+  UsageFormat: "&8/&7sc &3%command% &3%usage%"
+  NoPermissions: "%prefix% &cNie masz uprawnienia %permission%!"
+  HelpEntryFormat: "&0- &8/&7sc &3%command% &8-&7 %description%"
+  Reload:
+    HelpDescription: "Przeladowywuje plugin"
+    Reloading: "%prefix% Przeladowywanie..."
+    Reloaded: "%prefix% &aPrzeladowano w %time% ms!"
+    Exception: "%prefix% &cWystapil nieoczekiwany blad podczas przeladowywania wtyczki! Sprawdz konsole po wiecej informacji"
+  Info:
+    HelpDescription: "Pokazuje informacje o pluginie"
+    CheckingForUpdates: "%prefix% &7Sprawdzanie aktualizacji, prosze czekac..."
+    Version: "&7Wersja pluginu: &3"
+    VersionStatus:
+      UpToDate: " &8(&7wtyczka jest aktualna!&8)"
+      UpdateAvailable: " &8(&6aktualizacja jest dostepna!&8)"
+      NewVersionReady: " &8(&6nowa wersja gotowa do instalacji!&8)"
+    Author: "&7Autor: &3"
+    UsefulLinks: "&7Przydatne linki:"
+    BungeeCord: "Wersja dla BungeeCord"
+    BugReporting: "Zglaszanie bledow"
+    BukkitDev: BukkitDev
+    SpigotMC: SpigotMC
+    GitHub: GitHub
+    Donate: "Wplac dobrowolna dotacje i wesprzyj projekt"
+  Permissions:
+    HelpDescription: "Pokazuje liste uprawnien"
+    EntryFormat: "&7• &3%permission% &8-&7 %description%"
+  MuteChat:
+    HelpDescription: "Wlacza lub wylacza czat"
+    JoinReminder: "%prefix% &c&l> &6Czat zostal wylaczony przez administratora"
+    JoinReminderReason: "%prefix% &c&l> &6Czat zostal wylaczony przez administratora, powod: %reason%"
+    CannotWrite: "%prefix% &cCzat jest wylaczony, nie mozesz pisac!"
+    CannotWriteReason: "%prefix% &cCzat jest wylaczony, powod: &6%reason%"
+    ChatEnabled: "%prefix% &7Czat zostal &awlaczony&7 po cichu, a wiec nikt nie widzi tej wiadomosci"
+    ChatEnabledBroadcast: "%prefix% &7Czat zostal &awlaczony&7 przez %nick%&7!"
+    ChatDisabled: "%prefix% &7Czat zostal &cwylaczony&7 po cichu, a wiec nikt nie widzi tej wiadomosci"
+    ChatDisabledBroadcast: "%prefix% &7Czat zostal &cwylaczony&7 przez %nick%&7!"
+    ChatDisabledReason: "%prefix% &7Czat zostal &cwylaczony&7 z powodem &6%reason%&7 po cichu, a wiec nikt nie widzi tej wiadomosci"
+    ChatDisabledBroadcastReason: "%prefix% &7Czat zostal &cwylaczony&7 przez %nick%&7, powod: &6%reason%"
+  SelfMute:
+    HelpDescription: "Pozwala ukryc czat innych graczy"
+    JoinReminder: "%prefix% &c&l> &6Nie widzisz czatu innych graczy. Wpisz /sc selfmute by wylaczyc"
+    Self:
+      SelfMuted: "%prefix% Od teraz nie bedziesz widziec czatu innych graczy"
+      SelfMuteRemoved: "%prefix% Od teraz bedziesz widzial czat innych graczy"
+      OnlyPlayer: "%prefix% &cMusisz byc graczem by uzyc tej komendy"
+    OtherPlayer:
+      PlayerNotFound: "%prefix% &cNie moge znalezc gracza %nick%"
+      ErrorImmunity: "%prefix% &cNie moge selfmutowac %nick%&c, ten gracz ma immunited"
+      SelfMutedToSender: "%prefix% Wlaczono selfmute na %nick%"
+      SelfMutedToTarget: "%prefix% SelfMute zostalo wlaczone na tobie przez %nick%. Nie bedziesz widziec czatu innych graczy."
+      SelfMuteRemovedToTarget: "%prefix% %nick% usunal z ciebie SelfMute"
+      SelfMuteRemovedToSender: "%prefix% Zdjales SelfMute z gracza %nick%"
+  ClearChat:
+    HelpDescription: "Czysci czat"
+    CommandDescription: "&6Umozliwia na wyczyszczenie twojego czatu lub innych graczy. Uzyj argumentu -a by ukryc swoj nich. Jesli chcesz wyczyscic konsole, wpisz sc cc own w konsoli"
+    AnonymousMode: "%prefix% Czyszczenie czatu w trybie anonimowym, nikt nie zobaczy twojego nicku"
+    AnonymousModeNoPermissions: "%prefix% &cNie masz uprawnien do uzycia trybu anonimowego!"
+    ClearAll:
+      Skipped: "&7Pomijam &6%nick%&7 z powodu immunitetu..."
+      Summary: "%prefix% Czyszczenie czatu ukonczone. Wyczyszczono &6%cleared%&7 graczy, pominieto &6%skipped%"
+    ClearSpecificPlayer:
+      PlayerNotFound: "%prefix% &cNie moge znalezc gracza %nick%"
+      ErrorImmunity: "%prefix% &c%nick%&c ma immunited, nie mozesz wyczyscic jego czatu"
+      Success: "%prefix% Wyczyszczono czat gracza %nick%"
+    ChatCleared:
+      AnonymousMode: "%prefix% Twoj czat zostal wyczyszczony przez administratora"
+      Normal: "%prefix% Twoj czat zostal wyczyszczony przez &6%nick%"
+  SubcommandNotFound: "%prefix% &cKomenda nie istnieje. Lista komend: /sc"
+  PPM:
+    HelpDescription: "Zarzadzanie punktami ostrzezen"
+    CommandDescription: "&6Pozwala na zarzadzanie punktami ostrzezen"
+    Check:
+      HelpDescription: "Pokazuje, ile punktow ostrzezen posiada gracz"
+      Response: "%prefix% &6%nick%&7 ma &6%points%&7 punktow ostrzezen."
+    Set:
+      HelpDescription: "Ustawia punkty ostrzezen dla danego gracza"
+      Response: "%prefix% &6%nick%&7 ma teraz &6%points%&7 punktow ostrzezen."
+      OnlyNumbers: "%prefix% &cProsze podac liczbe"
+WordlistSettings:
+  MessageToPlayer: "%prefix% &cNie przeklinaj!"
+SlowMode:
+  MessageToPlayer: "%prefix% &cMusisz zaczekac &6%time%&c sekund przed wyslaniem kolejnej wiadomosci!"

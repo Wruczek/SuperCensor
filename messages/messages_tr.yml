@@ -1,0 +1,114 @@
+# SuperCensor v3.0-DEV-ALPHA messages file
+# Dev bukkit page: http://goo.gl/VNPQmp
+# Invalid configuration can crash the plugin. Before saving please check your config here: http://goo.gl/4QIux6
+# Help translate SuperCensor: http://goo.gl/EgVMOa
+# REMEMBER: YOU DO NOT NEED TO TRANSLATE THIS FILE! Just change "Language" in your config.yml
+# REMEMBER: Do not use %prefix% if you are sending message to the console!
+# Information: %prefix% will be replaced with Misc -> PluginPrefix
+
+LocalizationInformations:
+  Language: Türk
+  LanguageCode: TR
+Misc:
+  PluginPrefix: "&8[&6SC&8]&7"
+SystemEnable:
+  MessagesLoaded: "%languagecode%  Yuklendi: dil adi %languagename%"
+  Loaded: "SuperCensor %time% icinde yuklendi."
+Updater:
+  UpdaterPrefix: "&8[&6GUNCELLEYICI&8]&7"
+  ToConsole:
+    Success: "%updaterprefix% basarili! Yeni surum \"%newversion%\" server baslatiminda indirilecek."
+    UpdateAvailable: "%updaterprefix% guncellestirmesi mevcut. Suanki surum: %currentversion%, yeni surum: %newversion%, indirme linki: %downloadlink%"
+    NoUpdate: "%updaterprefix% yeni surumunu kullaniyorsunuz."
+  ToPlayer:
+    Success: "%prefix% %updaterprefix% Basarili! Yeni surum \"%newversion%\" indirildi, bir sonraki baslamada aktif olacak."
+    UpdateAvailable: |-
+        %prefix% %updaterprefix% &cguncellestirme mevcut.
+        &7Eklenti surumu: &6%currentversion%
+        &7Yeni surum: &6%newversion%
+        &7Indirme linki: &6%downloadlink%
+Commands:
+  Usage: "&cKullanim&8:"
+  UsageFormat: "&8/&7sc &3%command% &3%usage%"
+  NoPermissions: "%prefix% &cBu komutu kullanmak icin %permission% yetkisine sahip degilsin."
+  HelpEntryFormat: "&0- &8/&7sc &3%command% &8-&7 %description%"
+  Reload:
+    HelpDescription: "Eklenti yeniden yukleniyor."
+    Reloading: "%prefix% Guncelleniyor..."
+    Reloaded: "%prefix% &a%time% icinde guncellendi!"
+    Exception: "%prefix% &cEklentinin surumu sunucunuza uygun degil, lutfen uygun surumunu indirin."
+  Info:
+    HelpDescription: "Eklenti hakkinda bilgi gosterir"
+    CheckingForUpdates: "%prefix% &7Guncellemeler kontrol ediliyor, lutfen bekleyiniz..."
+    Version: "&7Surum: &3"
+    VersionStatus:
+      UpToDate: "&8(&7guncel!&8)"
+      UpdateAvailable: " &8(&6guncelleme uygun!&8)"
+      NewVersionReady: "&8(&6yeni surum yuklendi, bir sonraki baslatimda hazir olacak!&8)"
+    Author: "&7Yapimci: &3"
+    UsefulLinks: "&7Kullanisli Linkler:"
+    BungeeCord: "BungeeCord surumune uygun"
+    BugReporting: "Hata raporlama"
+    BukkitDev: BukkitDev
+    SpigotMC: SpigotMC
+    GitHub: GitHub
+    Donate: "Bagis yaparak SuperCensor ekelntisine destek verin"
+  Permissions:
+    HelpDescription: "Yetki listesini gosterir"
+    EntryFormat: "&7• &3%permission% &8-&7 %description%"
+  MuteChat:
+    HelpDescription: "Sohbeti ac veya kapa"
+    JoinReminder: "%prefix% &c&l> &6Sohbet yetkili tarafindan kapatildi"
+    JoinReminderReason: "%prefix% &c&l> &6Sohbet yetkili tarafindan kapatildi, nedeni: %reason%"
+    CannotWrite: "%prefix% &cSohbet kapali, yazi yazamazsin."
+    CannotWriteReason: "%prefix% &cSohbet kapali, nedeni: &6%reason%"
+    ChatEnabled: "%prefix% &7Sohbet sessiz modda &aaktif&7, bu mesaji kimse goremez."
+    ChatEnabledBroadcast: "%prefix% &7Sohbet &7%nick% tarafindan &aaktif &7edildi!"
+    ChatDisabled: "%prefix% &7Sohbet sessiz moddan &acikarildi&7, bu mesaji kimse goremez."
+    ChatDisabledBroadcast: "%prefix% &7Sohbet &7%nick% tarafindan &akapatildi&7i!"
+    ChatDisabledReason: "%prefix% &7Sohbet sessiz moddan &ccikarildi&7, nedeni &6%reason%&7 , bu mesaji kimse goremez."
+    ChatDisabledBroadcastReason: "%prefix% &7Sohbet &7%nick% tarafindan &ckapatildi&7, nedeni: &6%reason%"
+  SelfMute:
+    HelpDescription: "Diger oyuncular icin sohbeti gizle"
+    JoinReminder: "%prefix% &c&l> &6Sessiz sohbete katildin. Cikmak icin /sc selfmute"
+    Self:
+      SelfMuted: "%prefix% Sessiz sohbete katildin. Diger oyuncularin sohbetini goruceksiniz."
+      SelfMuteRemoved: "%prefix% Sessiz sohbetten ciktin."
+      OnlyPlayer: "%prefix% &cKendinizi susturmak icin bir oyuncu olmalisiniz."
+    OtherPlayer:
+      PlayerNotFound: "%prefix% &c%nick% bulunamadi."
+      ErrorImmunity: "%prefix% &c%nick% Sessiz sohbette degil, bu oyuncuda dokunulmazlik var."
+      SelfMutedToSender: "%prefix% %nick% Sessiz sohbette"
+      SelfMutedToTarget: "%prefix% Sessiz sohbet  %nick% tarafindan acildi, diger oyuncularin sohbetini gorebileceksiniz."
+      SelfMuteRemovedToTarget: "%prefix% Sessiz sohbet %nick% tarafindan kaldirildi."
+      SelfMuteRemovedToSender: "%prefix% Sessiz sohbetten %nick% cikarildi."
+  ClearChat:
+    HelpDescription: "Sohbeti temizler"
+    CommandDescription: "&cSiz veya diger oyuncular sohbeti silmenize olanak saglar. Siz kendi sohbetinizi temizlemek için -a argümanını kullanabilirsiniz. Sohbete / sc cc yazarak temizleyebilirsiniz."
+    AnonymousMode: "%prefix% kendi sohbetinizde isminiz gizlenir."
+    AnonymousModeNoPermissions: "%prefix% Gizli modu kullanmak icin yetkilere sahip degilsiniz."
+    ClearAll:
+      Skipped: "&7Geciliyor... &6%nick%&7 cunku dokunulmaz..."
+      Summary: "%prefix% Sohbet temizlendi, temizleyen &6%cleared%&7, temizlenemeyen &6%skipped% oyuncular..."
+    ClearSpecificPlayer:
+      PlayerNotFound: "%prefix% &c%nick% bulunamadi."
+      ErrorImmunity: "%prefix% &c %nick%&c'in sohbeti temizlenemedi, oyuncu dokunulmaz."
+      Success: "%prefix% %nick%&7`in sohbeti temizlendi"
+    ChatCleared:
+      AnonymousMode: "%prefix% Sohbet yetkili tarafindan temizlendi."
+      Normal: "%prefix% Sohbet %nick% tarafindan temizlendi."
+  SubcommandNotFound: "%prefix% &cCommand do not exists. List of commands: /sc"
+  PPM:
+    HelpDescription: "PenalityPoints manager"
+    CommandDescription: "&6Allows to manage players PenalityPoints"
+    Check:
+      HelpDescription: "Shows how many PenalityPoints player has"
+      Response: "%prefix% &6%nick%&7 has &6%points%&7 PenalityPoints."
+    Set:
+      HelpDescription: "Sets PenalityPoints of player"
+      Response: "%prefix% &6%nick%&7 now has &6%points%&7 PenalityPoints."
+      OnlyNumbers: "%prefix% &cPlease specify a number"
+WordlistSettings:
+  MessageToPlayer: "%prefix% &cStop swearing!"
+SlowMode:
+  MessageToPlayer: "%prefix% &cYou must wait &6%time%&c seconds before sending next message!"

@@ -1,0 +1,114 @@
+# SuperCensor v3.0-DEV-ALPHA messages file
+# Dev bukkit page: http://goo.gl/VNPQmp
+# Invalid configuration can crash the plugin. Before saving please check your config here: http://goo.gl/4QIux6
+# Help translate SuperCensor: http://goo.gl/EgVMOa
+# REMEMBER: YOU DO NOT NEED TO TRANSLATE THIS FILE! Just change "Language" in your config.yml
+# REMEMBER: Do not use %prefix% if you are sending message to the console!
+# Information: %prefix% will be replaced with Misc -> PluginPrefix
+
+LocalizationInformations:
+  Language: Italiano
+  LanguageCode: IT
+Misc:
+  PluginPrefix: "&8[&6SC&8]&7"
+SystemEnable:
+  MessagesLoaded: "Caricata lingua %languagename% (%languagecode%)"
+  Loaded: "SuperCensor è stato caricato in %time% ms"
+Updater:
+  UpdaterPrefix: "&8[&6AGGIORNAMENTO&8]&7"
+  ToConsole:
+    Success: "%updaterprefix% Completato! La nuova versione \"%newversion%\" è stata scaricata e sarà installata al prossimo riavvio!"
+    UpdateAvailable: "%updaterprefix% Un aggiornamento per SuperCensor è disponibile! La tua versione: %currentversion%, la nuova versione: %newversion%, link al download: %downloadlink%"
+    NoUpdate: "%updaterprefix% Stai usando l'ultima versione di SuperCensor"
+  ToPlayer:
+    Success: "%prefix% %updaterprefix% Completato! La nuova versione \"%newversion%\" è stata scaricata e sarà installata al prossimo riavvio!"
+    UpdateAvailable: |-
+        %prefix% %updaterprefix% &cUn aggiornamento per SuperCensor è disponibile!
+        &7La tua versione: &6%currentversion%
+        &7La nuova versione: &6%newversion%
+        &7Link al download: &6%downloadlink%
+Commands:
+  Usage: "&cUtilizzo&8:"
+  UsageFormat: "&8/&7sc &3%command% &3%usage%"
+  NoPermissions: "%prefix% &cNon hai il permesso \"%permission%\"!"
+  HelpEntryFormat: "&0- &8/&7sc &3%command% &8-&7 %description%"
+  Reload:
+    HelpDescription: "Ricarica il plugin"
+    Reloading: "%prefix% Ricaricamento in corso..."
+    Reloaded: "%prefix% &aRicaricamento completato in %time% ms!"
+    Exception: "%prefix% &cSi è verificato un errore nel tentativo di ricaricare il plugin! Controlla la console per maggiori informazioni!"
+  Info:
+    HelpDescription: "Mostra delle informazioni sul plugin"
+    CheckingForUpdates: "%prefix% &7Ricerca di aggiornamenti in corso, si prega di attendere..."
+    Version: "&7Versione: &3"
+    VersionStatus:
+      UpToDate: " &8(&7ultima versione disponibile!&8)"
+      UpdateAvailable: " &8(&6aggiornamento disponibile!&8)"
+      NewVersionReady: " &8(&6nuova versione scaricata, sarà installata al prossimo riavvio!&8)"
+    Author: "&7Autore: &3"
+    UsefulLinks: "&7Link utili:"
+    BungeeCord: "Versione per BungeeCord"
+    BugReporting: "Segnala un Bug"
+    BukkitDev: BukkitDev
+    SpigotMC: SpigotMC
+    GitHub: GitHub
+    Donate: "Dona e supporta lo sviluppo di SuperCensor"
+  Permissions:
+    HelpDescription: "Mostra la lista dei permessi"
+    EntryFormat: "&7• &3%permission% &8-&7 %description%"
+  MuteChat:
+    HelpDescription: "Abilita o disabilita la chat"
+    JoinReminder: "%prefix% &c&l> &6La chat è stata disabilitata da un amministratore"
+    JoinReminderReason: "%prefix% &c&l> &6La chat è stata disabilitata da un amministratore, motivo: %reason%"
+    CannotWrite: "%prefix% &cLa chat è disabilitata, non puoi scrivere!"
+    CannotWriteReason: "%prefix% &cLa chat è disabilitata, motivo: &6%reason%"
+    ChatEnabled: "%prefix% &7La chat è stata &aabilitata&7 silenziosamente, nessuno può vedere questo messaggio"
+    ChatEnabledBroadcast: "%prefix% &7La chat è stata &aabilitata&7 da %nick%&7!"
+    ChatDisabled: "%prefix% &7La chat è stata &cdisabilitata&7 silenziosamente, nessuno può vedere questo messaggio"
+    ChatDisabledBroadcast: "%prefix% &7La chat è stata &cdisabilitata&7 da %nick%&7!"
+    ChatDisabledReason: "%prefix% &7La chat è stata &cdisabilitata&7 silenziosamente con il motivo &6%reason%&7, nessuno può vedere questo messaggio"
+    ChatDisabledBroadcastReason: "%prefix% &7La chat è stata &cdisabilitata&7 da %nick%&7, motivo: &6%reason%"
+  SelfMute:
+    HelpDescription: "Permette di nascondere la chat degli altri giocatori"
+    JoinReminder: "%prefix% &c&l> &6Sei entrato in modalità silenziosa. Usa /sc selfmute per uscirne"
+    Self:
+      SelfMuted: "%prefix% Sei ora in modalità silenziosa. Non leggerai più la chat degli altri giocatori."
+      SelfMuteRemoved: "%prefix% Non sei più in modalità silenziosa"
+      OnlyPlayer: "%prefix% &cDevi essere un giocatore per poter entrare in modalità silenziosa"
+    OtherPlayer:
+      PlayerNotFound: "%prefix% &cNon riesco a trovare il giocatore %nick%"
+      ErrorImmunity: "%prefix% &cNon riesco a mandare %nick%&c in modalità silenziosa, questo giocatore ha l'immunità"
+      SelfMutedToSender: "%prefix% Hai mandato %nick% in modalità silenziosa"
+      SelfMutedToTarget: "%prefix% Modalità silenziosa attivata da %nick%. Non leggerai più la chat degli altri giocatori."
+      SelfMuteRemovedToTarget: "%prefix% %nick% ti ha rimosso dalla modalità silenziosa"
+      SelfMuteRemovedToSender: "%prefix% Hai rimosso %nick% dalla modalità silenziosa"
+  ClearChat:
+    HelpDescription: "Pulisce la chat"
+    CommandDescription: "&6Permette di pulire la tua chat o quella degli altri giocatori. Puoi inserire -a alla fine del comando per pulirla in incognito. Puoi pulire la console scrivendo \"/sc cc own\" dalla console"
+    AnonymousMode: "%prefix% Sto pulendo la chat in incognito, il tuo nickname sarà nascosto"
+    AnonymousModeNoPermissions: "%prefix% &cNon hai il permesso di pulire la chat in incognito!"
+    ClearAll:
+      Skipped: "&6%nick%&7 ignorato perché possiede l'immunità..."
+      Summary: "%prefix% Pulizia completata, la chat di &6%cleared%&7 giocatori è stata pulita, la chat di &6%skipped%&7 giocatori è stata ignorata."
+    ClearSpecificPlayer:
+      PlayerNotFound: "%prefix% &cNon riesco a trovare il giocatore %nick%"
+      ErrorImmunity: "%prefix% &cNon riesco a pulire la chat di %nick%&c, questo giocatore ha l'immunità"
+      Success: "%prefix% Pulita la chat di %nick%"
+    ChatCleared:
+      AnonymousMode: "%prefix% La tua chat è stata pulita da un amministratore"
+      Normal: "%prefix% La tua chat è stata pulita da &6%nick%"
+  SubcommandNotFound: "%prefix% &cCommand do not exists. List of commands: /sc"
+  PPM:
+    HelpDescription: "PenalityPoints manager"
+    CommandDescription: "&6Allows to manage players PenalityPoints"
+    Check:
+      HelpDescription: "Shows how many PenalityPoints player has"
+      Response: "%prefix% &6%nick%&7 has &6%points%&7 PenalityPoints."
+    Set:
+      HelpDescription: "Sets PenalityPoints of player"
+      Response: "%prefix% &6%nick%&7 now has &6%points%&7 PenalityPoints."
+      OnlyNumbers: "%prefix% &cPlease specify a number"
+WordlistSettings:
+  MessageToPlayer: "%prefix% &cSmetti di offendere!"
+SlowMode:
+  MessageToPlayer: "%prefix% &cDevi aspettare altri &6%time%&c secondi prima di poter mandare il prossimo messaggio!"
