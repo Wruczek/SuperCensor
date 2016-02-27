@@ -100,7 +100,7 @@ public class WordlistCheck implements Listener {
 				
 				// Add PenaltyPoints
 				if (SCConfigManager2.config.contains("WordlistSettings.PenaltyPoints")) {
-					new SCPlayerDataManger(event.getPlayer().getName()).addPenalityPoints(SCConfigManager2.config.getInt("WordlistSettings.PenaltyPoints"));
+					new SCPlayerDataManger(event.getPlayer()).addPenalityPoints(SCConfigManager2.config.getInt("WordlistSettings.PenaltyPoints"));
 				}
 				
 				// Run commands

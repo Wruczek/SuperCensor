@@ -22,6 +22,7 @@ public class SCPlayerJoinListener implements Listener {
 	
 	@EventHandler
 	public void onPlayerJoin(final PlayerJoinEvent event) {
+		
 		Bukkit.getScheduler().runTaskAsynchronously(SCMain.getInstance(), new Runnable() {
 			@Override
 			public void run() {

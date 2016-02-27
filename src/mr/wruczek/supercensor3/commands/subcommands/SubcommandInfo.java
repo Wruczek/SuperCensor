@@ -75,8 +75,9 @@ public class SubcommandInfo extends SCSubcommand {
 			
 			sender.sendMessage(" ");
 			
-			for (ConfigurationSection str : CensorData.special)
-				sender.sendMessage("* CensorData.special: " + str);
+			for (ConfigurationSection cs : CensorData.special)
+				for(String key : cs.getKeys(false))
+					sender.sendMessage("* CensorData.special: " + key);
 			
 			sender.sendMessage(" ");
 			

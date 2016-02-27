@@ -107,7 +107,7 @@ public class SpecialCheck implements Listener {
 					
 					// Maximum length
 					if (specialLists.contains(specialEntries + ".MaxLength"))
-						if (wordToCheck.length() < specialLists.getInt(specialEntries + ".MaxLength"))
+						if (wordToCheck.length() > specialLists.getInt(specialEntries + ".MaxLength"))
 							continue;
 
 					/* **************************** */
@@ -124,7 +124,7 @@ public class SpecialCheck implements Listener {
 					// Add PenaltyPoints
 					if (specialLists.contains(specialEntries + ".PenaltyPoints")) {
 						addedPenaltyPoints = specialLists.getInt(specialEntries + ".PenaltyPoints");
-						new SCPlayerDataManger(event.getPlayer().getName()).addPenalityPoints(addedPenaltyPoints);
+						new SCPlayerDataManger(event.getPlayer()).addPenalityPoints(addedPenaltyPoints);
 					}
 
 					// Message player

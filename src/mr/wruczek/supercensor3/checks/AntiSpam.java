@@ -77,7 +77,7 @@ public class AntiSpam implements Listener {
 					}
 				});
 				
-				new SCPlayerDataManger(event.getPlayer().getName()).addPenalityPoints(penaltyPoints);
+				new SCPlayerDataManger(event.getPlayer()).addPenalityPoints(penaltyPoints);
 				data.setWarns(0);
 				return;
 			}
@@ -103,7 +103,7 @@ public class AntiSpam implements Listener {
 				if(cancelMessage)
 					event.setCensored(true);
 				
-				new SCPlayerDataManger(event.getPlayer().getName()).addPenalityPoints(penaltyPoints);
+				new SCPlayerDataManger(event.getPlayer()).addPenalityPoints(penaltyPoints);
 			}
 		}
 		

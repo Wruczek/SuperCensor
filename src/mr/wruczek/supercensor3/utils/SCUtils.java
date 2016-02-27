@@ -10,10 +10,9 @@ import java.util.regex.Pattern;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import com.evilmidget38.UUIDFetcher;
 
 import mr.wruczek.supercensor3.SCConfigManager2;
 import mr.wruczek.supercensor3.SCMain;
@@ -84,17 +83,25 @@ public class SCUtils {
 		return ChatColor.stripColor(str);
 	}
 	
-	public static String getUUID(Player player) {
-		return getUUID(player.getName());
+	public static String getUUID(OfflinePlayer player) {
+		return getUUID(player, false);
 	}
 	
-	public static String getUUID(String player) {
+	public static String getUUID(OfflinePlayer player, boolean dashes) {
+		
+		String uuid = player.getName();
+		
 		try {
-			return UUIDFetcher.getUUIDOf(player).toString().replaceAll("-", "");
+			uuid = player.getUniqueId().toString();
 		} catch (Exception e) {
-			logError("Cant get UUID of " + player + "! Exception: " + e);
+			e.printStackTrace();
 		}
-		return null;
+		
+		if(dashes) {
+			return uuid;
+		} else {
+			return uuid.replace("-", "");
+		}
 	}
 	
 	public static String getMessageFromMessagesFile(String path) {

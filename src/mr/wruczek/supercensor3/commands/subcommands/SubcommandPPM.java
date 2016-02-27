@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -26,7 +27,7 @@ public class SubcommandPPM extends SCSubcommand {
 		SCMainCommand.registerSubcommand(this, "pp", "ppm", "penalitypoints", "penalitypointsmanager");
 		SCMainCommand.registerTabCompletion(this);
 	}
-	
+
 	@Override
 	public void onCommand(CommandSender sender, String command, String[] args) {
 		
@@ -55,14 +56,15 @@ public class SubcommandPPM extends SCSubcommand {
 				nick = args[2];
 			}
 			
+			OfflinePlayer op = Bukkit.getOfflinePlayer(nick); // TODO: Deprecated!
 			int points = 0;
 			
-			if(SCPlayerDataManger.hasDataFile(nick)) {
-				points = new SCPlayerDataManger(nick).getPenalityPoints();
+			if(SCPlayerDataManger.hasDataFile(op)) {
+				points = new SCPlayerDataManger(op).getPenalityPoints();
 			}
 			
 			sender.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.PPM.Check.Response")
-					.replace("%nick%", nick).replace("%points%", String.valueOf(points)));
+					.replace("%nick%", op.getName()).replace("%points%", String.valueOf(points)));
 		}
 		
 		if(args[1].equalsIgnoreCase("set")) {
@@ -73,7 +75,7 @@ public class SubcommandPPM extends SCSubcommand {
 				return;
 			}
 			
-			String nick = args[2];
+			OfflinePlayer op = Bukkit.getOfflinePlayer(args[2]); // TODO: Deprecated!
 			int newPoints = 0;
 			
 			try {
@@ -83,10 +85,10 @@ public class SubcommandPPM extends SCSubcommand {
 				return;
 			}
 			
-			new SCPlayerDataManger(nick).setPenalityPoints(newPoints);
+			new SCPlayerDataManger(op).setPenalityPoints(newPoints);
 			
 			sender.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.PPM.Set.Response")
-					.replace("%nick%", nick).replace("%points%", String.valueOf(newPoints)));
+					.replace("%nick%", op.getName()).replace("%points%", String.valueOf(newPoints)));
 		}
 	}
 	
