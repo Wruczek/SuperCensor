@@ -9,6 +9,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import mr.wruczek.supercensor3.PPUtils.PPManager;
 import mr.wruczek.supercensor3.commands.SCMainCommand;
 import mr.wruczek.supercensor3.commands.SCSubcommand;
 import mr.wruczek.supercensor3.data.SCPlayerDataManger;
@@ -24,7 +25,7 @@ import mr.wruczek.supercensor3.utils.SCUtils;
 public class SubcommandPPM extends SCSubcommand {
 	
 	public SubcommandPPM() {
-		SCMainCommand.registerSubcommand(this, "pp", "ppm", "penalitypoints", "penalitypointsmanager");
+		SCMainCommand.registerSubcommand(this, "pp", "ppm", "penaltypoints", "penaltypointsmanager");
 		SCMainCommand.registerTabCompletion(this);
 	}
 
@@ -37,7 +38,7 @@ public class SubcommandPPM extends SCSubcommand {
 		
 		if(args.length < 2) {
 			sender.sendMessage(SCUtils.getCommandDescription("Commands.PPM.CommandDescription"));
-			SCUtils.sendCommandUsage(sender, "ppm check &8[<&6playername&8>]", "Commands.PPM.Check.HelpDescription");
+			SCUtils.sendCommandUsage(sender, "ppm check &8[&6playername&8]", "Commands.PPM.Check.HelpDescription");
 			SCUtils.sendCommandUsage(sender, "ppm set &8<&6playername&8> &8<&6amount&8>", "Commands.PPM.Set.HelpDescription");
 			
 			if(SCUtils.isTellrawSupported(sender)) {
@@ -57,11 +58,7 @@ public class SubcommandPPM extends SCSubcommand {
 			}
 			
 			OfflinePlayer op = Bukkit.getOfflinePlayer(nick); // TODO: Deprecated!
-			int points = 0;
-			
-			if(SCPlayerDataManger.hasDataFile(op)) {
-				points = new SCPlayerDataManger(op).getPenalityPoints();
-			}
+			int points = PPManager.getPenaltyPoints(op);
 			
 			sender.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.PPM.Check.Response")
 					.replace("%nick%", op.getName()).replace("%points%", String.valueOf(points)));
@@ -85,7 +82,7 @@ public class SubcommandPPM extends SCSubcommand {
 				return;
 			}
 			
-			new SCPlayerDataManger(op).setPenalityPoints(newPoints);
+			PPManager.setPenaltyPoints(op, newPoints);
 			
 			sender.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.PPM.Set.Response")
 					.replace("%nick%", op.getName()).replace("%points%", String.valueOf(newPoints)));

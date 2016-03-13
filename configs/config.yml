@@ -36,7 +36,7 @@ AntiSpam:
   AntiSpam:
     Enabled: true
     # In milliseconds
-    MinimumMessageRepeatTime: 600
+    MinimumMessageRepeatTime: 700
     MaximumNumberOfWarns: 10
     # In Seconds
     RemoveWarnEvery: 30

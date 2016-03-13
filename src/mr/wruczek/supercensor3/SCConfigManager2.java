@@ -5,9 +5,11 @@ import java.io.IOException;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import mr.wruczek.supercensor3.PPUtils.PPLoader;
 import mr.wruczek.supercensor3.checks.CensorData;
 import mr.wruczek.supercensor3.commands.subcommands.SCSelfMuteManager;
 import mr.wruczek.supercensor3.utils.SCConfig;
+import mr.wruczek.supercensor3.utils.SCLogger;
 import mr.wruczek.supercensor3.utils.SCLogger.LogType;
 import mr.wruczek.supercensor3.utils.SCUtils;
 
@@ -25,8 +27,9 @@ public class SCConfigManager2 {
 	public static YamlConfiguration config_original;
 	public static YamlConfiguration messages_original;
 	public static File rulesFolder;
-	public static File disabledFulesFolder;
+	public static File disabledRulesFolder;
 	public static File logsFolder;
+	public static File PPFolder;
 	
 	public static String pluginPrefix;
 	
@@ -34,7 +37,6 @@ public class SCConfigManager2 {
 		return config != null;
 	}
 	
-	@SuppressWarnings("deprecation")
 	public static void load() {
 		
 		// region Logs
@@ -77,7 +79,7 @@ public class SCConfigManager2 {
 		
 		// region wordsloader
 		rulesFolder = new File(SCMain.getInstance().getDataFolder() + File.separator + "rules");
-		disabledFulesFolder = new File(rulesFolder + File.separator + "disabledFiles");
+		disabledRulesFolder = new File(rulesFolder + File.separator + "disabledFiles");
 		
 		if (!rulesFolder.exists()) {
 			rulesFolder.mkdirs();
@@ -112,15 +114,39 @@ public class SCConfigManager2 {
 		// Load all files and arrays
 		CensorData.load(rulesFolder);
 		
-		if (!disabledFulesFolder.exists()) {
-			disabledFulesFolder.mkdirs();
+		if (!disabledRulesFolder.exists()) {
+			disabledRulesFolder.mkdirs();
 			try {
-				SCUtils.copyResource("configs/Readme_disabled_rulesfolder.txt", new File(disabledFulesFolder, "Readme.txt"), false);
+				SCUtils.copyResource("configs/Readme_disabled_rulesfolder.txt", new File(disabledRulesFolder, "Readme.txt"), false);
 			} catch (IOException e) {
-				// ¯\_(ツ)_/¯
+				SCUtils.logError("Cannot copy Readme_disabled_rulesfolder.txt!");
+				SCLogger.handleException(e);
 			}
 		}
 		
+		// endregion
+		
+		// region PenaltyPoints
+		PPFolder = new File(SCMain.getInstance().getDataFolder() + File.separator + "PenaltyPointsRules");
+
+		if (!PPFolder.exists()) {
+			PPFolder.mkdirs();
+			try {
+				// WARN PLAYER
+				SCUtils.copyResource("configs/ppr/warn-player.yml", new File(PPFolder, "warn-player.yml"), false);
+				
+				// KICK PLAYER
+				SCUtils.copyResource("configs/ppr/kick-player.yml", new File(PPFolder, "kick-player.yml"), false);
+				
+				// MUTE PLAYER
+				SCUtils.copyResource("configs/ppr/mute-player.yml", new File(PPFolder, "mute-player.yml"), false);
+			} catch (IOException e) {
+				SCUtils.logError("Cannot copy PenaltyPointsRules!");
+				SCLogger.handleException(e);
+			}
+		}
+
+		PPLoader.load(PPFolder);
 		// endregion
 		
 		messages_original = YamlConfiguration.loadConfiguration(SCMain.getInstance().getResource("messages/messages_en.yml"));

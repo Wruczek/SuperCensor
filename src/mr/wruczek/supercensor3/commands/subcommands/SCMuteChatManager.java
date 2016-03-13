@@ -127,6 +127,6 @@ public class SCMuteChatManager extends SCSubcommand implements Listener {
 	}
 	
 	public static void setReason(String reason) {
-		SCConfigManager2.data.set("GlobalChatMute.Reason", reason.replace("§", String.valueOf(ChatColor.COLOR_CHAR)));
+		SCConfigManager2.data.set("GlobalChatMute.Reason", reason.replace(Character.toString('\u00A7'), String.valueOf(ChatColor.COLOR_CHAR)));
 	}
 }

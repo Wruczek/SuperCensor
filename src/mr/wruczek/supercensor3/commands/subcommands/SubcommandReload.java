@@ -10,6 +10,7 @@ import org.bukkit.command.CommandSender;
 import mr.wruczek.supercensor3.SCInitManager;
 import mr.wruczek.supercensor3.commands.SCMainCommand;
 import mr.wruczek.supercensor3.commands.SCSubcommand;
+import mr.wruczek.supercensor3.utils.SCLogger;
 import mr.wruczek.supercensor3.utils.SCLogger.LogType;
 import mr.wruczek.supercensor3.utils.SCPermissionsEnum;
 import mr.wruczek.supercensor3.utils.SCUtils;
@@ -63,7 +64,7 @@ public class SubcommandReload extends SCSubcommand {
 			sender.sendMessage(ChatColor.RED + e.toString());
 			
 			SCUtils.logError("Exception while reloading plugin", LogType.PLUGIN);
-			e.printStackTrace();
+			SCLogger.handleException(e);
 		}
 	}
 	

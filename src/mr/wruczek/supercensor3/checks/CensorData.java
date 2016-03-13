@@ -25,8 +25,7 @@ import mr.wruczek.supercensor3.utils.SCUtils;
  */
 public class CensorData {
 	
-	private static Pattern hasNamePattern = Pattern.compile("(([a-zA-Z0-9_]))(:)(\\s+)(\\S)",
-			Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+	private static Pattern hasNamePattern;
 	
 	public static HashMap<String, String> regexList;
 	public static List<String> wordlist;
@@ -61,7 +60,6 @@ public class CensorData {
 					SCUtils.logInfo("Loaded " + file.getName() + " rules file", LogType.PLUGIN);
 				} catch (Exception e) {
 					SCUtils.logError("Error while loading " + path + ": " + e, LogType.PLUGIN);
-					e.printStackTrace();
 				}
 			} else if (fileType.equalsIgnoreCase("regex")) {
 				try {
@@ -87,7 +85,6 @@ public class CensorData {
 					// endregion
 				} catch (Exception e) {
 					SCUtils.logError("Error while loading Regex file " + path + ": " + e, LogType.PLUGIN);
-					e.printStackTrace();
 				}
 			}
 		}
@@ -101,8 +98,12 @@ public class CensorData {
 		return null;
 	}
 	
-	@SuppressWarnings("unused")
 	private static boolean hasName(String str) {
+
+		if (hasNamePattern == null)
+			hasNamePattern = Pattern.compile("(([a-zA-Z0-9_]))(:)(\\s+)(\\S)",
+					Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+
 		return hasNamePattern.matcher(str).find();
 	}
 }

@@ -17,10 +17,6 @@ public class SCSlowModeManager {
 	
 	public static SCSlowModeManager getManager = new SCSlowModeManager();
 	
-	private SCSlowModeManager() {
-		
-	}
-	
 	private HashMap<String, Long> map = new HashMap<String, Long>();
 	
 	public boolean isEnabled() {

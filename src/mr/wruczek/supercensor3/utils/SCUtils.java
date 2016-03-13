@@ -1,10 +1,15 @@
 package mr.wruczek.supercensor3.utils;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.Reader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
@@ -16,6 +21,7 @@ import org.bukkit.entity.Player;
 
 import mr.wruczek.supercensor3.SCConfigManager2;
 import mr.wruczek.supercensor3.SCMain;
+import mr.wruczek.supercensor3.utils.MessagesCreator.ChatExtra;
 import mr.wruczek.supercensor3.utils.SCLogger.LogType;
 import net.gravitydevelopment.updater.GravityUpdater;
 
@@ -87,14 +93,14 @@ public class SCUtils {
 		return getUUID(player, false);
 	}
 	
-	public static String getUUID(OfflinePlayer player, boolean dashes) {
+	public static String getUUID(OfflinePlayer player, boolean dashes) { // TODO
 		
 		String uuid = player.getName();
 		
 		try {
 			uuid = player.getUniqueId().toString();
 		} catch (Exception e) {
-			e.printStackTrace();
+			SCLogger.handleException(e);
 		}
 		
 		if(dashes) {
@@ -276,17 +282,36 @@ public class SCUtils {
 	}
 	
 	public static void sendTellraw(Player player, String message, String hovertext, String suggestedCommand) {
-		String json = "[\"\",{\"text\":\"" + message + "\",\"clickEvent\":{\"action\":\"suggest_command\",\"value\":\"" + suggestedCommand + "\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":{\"text\":\"\",\"extra\":[{\"text\":\"" + hovertext + "\"}]}}}]";
-		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "minecraft:tellraw " + player.getName() + " " + json);
+		MessagesCreator ms = new MessagesCreator("", null, null);
+		ChatExtra extra = new MessagesCreator.ChatExtra(message, MessagesCreator.Color.WHITE, null);
+		
+		if(suggestedCommand != null)
+			extra.setClickEvent(MessagesCreator.ClickEventType.SUGGEST_COMMAND, suggestedCommand);
+		
+		if(hovertext != null)
+			extra.setHoverEvent(MessagesCreator.HoverEventType.SHOW_TEXT, hovertext);
+		
+		ms.addExtra(extra);
+		
+		 try {
+         	Reflection.sendMessage(player, ms.toString());
+         } catch (Exception e) {
+        	player.sendMessage(SCUtils.color(SCUtils.getPluginPrefix() + "Cannot send you formatted message. Please check console for full stacktrace. " + e));
+        	SCLogger.handleException(e);
+         }
+	}
+	
+	public static boolean isTellrawSupportedByServer() {
+		String version = Bukkit.getBukkitVersion();
+		return version.startsWith("1.9") || version.startsWith("1.8") || version.startsWith("1.7");
+	}
+	
+	public static boolean isTellrawSupported(CommandSender sender) {
+		return isTellrawSupportedByServer() && sender instanceof Player;
 	}
 	
 	public static String getCommandDescription(String descriptionPath) {
 		return SCUtils.getMessageFromMessagesFile("Commands.Description") + SCUtils.getMessageFromMessagesFile(descriptionPath);
-	}
-	
-	public static boolean isTellrawSupported(CommandSender sender) {
-		String version = Bukkit.getBukkitVersion();
-		return (version.startsWith("1.9") || version.startsWith("1.8") || version.startsWith("1.7")) && sender instanceof Player;
 	}
 	
 	// This is simple workaround over 1.8 changes.

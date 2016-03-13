@@ -1,0 +1,19 @@
+# Example SuperCensor PenaltyPointsRule.
+# For more informations and complete tutorial please visit: https://github.com/Wruczek/SuperCensor/wiki
+
+PenaltyPointsRules:
+  # Rule name
+  TempmutePlayer:
+    # Activate this check when player have 150 PenaltyPoints.
+    ActivateOn: 150
+    MessagePlayer: |-
+      &6Hey, &c%nick%&6!
+      &eYou have been muted for breaking chat rules.
+      &eYour mute will expire within one hour.
+    RunCommands:
+      - "mute %nick% 1h"
+    # Reset PenaltyPoints
+    SetPenaltyPoints: 0
+    # You can log everything into files, if you want
+    # Remove this line to stop logging about this PenaltyPointsRule
+    Log: "Player %nick% has been temporary muted for receiving 150 PenaltyPoints"

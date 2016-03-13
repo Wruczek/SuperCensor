@@ -10,7 +10,7 @@ import org.bukkit.event.Listener;
 import mr.wruczek.supercensor3.SCCheckEvent;
 import mr.wruczek.supercensor3.SCConfigManager2;
 import mr.wruczek.supercensor3.SCMain;
-import mr.wruczek.supercensor3.data.SCPlayerDataManger;
+import mr.wruczek.supercensor3.PPUtils.PPManager;
 import mr.wruczek.supercensor3.utils.SCPermissionsEnum;
 import mr.wruczek.supercensor3.utils.SCUtils;
 
@@ -77,7 +77,7 @@ public class AntiSpam implements Listener {
 					}
 				});
 				
-				new SCPlayerDataManger(event.getPlayer()).addPenalityPoints(penaltyPoints);
+				PPManager.addPenaltyPoints(event.getPlayer(), penaltyPoints, true);
 				data.setWarns(0);
 				return;
 			}
@@ -103,7 +103,7 @@ public class AntiSpam implements Listener {
 				if(cancelMessage)
 					event.setCensored(true);
 				
-				new SCPlayerDataManger(event.getPlayer()).addPenalityPoints(penaltyPoints);
+				PPManager.addPenaltyPoints(event.getPlayer(), penaltyPoints, true);
 			}
 		}
 		

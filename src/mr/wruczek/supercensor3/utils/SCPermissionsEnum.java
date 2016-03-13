@@ -11,6 +11,8 @@ import org.bukkit.command.CommandSender;
 public enum SCPermissionsEnum {
 	
 	PERMISSIONPREFIX("supercensor.", "Prefix for all other permissions"),
+	BASICADMIN("supercensor.basicadmin", "Administrative permission for less important "
+			+ "things like updater notifications and /screport command"),
 	RELOAD("reload", "Access to /sc reload command"),
 	INFO("info", "Access to /sc info command"),
 	CLEARCHAT_CLEAROWN("clearchat.clearown", "Access to /sc clear own command"),
@@ -24,7 +26,7 @@ public enum SCPermissionsEnum {
 	SELFMUTE_TOGGLE_OTHER("selfmute.toggle.other", "Allows to block other players chat by /sc selfmute <playername>"),
 	SELFMUTE_TOGGLE_OTHER_EXEMPT("selfmute.toggle.other.exempt", "Players with this permission cannot be "
 			+ "selfmuted using /sc selfmute <playername> command"),
-	PPM("ppm", "Access to PenalityPoints manager (/sc ppm)"),
+	PPM("ppm", "Access to PenaltyPoints manager (/sc ppm)"),
 	SLOWMODE_BYPASS("bypass.slowmode", "Exempts from chat SlowMode"),
 	WORDLIST_BYPASS("bypass.wordlist", "Exempts from Wordlist"),
 	ANTIREPEAT_BYPASS("bypass.antirepeat", "Exempts from AntiRepeat"),

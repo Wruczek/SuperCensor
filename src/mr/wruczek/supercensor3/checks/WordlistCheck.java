@@ -10,7 +10,7 @@ import org.bukkit.event.Listener;
 import mr.wruczek.supercensor3.SCCheckEvent;
 import mr.wruczek.supercensor3.SCConfigManager2;
 import mr.wruczek.supercensor3.SCMain;
-import mr.wruczek.supercensor3.data.SCPlayerDataManger;
+import mr.wruczek.supercensor3.PPUtils.PPManager;
 import mr.wruczek.supercensor3.utils.SCLogger;
 import mr.wruczek.supercensor3.utils.SCLogger.LogType;
 import mr.wruczek.supercensor3.utils.SCPermissionsEnum;
@@ -100,7 +100,8 @@ public class WordlistCheck implements Listener {
 				
 				// Add PenaltyPoints
 				if (SCConfigManager2.config.contains("WordlistSettings.PenaltyPoints")) {
-					new SCPlayerDataManger(event.getPlayer()).addPenalityPoints(SCConfigManager2.config.getInt("WordlistSettings.PenaltyPoints"));
+					int points = SCConfigManager2.config.getInt("WordlistSettings.PenaltyPoints");
+					PPManager.addPenaltyPoints(event.getPlayer(), points, true);
 				}
 				
 				// Run commands

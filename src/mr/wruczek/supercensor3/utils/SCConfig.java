@@ -55,7 +55,7 @@ public class SCConfig extends YamlConfiguration {
             save(configFile);
         } catch (IOException e) {
         	SCUtils.logError("Error saving config file \"" + fileName + "\"!", LogType.PLUGIN);
-            e.printStackTrace();
+        	SCLogger.handleException(e);
         }
     }
 
@@ -67,7 +67,7 @@ public class SCConfig extends YamlConfiguration {
             load(configFile);
         }  catch (IOException | InvalidConfigurationException e) {
         	SCUtils.logError("Error creating config file \"" + fileName + "\"!", LogType.PLUGIN);
-            e.printStackTrace();
+        	SCLogger.handleException(e);
         }
     }
 
@@ -86,7 +86,7 @@ public class SCConfig extends YamlConfiguration {
             }
         } catch (Exception e) {
         	SCUtils.logError("Error creating config file \"" + fileName + "\"!", LogType.PLUGIN);
-            e.printStackTrace();
+        	SCLogger.handleException(e);
         }
     }
 

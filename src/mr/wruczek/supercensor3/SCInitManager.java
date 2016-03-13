@@ -9,7 +9,7 @@ import mr.wruczek.supercensor3.checks.SpecialCheck;
 import mr.wruczek.supercensor3.checks.WordlistCheck;
 import mr.wruczek.supercensor3.commands.SCCommandHeader;
 import mr.wruczek.supercensor3.commands.SCMainCommand;
-import mr.wruczek.supercensor3.data.SCPlayerDataManger;
+import mr.wruczek.supercensor3.commands.SCReportCommand;
 import mr.wruczek.supercensor3.listeners.SCAsyncPlayerChatListener;
 import mr.wruczek.supercensor3.listeners.SCPlayerJoinListener;
 import mr.wruczek.supercensor3.listeners.SCPlayerQuitListener;
@@ -31,12 +31,12 @@ public class SCInitManager {
 		new SCCommandHeader();
 		SCAutoMessage.run();
 		
-		SCPlayerDataManger.init();
 		new AntiSpam();
 		// endregion
 		
 		// region Commands
 		instance.getCommand("supercensor").setExecutor(new SCMainCommand());
+		instance.getCommand("screport").setExecutor(new SCReportCommand());
 		// endregion
 	}
 	

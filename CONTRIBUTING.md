@@ -2,7 +2,7 @@
 
 If not, feel free to post issues here, on GitHub, but please provide the following informations:
 
-- Plugin version (/sc info) and server version (/version): 
+- Plugin version (/sc info) and server version (/version)
 
 - What steps will reproduce the problem?
  - 1.

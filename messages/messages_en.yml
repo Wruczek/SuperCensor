@@ -103,12 +103,12 @@ Commands:
       Normal: "%prefix% Your chat has been cleared by &6%nick%"
   SubcommandNotFound: "%prefix% &cCommand do not exists. List of commands: /sc"
   PPM:
-    HelpDescription: "PenalityPoints manager"
-    CommandDescription: "Allows to manage players PenalityPoints"
+    HelpDescription: "PenaltyPoints manager"
+    CommandDescription: "Allows to manage players PenaltyPoints"
     Check:
-      HelpDescription: "Shows how many PenalityPoints player has"
-      Response: "%prefix% &6%nick%&7 has &6%points%&7 PenalityPoints."
+      HelpDescription: "Shows how many PenaltyPoints player has"
+      Response: "%prefix% &6%nick%&7 has &6%points%&7 PenaltyPoints."
     Set:
-      HelpDescription: "Sets PenalityPoints of player"
-      Response: "%prefix% &6%nick%&7 has now &6%points%&7 PenalityPoints."
+      HelpDescription: "Sets PenaltyPoints of player"
+      Response: "%prefix% &6%nick%&7 has now &6%points%&7 PenaltyPoints."
       OnlyNumbers: "%prefix% &cPlease specify a number"

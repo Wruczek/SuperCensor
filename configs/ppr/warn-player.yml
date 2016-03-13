@@ -1,0 +1,15 @@
+# Example SuperCensor PenaltyPointsRule.
+# For more informations and complete tutorial please visit: https://github.com/Wruczek/SuperCensor/wiki
+
+PenaltyPointsRules:
+  # Rule name
+  WarnPlayer:
+    # Activate this check when player have 50 PenaltyPoints.
+    ActivateOn: 50
+    MessagePlayer: |-
+      &6Hey, &c%nick%&6, please stop breaking chat rules!
+      &eDont be rude and respect other players.
+      &eBreaking server rules will result in future punishments.
+    # You can log everything into files, if you want
+    # Remove this line to stop logging about this PenaltyPointsRule
+    Log: "Player %nick% received first warning"

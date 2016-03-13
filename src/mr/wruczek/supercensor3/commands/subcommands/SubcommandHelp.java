@@ -34,8 +34,8 @@ public class SubcommandHelp extends SCSubcommand {
 		}
 		
 		SCUtils.sendCommandUsage(sender, "clear &8<&6own&8|&6all&8|&8<&6playername&8> [&6-a&8]", "Commands.ClearChat.HelpDescription");
-		SCUtils.sendCommandUsage(sender, "mute &8[&6-s&8] &8[<&6reason&8>]", "Commands.MuteChat.HelpDescription");
-		SCUtils.sendCommandUsage(sender, "selfmute &8[<&6playername&8>]", "Commands.SelfMute.HelpDescription");
+		SCUtils.sendCommandUsage(sender, "mute &8[&6-s&8] &8[&6reason&8]", "Commands.MuteChat.HelpDescription");
+		SCUtils.sendCommandUsage(sender, "selfmute &8[&6playername&8]", "Commands.SelfMute.HelpDescription");
 		SCUtils.sendCommandUsage(sender, "ppm", "Commands.PPM.HelpDescription");
 		SCUtils.sendCommandUsage(sender, "reload", "Commands.Reload.HelpDescription");
 		SCUtils.sendCommandUsage(sender, "info", "Commands.Info.HelpDescription");

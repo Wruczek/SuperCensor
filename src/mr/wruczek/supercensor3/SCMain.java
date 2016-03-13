@@ -73,7 +73,7 @@ public class SCMain extends JavaPlugin {
 		try {
 			// scPlayersDataManger = new SCPlayersDataManger(false, null, null, null, null, null);
 		} catch (Exception e) {
-			e.printStackTrace();
+			SCLogger.handleException(e);
 		}
 		
 		long loadTime = System.currentTimeMillis() - timerStart;
@@ -92,7 +92,7 @@ public class SCMain extends JavaPlugin {
 		try {
 			// scPlayersDataManger.saveData();
 		} catch (Exception e) {
-			e.printStackTrace();
+			SCLogger.handleException(e);
 		}
 		// SCConfigManager.save();
 	}

@@ -1,8 +1,10 @@
 name: SuperCensor
-version: 3.1.1-BETA
+version: 3.0
 main: mr.wruczek.supercensor3.SCMain
 author: Wruczek
 commands:
   supercensor:
     aliases: ['sc']
     description: Main SuperCensor command.
+  screport:
+    description: Sends last plugin error to HasteBin and returns url to uploaded paste for easy error reporting.

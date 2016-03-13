@@ -8,6 +8,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import mr.wruczek.supercensor3.SCMain;
 import mr.wruczek.supercensor3.commands.subcommands.SCMuteChatManager;
 import mr.wruczek.supercensor3.commands.subcommands.SCSelfMuteManager;
+import mr.wruczek.supercensor3.utils.SCPermissionsEnum;
 import mr.wruczek.supercensor3.utils.SCUpdater;
 import mr.wruczek.supercensor3.utils.SCUtils;
 import net.gravitydevelopment.updater.GravityUpdater.UpdateResult;
@@ -67,7 +68,7 @@ public class SCPlayerJoinListener implements Listener {
 
 	private void checkForUpdates(PlayerJoinEvent event) {
 		if (!SCUtils.getBooleanFromConfig("AutoUpdater.CheckOnJoin")
-				|| !event.getPlayer().hasPermission("supercensor")) {
+				|| !SCPermissionsEnum.BASICADMIN.hasPermission(event.getPlayer())) {
 			return;
 		}
 		

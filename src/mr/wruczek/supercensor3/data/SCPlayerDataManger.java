@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 
 import mr.wruczek.supercensor3.SCMain;
 import mr.wruczek.supercensor3.utils.SCLogger.LogType;
@@ -18,13 +19,15 @@ public class SCPlayerDataManger {
 	private FileConfiguration config;
 	public static String path;
 
-	public static void init() {
+	static {
 		path = SCMain.getInstance().getDataFolder() + File.separator + "userdata" + File.separator;
 	}
 
+	public static FileConfiguration getPlayerConfig(Player player) {
+		return new SCPlayerDataManger(player).getConfig();
+	}
+	
 	public SCPlayerDataManger(OfflinePlayer player) {
-
-		init();
 
 		this.player = player;
 		userFile = new File(path + getUUID());
@@ -68,31 +71,10 @@ public class SCPlayerDataManger {
 	}
 
 	public static boolean hasDataFile(OfflinePlayer player) {
-		init();
 		return new File(path + SCUtils.getUUID(player)).exists();
 	}
 
 	public static File[] getAllDataFiles() {
-		init();
 		return new File(path).listFiles();
-	}
-
-	// Methods
-	public int getPenalityPoints() {
-		int penalityPoints = 0;
-
-		if (getConfig().contains("PenalityPoints"))
-			penalityPoints = getConfig().getInt("PenalityPoints");
-
-		return penalityPoints;
-	}
-
-	public void setPenalityPoints(int penalityPoints) {
-		getConfig().set("PenalityPoints", penalityPoints);
-		saveConfig();
-	}
-
-	public void addPenalityPoints(int penalityPoints) {
-		setPenalityPoints(getPenalityPoints() + penalityPoints);
 	}
 }

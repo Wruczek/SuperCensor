@@ -1,5 +1,6 @@
 package mr.wruczek.supercensor3.commands;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -22,6 +23,7 @@ import mr.wruczek.supercensor3.commands.subcommands.SubcommandPPM;
 import mr.wruczek.supercensor3.commands.subcommands.SubcommandPerms;
 import mr.wruczek.supercensor3.commands.subcommands.SubcommandReload;
 import mr.wruczek.supercensor3.utils.SCLogger.LogType;
+import mr.wruczek.supercensor3.utils.SCLogger;
 import mr.wruczek.supercensor3.utils.SCUtils;
 
 public class SCMainCommand implements CommandExecutor, TabCompleter {
@@ -78,7 +80,8 @@ public class SCMainCommand implements CommandExecutor, TabCompleter {
 				
 				SCUtils.logError("An error occurred while attemping to perform command \""
 						+ commandName + "\" with args \"" + args + "\"", LogType.PLUGIN);
-				e.printStackTrace();
+				
+				SCLogger.handleException(e);
 			}
 		} else {
 			sender.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.SubcommandNotFound"));
