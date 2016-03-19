@@ -1,11 +1,9 @@
-# SuperCensor v3.0-DEV-ALPHA messages file
+# SuperCensor v3-release messages file
 # Dev bukkit page: http://goo.gl/VNPQmp
 # Invalid configuration can crash the plugin. Before saving please check your config here: http://goo.gl/4QIux6
 # Help translate SuperCensor: http://goo.gl/EgVMOa
 # REMEMBER: YOU DO NOT NEED TO TRANSLATE THIS FILE! Just change "Language" in your config.yml
 # REMEMBER: Do not use %prefix% if you are sending message to the console!
-# Information: %prefix% will be replaced with Misc -> PluginPrefix
-
 LocalizationInformations:
   Language: Română
   LanguageCode: Ro
@@ -27,8 +25,20 @@ Updater:
         &7Versiune curentă: &6%currentversion%
         &7Versiune nouă: &6%newversion%
         &7Link descarcare: &6%downloadlink%
+WordlistSettings:
+  MessageToPlayer: "%prefix% &cStop swearing!"
+SlowMode:
+  MessageToPlayer: "%prefix% &cYou must wait &6%time%&c seconds before sending next message!"
+AntiSpam:
+  RepeatMessage: "%prefix% &cStop repeating yourself!"
+  KickMessage: "%prefix% &cYou have been kicked for spamming"
 Commands:
   Usage: "&cFolosesti&8:"
+  Description: "&7Command description&8: &7"
+  HoverCommandTip: |-
+      &e&lTIP:&6 Hover over command to see description, click to use it
+             &6Remember to use TAB when entering commands!
+  HoverPermissionTip: "&e&lTIP:&6 Hover over permission to see description"
   UsageFormat: "&8/&7sc &3%command% &3%usage%"
   NoPermissions: "%prefix% &cNu ai permisiunea %permission%!"
   HelpEntryFormat: "&0- &8/&7sc &3%command% &8-&7 %description%"
@@ -84,7 +94,7 @@ Commands:
       SelfMuteRemovedToSender: "%prefix% SelfMute removed from %nick%"
   ClearChat:
     HelpDescription: "Clears the chat"
-    CommandDescription: "&6Allows to clear your own / other players chat. You can use -a argument to clear chat anonymously. You can clear console by typing /sc cc own in console"
+    CommandDescription: "Allows to clear your own / other players chat. You can use -a argument to clear chat anonymously. You can clear console by typing /sc cc own in console"
     AnonymousMode: "%prefix% Clearing chat in anonymous mode, your nickname will be hidden"
     AnonymousModeNoPermissions: "%prefix% &cYou dont have permissions to use anonymous mode!"
     ClearAll:
@@ -99,16 +109,12 @@ Commands:
       Normal: "%prefix% Your chat has been cleared by &6%nick%"
   SubcommandNotFound: "%prefix% &cCommand do not exists. List of commands: /sc"
   PPM:
-    HelpDescription: "PenalityPoints manager"
-    CommandDescription: "&6Allows to manage players PenalityPoints"
+    HelpDescription: ""
+    CommandDescription: "Allows to manage players PenaltyPoints"
     Check:
-      HelpDescription: "Shows how many PenalityPoints player has"
-      Response: "%prefix% &6%nick%&7 has &6%points%&7 PenalityPoints."
+      HelpDescription: "Shows how many PenaltyPoints player has"
+      Response: "%prefix% &6%nick%&7 has &6%points%&7 PenaltyPoints."
     Set:
-      HelpDescription: "Sets PenalityPoints of player"
-      Response: "%prefix% &6%nick%&7 now has &6%points%&7 PenalityPoints."
+      HelpDescription: "Sets PenaltyPoints of player"
+      Response: "%prefix% &6%nick%&7 has now &6%points%&7 PenaltyPoints."
       OnlyNumbers: "%prefix% &cPlease specify a number"
-WordlistSettings:
-  MessageToPlayer: "%prefix% &cStop swearing!"
-SlowMode:
-  MessageToPlayer: "%prefix% &cYou must wait &6%time%&c seconds before sending next message!"

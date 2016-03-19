@@ -2,9 +2,8 @@ package mr.wruczek.supercensor3.utils;
 
 import mr.wruczek.supercensor3.SCConfigManager2;
 import mr.wruczek.supercensor3.SCMain;
-import net.gravitydevelopment.updater.GravityUpdater;
-import net.gravitydevelopment.updater.GravityUpdater.UpdateResult;
-import net.gravitydevelopment.updater.GravityUpdater.UpdateType;
+import mr.wruczek.supercensor3.utils.GravityUpdater.UpdateResult;
+import mr.wruczek.supercensor3.utils.GravityUpdater.UpdateType;
 
 /**
  * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
@@ -66,7 +65,7 @@ public class SCUpdater {
 	}
 	
 	private void initUpdater() {
-		updater = new GravityUpdater(SCMain.getInstance(), 56448, SCMain.pluginFile, getUpdateType(), true);
+		updater = new GravityUpdater(SCMain.getInstance(), 56448, SCMain.getPluginFile(), getUpdateType(), true);
 	}
 
 }

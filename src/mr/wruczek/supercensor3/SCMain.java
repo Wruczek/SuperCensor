@@ -6,12 +6,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import mr.wruczek.supercensor3.commands.subcommands.SCSelfMuteManager;
-import mr.wruczek.supercensor3.data.SCPlayerDataManger;
+import mr.wruczek.supercensor3.utils.GravityUpdater.UpdateResult;
 import mr.wruczek.supercensor3.utils.SCLogger;
 import mr.wruczek.supercensor3.utils.SCLogger.LogType;
 import mr.wruczek.supercensor3.utils.SCUpdater;
 import mr.wruczek.supercensor3.utils.SCUtils;
-import net.gravitydevelopment.updater.GravityUpdater.UpdateResult;
+import mr.wruczek.supercensor3.utils.uuid.UUIDCache;
 
 /**
  * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
@@ -22,8 +22,8 @@ import net.gravitydevelopment.updater.GravityUpdater.UpdateResult;
 public class SCMain extends JavaPlugin {
 
 	private static SCMain instance;
-	public static File pluginFile;
-	public static SCPlayerDataManger scPlayersDataManger;
+	private static File pluginFile;
+	private static UUIDCache uuidcache;
 	
 	@Override
 	public void onEnable() {
@@ -34,6 +34,8 @@ public class SCMain extends JavaPlugin {
 		SCUtils.logInfo("Loading SuperCensor. Version: " + instance.getDescription().getVersion());
 		
 		pluginFile = instance.getFile();
+		
+		uuidcache = new UUIDCache(getInstance());
 		
 		SCInitManager.init();
 		SCInitManager.registerListeners();
@@ -99,6 +101,14 @@ public class SCMain extends JavaPlugin {
 	
 	public static SCMain getInstance() {
 		return instance;
+	}
+	
+	public static File getPluginFile() {
+		return pluginFile;
+	}
+	
+	public static UUIDCache getUUIDCacher() {
+		return uuidcache;
 	}
 	
 }

@@ -149,8 +149,13 @@ public class SCConfigManager2 {
 		PPLoader.load(PPFolder);
 		// endregion
 		
-		messages_original = YamlConfiguration.loadConfiguration(SCMain.getInstance().getResource("messages/messages_en.yml"));
-		config_original = YamlConfiguration.loadConfiguration(SCMain.getInstance().getResource("configs/config.yml"));
+		try {
+			messages_original = YamlConfiguration.loadConfiguration(SCMain.getInstance().getResource("messages/messages_en.yml"));
+			config_original = YamlConfiguration.loadConfiguration(SCMain.getInstance().getResource("configs/config.yml"));
+		} catch (Exception e) {
+			SCUtils.logError("Cannot load original messages files! " + e);
+			SCLogger.handleException(e);
+		}
 		
 		SCSelfMuteManager.load();
 	}

@@ -1,0 +1,120 @@
+# SuperCensor v3-release messages file
+# Dev bukkit page: http://goo.gl/VNPQmp
+# Invalid configuration can crash the plugin. Before saving please check your config here: http://goo.gl/4QIux6
+# Help translate SuperCensor: http://goo.gl/EgVMOa
+# REMEMBER: YOU DO NOT NEED TO TRANSLATE THIS FILE! Just change "Language" in your config.yml
+# REMEMBER: Do not use %prefix% if you are sending message to the console!
+LocalizationInformations:
+  Language: "Dutch -> Nederlands"
+  LanguageCode: "Dutch -> NL"
+Misc:
+  PluginPrefix: "&8[&6SC&8]&7"
+SystemEnable:
+  MessagesLoaded: "%languagename% (%languagecode%) berichten bestand is geladen"
+  Loaded: "SuperCensor geladen in %time% ms"
+Updater:
+  UpdaterPrefix: "&8[&6UPDATER&8]&7"
+  ToConsole:
+    Success: "%updaterprefix% Succesvol! Nieuwe versie \"%newversion%\" is gedownload en zal geïnstalleerd worden bij de volgende restart van de server!"
+    UpdateAvailable: "%updaterprefix% Update voor SuperCensor beschikbaar! Jouw versie: %currentversion%, nieuwe versie: %newversion%, download link: %downloadlink%"
+    NoUpdate: "%updaterprefix% Je gebruikt de nieuwste versie van SuperCensor"
+  ToPlayer:
+    Success: "%prefix%%updaterprefix% Succesvol! Nieuwe versie \"%newversion%\" is gedownload en zal geïnstalleerd worden bij de volgende restart van de server!"
+    UpdateAvailable: |-
+        %prefix% %updaterprefix% &cUpdate voor SuperCensor beschikbaar!
+        &7Jouw versie: &6%currentversion%
+        &7Nieuwe Versie: &6%newversion%
+        &7Download link: &6%downloadlink%
+WordlistSettings:
+  MessageToPlayer: "%prefix% &cStop met vloeken!"
+SlowMode:
+  MessageToPlayer: "%prefix% &cJe moet nog &6%time%&c seconde(n) wachten voordat je een volgend bericht kan sturen!"
+AntiSpam:
+  RepeatMessage: "%prefix% &cStop met jezelf te herhalen!"
+  KickMessage: "%prefix% &cJe bent gekicked voor spammen"
+Commands:
+  Usage: "&cGebruik&8:"
+  Description: "&7Command beschrijving&8: &7"
+  HoverCommandTip: |-
+      &e&lTIP:&6 Schuif met je muis over een command om de beschrijving te zien, klik om het te gebruiken.
+      &6Onthoud om TAB te gebruiken wanneer je commands invoert!
+  HoverPermissionTip: "&e&lTIP:&6 Schuif met je muis op een permission om de beschrijving te zien"
+  UsageFormat: "&8/&7sc &3%command% &3%usage%"
+  NoPermissions: "%prefix% &cJe hebt de %permission% permission niet!"
+  HelpEntryFormat: "&0- &8/&7sc &3%command% &8-&7 %description%"
+  Reload:
+    HelpDescription: "Herlaadt de plugin"
+    Reloading: "%prefix% Aan het herladen..."
+    Reloaded: "%prefix% &aHerladen in %time% ms!"
+    Exception: "%prefix% &cEen uitzondering is opgedoken terwijl je de plugin wou herladen! Check de console voor meer informatie a.u.b."
+  Info:
+    HelpDescription: "Geeft informatie over de plugin"
+    CheckingForUpdates: "%prefix% &7Aan het zoeken naar updates, even geduld..."
+    Version: "&7Versie: &3"
+    VersionStatus:
+      UpToDate: " &8(&7actueel!&8)"
+      UpdateAvailable: " &8(&6update beschikbaar!&8)"
+      NewVersionReady: " &8(&6nieuwe versie gedownload, het is klaar bij de volgende restart van de server!&8)"
+    Author: "&7Auteur: &3"
+    UsefulLinks: "&7Handige links:"
+    BungeeCord: "Versie voor BungeeCord"
+    BugReporting: "Bug rapportage"
+    BukkitDev: BukkitDev
+    SpigotMC: SpigotMC
+    GitHub: GitHub
+    Donate: "Doneer en steun de ontwikkeling van SuperCensor"
+  Permissions:
+    HelpDescription: "Toont de lijst van permissions"
+    EntryFormat: "&7• &3%permission% &8-&7 %description%"
+  MuteChat:
+    HelpDescription: "Zet de chat aan of uit"
+    JoinReminder: "%prefix% &c&l> &6Chat is uitgezet door een administrator"
+    JoinReminderReason: "%prefix% &c&l> &6Chat is uitgezet door een administrator, reden: %reason%"
+    CannotWrite: "%prefix% &cChat is uitgezet, je kan niet typen!"
+    CannotWriteReason: "%prefix% &cChat is uitgezet, reden: &6%reason%"
+    ChatEnabled: "%prefix% &7Chat is &aaangezet&7 in stille modus, dus niemand kan dat bericht zien"
+    ChatEnabledBroadcast: "%prefix% &7Chat is &aaangezet&7 door %nick%&7!"
+    ChatDisabled: "%prefix%&7Chat is &cuitgezet&7 in stille modus, dus niemand kan dat bericht zien"
+    ChatDisabledBroadcast: "%prefix% &7Chat is &cuitgezet&7 door %nick%&7!"
+    ChatDisabledReason: "%prefix% &7Chat is &cuitgezet&7 met als reden: &6%reason%&7 in stille modus, dus niemand kan dat bericht zien"
+    ChatDisabledBroadcastReason: "%prefix% &7Chat is &cuitgezet&7 door %nick%&7, reden: &6%reason%"
+  SelfMute:
+    HelpDescription: "Zet de mogelijkheid om andere spelers hun chat te verbergen aan"
+    JoinReminder: "%prefix% &c&l> &6Je bent selfmuted gejoined. Gebruik /sc selfmute om dit uit te zetten"
+    Self:
+      SelfMuted: "%prefix% Je bent nu selfmuted. Je zal geen chat meer zien van andere spelers."
+      SelfMuteRemoved: "%prefix% Je bent niet meer selfmuted"
+      OnlyPlayer: "%prefix% &cJe moet een speler zijn om jezelf te selfmuten"
+    OtherPlayer:
+      PlayerNotFound: "%prefix% &cKan speler %nick% niet vinden"
+      ErrorImmunity: "%prefix% &cKan %nick% niet selfmuten&c, deze speler heeft immuniteit"
+      SelfMutedToSender: "%prefix% Je hebt %nick% geselfmute"
+      SelfMutedToTarget: "%prefix% Selfmute aangezet door %nick%. Je kan geen chat meer zien van andere spelers."
+      SelfMuteRemovedToTarget: "%prefix% Selfmute is uitgezet bij jou door %nick%"
+      SelfMuteRemovedToSender: "%prefix% Selfmute weggehaald bij %nick%"
+  ClearChat:
+    HelpDescription: "Maakt de chat leeg"
+    CommandDescription: "Geeft de mogelijkheid om jouw / andere spelers hun chat te verwijderen. Je kan de -a argument gebruiken om de chat anoniem leeg te maken. Je kan de console leeg maken door /sc cc own te typen in de console"
+    AnonymousMode: "%prefix% Chat anononiem leeg aan het maken, je nickname zal verborgen zijn"
+    AnonymousModeNoPermissions: "%prefix% &cJe hebt niet de permission om dit in anonieme modus uit te voeren!"
+    ClearAll:
+      Skipped: "&6%nick% aan het overslaan wegens immuniteit..."
+      Summary: "%prefix% Leeg maken van de chat is klaar, chat van &6%cleared%&7 spelers leeg gemaakt, chat overgeslagen van &6%skipped%&7 spelers"
+    ClearSpecificPlayer:
+      PlayerNotFound: "%prefix% &cKan speler %nick% niet vinden"
+      ErrorImmunity: "%prefix% &cKan %nick%'s chat niet leeg maken, deze speler heeft immuniteit"
+      Success: "%prefix% %nick%'s chat leeg gemaakt"
+    ChatCleared:
+      AnonymousMode: "%prefix% Je chat is leeg gemaakt door een administrator"
+      Normal: "%prefix% Je chat is verwijderd door &6%nick%"
+  SubcommandNotFound: "%prefix% &cDit command bestaat niet. Lijst van commands: /sc"
+  PPM:
+    HelpDescription: "StrafPunten beheerder"
+    CommandDescription: "Geeft toegang om StrafPunten van spelers te beheren"
+    Check:
+      HelpDescription: "Toont hoeveel StrafPunten een speler heeft"
+      Response: "%prefix% &6%nick%&7 heeft &6%points%&7 StrafPunten."
+    Set:
+      HelpDescription: "Stelt de StrafPunten van een speler in"
+      Response: "%prefix%&6%nick%&7 heeft nu &6%points%&7 StrafPunten."
+      OnlyNumbers: "%prefix% &cNeem een exact nummer a.u.b."

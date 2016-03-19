@@ -12,7 +12,6 @@ import org.bukkit.entity.Player;
 import mr.wruczek.supercensor3.PPUtils.PPManager;
 import mr.wruczek.supercensor3.commands.SCMainCommand;
 import mr.wruczek.supercensor3.commands.SCSubcommand;
-import mr.wruczek.supercensor3.data.SCPlayerDataManger;
 import mr.wruczek.supercensor3.utils.SCPermissionsEnum;
 import mr.wruczek.supercensor3.utils.SCUtils;
 
@@ -57,7 +56,7 @@ public class SubcommandPPM extends SCSubcommand {
 				nick = args[2];
 			}
 			
-			OfflinePlayer op = Bukkit.getOfflinePlayer(nick); // TODO: Deprecated!
+			OfflinePlayer op = Bukkit.getOfflinePlayer(nick);
 			int points = PPManager.getPenaltyPoints(op);
 			
 			sender.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.PPM.Check.Response")
@@ -72,7 +71,7 @@ public class SubcommandPPM extends SCSubcommand {
 				return;
 			}
 			
-			OfflinePlayer op = Bukkit.getOfflinePlayer(args[2]); // TODO: Deprecated!
+			OfflinePlayer op = Bukkit.getOfflinePlayer(args[2]);
 			int newPoints = 0;
 			
 			try {

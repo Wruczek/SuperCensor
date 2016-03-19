@@ -6,7 +6,6 @@ import java.io.IOException;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 
 import mr.wruczek.supercensor3.SCMain;
 import mr.wruczek.supercensor3.utils.SCLogger.LogType;
@@ -23,7 +22,7 @@ public class SCPlayerDataManger {
 		path = SCMain.getInstance().getDataFolder() + File.separator + "userdata" + File.separator;
 	}
 
-	public static FileConfiguration getPlayerConfig(Player player) {
+	public static FileConfiguration getPlayerConfig(OfflinePlayer player) {
 		return new SCPlayerDataManger(player).getConfig();
 	}
 	

@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -27,7 +28,7 @@ import mr.wruczek.supercensor3.utils.SCLogger;
 import mr.wruczek.supercensor3.utils.SCPermissionsEnum;
 import mr.wruczek.supercensor3.utils.SCUpdater;
 import mr.wruczek.supercensor3.utils.SCUtils;
-import net.gravitydevelopment.updater.GravityUpdater.UpdateResult;
+import mr.wruczek.supercensor3.utils.GravityUpdater.UpdateResult;
 
 /**
  * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
@@ -114,6 +115,13 @@ public class SubcommandInfo extends SCSubcommand {
 			
 			for(AntiSpamData data : AntiSpam.getData())
 				sender.sendMessage(data.toString());
+			
+			sender.sendMessage(" ");
+			
+			sender.sendMessage("UUID CACHE (" + SCMain.getUUIDCacher().getMap().size() + " total)");
+			
+			for(Entry<String, UUID> entry : SCMain.getUUIDCacher().getMap().entrySet())
+				sender.sendMessage("UUID CACHE: " + entry.getKey() + " - " + entry.getValue());
 			
 			sender.sendMessage(" ");
 			

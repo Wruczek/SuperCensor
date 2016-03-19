@@ -1,13 +1,11 @@
-# SuperCensor v3.0-DEV-ALPHA messages file
+# SuperCensor v3-release messages file
 # Dev bukkit page: http://goo.gl/VNPQmp
 # Invalid configuration can crash the plugin. Before saving please check your config here: http://goo.gl/4QIux6
 # Help translate SuperCensor: http://goo.gl/EgVMOa
 # REMEMBER: YOU DO NOT NEED TO TRANSLATE THIS FILE! Just change "Language" in your config.yml
 # REMEMBER: Do not use %prefix% if you are sending message to the console!
-# Information: %prefix% will be replaced with Misc -> PluginPrefix
-
 LocalizationInformations:
-  Language: Türk
+  Language: Türkçe
   LanguageCode: TR
 Misc:
   PluginPrefix: "&8[&6SC&8]&7"
@@ -27,8 +25,20 @@ Updater:
         &7Eklenti surumu: &6%currentversion%
         &7Yeni surum: &6%newversion%
         &7Indirme linki: &6%downloadlink%
+WordlistSettings:
+  MessageToPlayer: "%prefix% Küfür Etmeyi Birak!"
+SlowMode:
+  MessageToPlayer: "%prefix% &6%time%&c Saniye Sonra Bir Dahaki Mesajini Atabilirsin."
+AntiSpam:
+  RepeatMessage: "%prefix% &cKendini Tekrar Etmeyi Birak."
+  KickMessage: "%prefix% &cSpam yaptiginden dolayi kicklendin."
 Commands:
   Usage: "&cKullanim&8:"
+  Description: "&7Komut aciklamasi&8: &7"
+  HoverCommandTip: |-
+      &e&lTIP:&6 Hover over command to see description, click to use it
+             &6Remember to use TAB when entering commands!
+  HoverPermissionTip: "&e&lTIP:&6 Hover over permission to see description"
   UsageFormat: "&8/&7sc &3%command% &3%usage%"
   NoPermissions: "%prefix% &cBu komutu kullanmak icin %permission% yetkisine sahip degilsin."
   HelpEntryFormat: "&0- &8/&7sc &3%command% &8-&7 %description%"
@@ -84,7 +94,7 @@ Commands:
       SelfMuteRemovedToSender: "%prefix% Sessiz sohbetten %nick% cikarildi."
   ClearChat:
     HelpDescription: "Sohbeti temizler"
-    CommandDescription: "&cSiz veya diger oyuncular sohbeti silmenize olanak saglar. Siz kendi sohbetinizi temizlemek için -a argümanını kullanabilirsiniz. Sohbete / sc cc yazarak temizleyebilirsiniz."
+    CommandDescription: "Siz veya diger oyuncular sohbeti silmenize olanak saglar. Siz kendi sohbetinizi temizlemek için -a argümanını kullanabilirsiniz. Sohbete / sc cc yazarak temizleyebilirsiniz."
     AnonymousMode: "%prefix% kendi sohbetinizde isminiz gizlenir."
     AnonymousModeNoPermissions: "%prefix% Gizli modu kullanmak icin yetkilere sahip degilsiniz."
     ClearAll:
@@ -97,18 +107,14 @@ Commands:
     ChatCleared:
       AnonymousMode: "%prefix% Sohbet yetkili tarafindan temizlendi."
       Normal: "%prefix% Sohbet %nick% tarafindan temizlendi."
-  SubcommandNotFound: "%prefix% &cCommand do not exists. List of commands: /sc"
+  SubcommandNotFound: "%prefix% &cBoyle Bir Komut Bulunmamaktadir.Komutlari Gormek Icin: /sc"
   PPM:
-    HelpDescription: "PenalityPoints manager"
-    CommandDescription: "&6Allows to manage players PenalityPoints"
+    HelpDescription: "Ceza Puani Sistemi"
+    CommandDescription: "Oyuncularin Ceza Puanlarini Duzenlemek"
     Check:
-      HelpDescription: "Shows how many PenalityPoints player has"
-      Response: "%prefix% &6%nick%&7 has &6%points%&7 PenalityPoints."
+      HelpDescription: "Kac Kisinin Ceza Puani Aldigina Bak"
+      Response: "%prefix% &6%nick%&7, &6%points%&7 Tane Ceza Puanina Sahip."
     Set:
-      HelpDescription: "Sets PenalityPoints of player"
-      Response: "%prefix% &6%nick%&7 now has &6%points%&7 PenalityPoints."
-      OnlyNumbers: "%prefix% &cPlease specify a number"
-WordlistSettings:
-  MessageToPlayer: "%prefix% &cStop swearing!"
-SlowMode:
-  MessageToPlayer: "%prefix% &cYou must wait &6%time%&c seconds before sending next message!"
+      HelpDescription: "Oyuncunun Ceza Puanini Belirle"
+      Response: "%prefix% &6%nick%&7, &6%points%&7 Tane Ceza Puanina Sahip."
+      OnlyNumbers: "%prefix% &cLutfen Bir Numara Belirtiniz."

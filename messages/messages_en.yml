@@ -1,18 +1,19 @@
-# SuperCensor v3.0-DEV-ALPHA messages file
+# SuperCensor v3-release messages file
 # Dev bukkit page: http://goo.gl/VNPQmp
 # Invalid configuration can crash the plugin. Before saving please check your config here: http://goo.gl/4QIux6
 # Help translate SuperCensor: http://goo.gl/EgVMOa
 # REMEMBER: YOU DO NOT NEED TO TRANSLATE THIS FILE! Just change "Language" in your config.yml
 # REMEMBER: Do not use %prefix% if you are sending message to the console!
-# Information: %prefix% will be replaced with Misc -> PluginPrefix
-
 LocalizationInformations:
   Language: English
   LanguageCode: EN
+Misc:
+  PluginPrefix: "&8[&6SC&8]&7"
 SystemEnable:
   MessagesLoaded: "Loaded %languagename% (%languagecode%) messages file"
   Loaded: "SuperCensor loaded in %time% ms"
 Updater:
+  UpdaterPrefix: "&8[&6UPDATER&8]&7"
   ToConsole:
     Success: "%updaterprefix% Success! New version \"%newversion%\" has been downloaded and it will be installed on next server startup!"
     UpdateAvailable: "%updaterprefix% Update for SuperCensor is available! Your version: %currentversion%, new version: %newversion%, download link: %downloadlink%"
@@ -34,9 +35,13 @@ AntiSpam:
 Commands:
   Usage: "&cUsage&8:"
   Description: "&7Command description&8: &7"
-  HoverCommandTip: "&e&lTIP:&6 Hover over command to see description, click to use it\n       &6Remember to use TAB when entering commands!"
+  HoverCommandTip: |-
+      &e&lTIP:&6 Hover over command to see description, click to use it
+             &6Remember to use TAB when entering commands!
   HoverPermissionTip: "&e&lTIP:&6 Hover over permission to see description"
+  UsageFormat: "&8/&7sc &3%command% &3%usage%"
   NoPermissions: "%prefix% &cYou dont have permission %permission%!"
+  HelpEntryFormat: "&0- &8/&7sc &3%command% &8-&7 %description%"
   Reload:
     HelpDescription: "Reloads the plugin"
     Reloading: "%prefix% Reloading..."
@@ -60,6 +65,7 @@ Commands:
     Donate: "Donate and support development of SuperCensor"
   Permissions:
     HelpDescription: "Shows list of permissions"
+    EntryFormat: "&7• &3%permission% &8-&7 %description%"
   MuteChat:
     HelpDescription: "Enables or disables chat"
     JoinReminder: "%prefix% &c&l> &6Chat has been disabled by administrator"
@@ -103,7 +109,7 @@ Commands:
       Normal: "%prefix% Your chat has been cleared by &6%nick%"
   SubcommandNotFound: "%prefix% &cCommand do not exists. List of commands: /sc"
   PPM:
-    HelpDescription: "PenaltyPoints manager"
+    HelpDescription: ""
     CommandDescription: "Allows to manage players PenaltyPoints"
     Check:
       HelpDescription: "Shows how many PenaltyPoints player has"

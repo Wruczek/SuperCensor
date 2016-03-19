@@ -1,4 +1,4 @@
-package net.gravitydevelopment.updater;
+package mr.wruczek.supercensor3.utils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

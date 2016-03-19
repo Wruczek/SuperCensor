@@ -2,9 +2,7 @@ package mr.wruczek.supercensor3.utils;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,18 +37,18 @@ public class SCLogger {
 	}
 
 	public static List<String> lastError;
-	
+
 	public static void handleException(Exception e) {
-		
+
 		lastError = new ArrayList<String>();
-		
+
 		logerror("");
 		logerror("Exception in plugin SuperCensor");
 		logerror(e.toString());
-		
-		if(e.getCause() != null)
+
+		if (e.getCause() != null)
 			logerror(e.getCause().getMessage());
-		
+
 		logerror("");
 
 		logerror("Server informations:");
@@ -65,13 +63,13 @@ public class SCLogger {
 
 		for (StackTraceElement stacktrace : e.getStackTrace()) {
 			String st = stacktrace.toString();
-			
-			if(st.contains("mr.wruczek"))
+
+			if (st.contains("mr.wruczek"))
 				logerror("  @ > " + st);
 			else
 				logerror("  @ " + st);
 		}
-		
+
 		logerror("");
 		logerror("End of error");
 		logerror("");
@@ -87,8 +85,28 @@ public class SCLogger {
 	}
 
 	public static void log(String text, LogType logType) {
-		if (SCConfigManager2.isInitialized() && SCConfigManager2.config.getBoolean("Logger.Enabled")) {
+
+		boolean sccmInit = true;
+		boolean loggerEnabled = true;
+
+		try {
+			loggerEnabled = SCConfigManager2.config.getBoolean("Logger.Enabled");
+			sccmInit = SCConfigManager2.isInitialized();
+		} catch (Exception e) {
+		}
+
+		if (sccmInit && loggerEnabled) {
+
+			FileWriter fw = null;
+			PrintWriter pw = null;
+
 			try {
+				String prefix = "[%date% %time%] ";
+
+				try {
+					prefix = SCConfigManager2.config.getString("Logger.Prefix");
+				} catch (Exception e) {
+				}
 
 				File logFile = getLogFile(logType.getFileName());
 
@@ -97,27 +115,44 @@ public class SCLogger {
 					logFile.createNewFile();
 				}
 
-				FileWriter fw = new FileWriter(logFile, true);
-				PrintWriter pw = new PrintWriter(fw);
-				pw.println(SCConfigManager2.config.getString("Logger.Prefix").replace("%date%", getDate())
-						.replace("%time%", getTime()) + SCUtils.unColor(text));
+				fw = new FileWriter(logFile, true);
+				pw = new PrintWriter(fw);
+				pw.println(prefix.replace("%date%", getDate()).replace("%time%", getTime()) + SCUtils.unColor(text));
 				pw.flush();
-				pw.close();
-				fw.close();
 			} catch (Exception e) {
 				SCLogger.handleException(e);
+			} finally {
+				try {
+					pw.close();
+					fw.close();
+				} catch (Exception e) {
+				}
 			}
 		}
 	}
 
 	public static String getDate() {
-		DateFormat dateFormat = new SimpleDateFormat(SCConfigManager2.config.getString("Logger.DateFormat"));
-		return dateFormat.format(new Date());
+
+		String dateFormat = "dd-MM-yyyy";
+
+		try {
+			dateFormat = SCConfigManager2.config.getString("Logger.DateFormat");
+		} catch (Exception e) {
+		}
+
+		return new SimpleDateFormat(dateFormat).format(new Date());
 	}
 
 	public static String getTime() {
-		DateFormat godzina = new SimpleDateFormat(SCConfigManager2.config.getString("Logger.TimeFormat"));
-		return godzina.format(new Date());
+
+		String timeFormat = "HH:mm:ss";
+
+		try {
+			timeFormat = SCConfigManager2.config.getString("Logger.TimeFormat");
+		} catch (Exception e) {
+		}
+
+		return new SimpleDateFormat(timeFormat).format(new Date());
 	}
 
 	public static File getLogFile(String fileName) {

@@ -1,15 +1,11 @@
 package mr.wruczek.supercensor3.utils;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.Reader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.util.UUID;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
@@ -23,7 +19,6 @@ import mr.wruczek.supercensor3.SCConfigManager2;
 import mr.wruczek.supercensor3.SCMain;
 import mr.wruczek.supercensor3.utils.MessagesCreator.ChatExtra;
 import mr.wruczek.supercensor3.utils.SCLogger.LogType;
-import net.gravitydevelopment.updater.GravityUpdater;
 
 /**
  * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
@@ -90,23 +85,37 @@ public class SCUtils {
 	}
 	
 	public static String getUUID(OfflinePlayer player) {
-		return getUUID(player, false);
+		return getUUID(player.getName());
 	}
 	
-	public static String getUUID(OfflinePlayer player, boolean dashes) { // TODO
+	public static String getUUID(String player) {
+		return getUUID(player, false, false);
+	}
+	
+	public static String getUUID(String player, boolean dashes, boolean async) {
 		
-		String uuid = player.getName();
+		UUID uuid = null;
 		
 		try {
-			uuid = player.getUniqueId().toString();
+			
+			if(async)
+				uuid = SCMain.getUUIDCacher().getIdOptimistic(player);
+			else
+				uuid = SCMain.getUUIDCacher().getId(player);
+			
 		} catch (Exception e) {
 			SCLogger.handleException(e);
 		}
 		
-		if(dashes) {
-			return uuid;
+		try {
+			if(uuid == null)
+				uuid = Bukkit.getOfflinePlayer(player).getUniqueId();
+		} catch (Exception e) {}
+		
+		if(dashes || uuid == null) {
+			return uuid.toString();
 		} else {
-			return uuid.replace("-", "");
+			return uuid.toString().replace("-", "");
 		}
 	}
 	

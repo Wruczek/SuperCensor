@@ -1,68 +1,78 @@
-# SuperCensor v3.0-DEV-ALPHA messages file
+# SuperCensor v3-release messages file
 # Dev bukkit page: http://goo.gl/VNPQmp
 # Invalid configuration can crash the plugin. Before saving please check your config here: http://goo.gl/4QIux6
 # Help translate SuperCensor: http://goo.gl/EgVMOa
 # REMEMBER: YOU DO NOT NEED TO TRANSLATE THIS FILE! Just change "Language" in your config.yml
 # REMEMBER: Do not use %prefix% if you are sending message to the console!
-# Information: %prefix% will be replaced with Misc -> PluginPrefix
-
 LocalizationInformations:
-  Language: French
+  Language: Francais
   LanguageCode: FR
 Misc:
   PluginPrefix: "&8[&6SC&8]&7 "
 SystemEnable:
-  MessagesLoaded: "Fichier de message a été charger: %languagename% (%languagecode%)"
-  Loaded: "SuperCensor est chargé en %time% ms"
+  MessagesLoaded: "Le fichier de message %languagename% (%languagecode%) a été chargé"
+  Loaded: "SuperCensor s'est chargé en %time% ms"
 Updater:
   UpdaterPrefix: "&8[&6UPDATER&8]&7 "
   ToConsole:
-    Success: "%updaterprefix% Parfait! Nouvelle Version \"%newversion%\" a été télécharger et elle sera installer dans le prochain demarrage du serveur"
-    UpdateAvailable: "%updaterprefix% Une Mise à jour de SuperCensor a été trouver! Votre Version: %currentversion%, nouvelle version: %newversion%, lien téléchargement: %downloadlink%"
-    NoUpdate: "%updaterprefix% Vous entrain d'utiliser la nouvelle version de SuperCensor"
+    Success: "%updaterprefix% Parfait! La nouvelle Version \"%newversion%\" a été téléchargée et elle sera installée dès le prochain démarrage du serveur"
+    UpdateAvailable: "%updaterprefix% Une Mise à jour de SuperCensor a été trouvée! Votre Version: %currentversion%, nouvelle version: %newversion%, lien de téléchargement: %downloadlink%"
+    NoUpdate: "%updaterprefix% Vous utilisez la dernière version de SuperCensor"
   ToPlayer:
-    Success: "%prefix% %updaterprefix% Parfait! Nouvelle Version \"%newversion%\" a été télécharger et ellesera installer dans le prochain demarrage du serveur"
+    Success: "%prefix% %updaterprefix% Parfait! Une nouvelle version \"%newversion%\" a été téléchargée et elle sera installée dès le prochain démarrage du serveur"
     UpdateAvailable: |-
-        %prefix% %updaterprefix% &cMise à jour de SuperCensor est trouvé!
+        %prefix% %updaterprefix% &cMise à jour de SuperCensor disponible!
         &7Votre Version: &6%currentversion%
         &7Nouvelle Version: &6%newversion%
-        &7Download link: &6%downloadlink%
+        &7Lien de téléchargement: &6%downloadlink%
+WordlistSettings:
+  MessageToPlayer: "%prefix% &cArrêtez de dire des gros mots!"
+SlowMode:
+  MessageToPlayer: "%prefix% &cVous devez attendre &6%time%&c secondes avant d'envoyer un autre message!"
+AntiSpam:
+  RepeatMessage: "%prefix% &cStop repeating yourself!"
+  KickMessage: "%prefix% &cYou have been kicked for spamming"
 Commands:
   Usage: "&cUsage&8: "
+  Description: "&7Command description&8: &7"
+  HoverCommandTip: |-
+      &e&lTIP:&6 Hover over command to see description, click to use it
+             &6Remember to use TAB when entering commands!
+  HoverPermissionTip: "&e&lTIP:&6 Hover over permission to see description"
   UsageFormat: "&8/&7sc &3%command% &3%usage% "
   NoPermissions: "%prefix% &cVous n'avez pas la permission %permission%!"
   HelpEntryFormat: "&0- &8/&7sc &3%command% &8-&7 %description% "
   Reload:
-    HelpDescription: "Redemarrer le plugin!"
-    Reloading: "%prefix% Redemarrage..."
-    Reloaded: "%prefix% &aa été redemarrer dans %time% ms!"
-    Exception: "%prefix% &cUn erreur a été survenu! s'il vous plait regarder la console pour plus d'information!"
+    HelpDescription: "Redémarrez le plugin!"
+    Reloading: "%prefix% Redémarrage..."
+    Reloaded: "%prefix% &aa été redémarré en %time% ms!"
+    Exception: "%prefix% &cUne erreur est survenue! s'il vous plait regardez la console pour plus d'informations!"
   Info:
-    HelpDescription: "Regarder les informations de plugin"
-    CheckingForUpdates: "%prefix% &7Regardant pour des mise à jour, s'il vous plait attender..."
+    HelpDescription: "Montre les informations du plugin"
+    CheckingForUpdates: "%prefix% &7Recherche de mise à jour, s'il vous plait attendez..."
     Version: "&7Version: &3 "
     VersionStatus:
       UpToDate: " &8(&7up to date!&8) "
-      UpdateAvailable: "&8(&6mise à jour est disponible!&8)"
+      UpdateAvailable: "&8(&6une mise à jour est disponible!&8)"
       NewVersionReady: "&8(&6nouvelle version a été télécharger, elle sera prêt dans votre prochain demarrage de serveur!&8)"
-    Author: "&7Autheur: &3"
-    UsefulLinks: "&7Lien importants:"
+    Author: "&7Auteur: &3"
+    UsefulLinks: "&7Liens importants:"
     BungeeCord: "Version de BungeeCord"
     BugReporting: "Signaler un bug"
     BukkitDev: BukkitDev
     SpigotMC: SpigotMC
     GitHub: GitHub
-    Donate: "Un don et un support de development de SuperCensor"
+    Donate: "Faites un don et supportez le dévelopment de SuperCensor"
   Permissions:
     HelpDescription: "Regarder la liste des permissions"
     EntryFormat: "&7• &3%permission% &8-&7 %description% "
   MuteChat:
-    HelpDescription: "Activer ou Désactiver le chat"
-    JoinReminder: "%prefix% &c&l> &6Chat a été désactiver par l'administrateur"
-    JoinReminderReason: "%prefix% &c&l> &6Chat a été désactiver par l'administrateur, raison: %reason%"
-    CannotWrite: "%prefix% &cChat est désactiver, vous ne pouvez pas écrire!"
-    CannotWriteReason: "%prefix% &cChat est désactiver, raison: &6%reason%"
-    ChatEnabled: "%prefix% &7Chat a été &aactiver&7 dans le silence mode, donc personne peut voir votre message"
+    HelpDescription: "Active ou Désactive le chat"
+    JoinReminder: "%prefix% &c&l> &6Le chat a été désactivé par l'administrateur"
+    JoinReminderReason: "%prefix% &c&l> &6Le chat a été désactivé par l'administrateur, raison: %reason%"
+    CannotWrite: "%prefix% &cLe chat est désactivé, vous ne pouvez pas écrire!"
+    CannotWriteReason: "%prefix% &cLe chat est désactivé, raison: &6%reason%"
+    ChatEnabled: "%prefix% &7Le chat a été &aactivé&7 en mode discret, donc personne peut voir ce message"
     ChatEnabledBroadcast: "%prefix% &7Chat a été &aactiver&7 par %nick%&7!"
     ChatDisabled: "%prefix% &7Chat a été &cdésactiver&7 dans le silence mode, donc personne peut voir votre message"
     ChatDisabledBroadcast: "%prefix% &7Chat a été &cdésactiver&7 par %nick%&7!"
@@ -84,7 +94,7 @@ Commands:
       SelfMuteRemovedToSender: "%prefix% Mute est supprimé par %nick%"
   ClearChat:
     HelpDescription: "Clears the chat "
-    CommandDescription: "&6Autorisation de clear votre propre / chat autre joueur. Vous pouvez utiliser -a argument pour clear le chat anonymously. Vous pouvez clear console par taper /sc cc dans votre propre console"
+    CommandDescription: "Autorisation de clear votre propre / chat autre joueur. Vous pouvez utiliser -a argument pour clear le chat anonymously. Vous pouvez clear console par taper /sc cc dans votre propre console"
     AnonymousMode: "%prefix% Clearing chat avec le anonymous mode, votre nom est impossible de le voir"
     AnonymousModeNoPermissions: "%prefix% &cVous n'avez pas la permission d'utiliser anonymous mode!"
     ClearAll:
@@ -97,18 +107,14 @@ Commands:
     ChatCleared:
       AnonymousMode: "%prefix% Votre chat a été cleared par l'administrateur"
       Normal: "%prefix% Votre chat a été cleared par &6%nick%"
-  SubcommandNotFound: "%prefix% &cCommand do not exists. List of commands: /sc"
+  SubcommandNotFound: "%prefix% &cCette commande n'existe pas. Pour obtenir une liste des commandes, tapez: /sc"
   PPM:
-    HelpDescription: "PenalityPoints manager"
-    CommandDescription: "&6Allows to manage players PenalityPoints"
+    HelpDescription: "Modificateurs des points de pénalité"
+    CommandDescription: "Permet de modifier les points de pénalité des joueurs"
     Check:
-      HelpDescription: "Shows how many PenalityPoints player has"
-      Response: "%prefix% &6%nick%&7 has &6%points%&7 PenalityPoints."
+      HelpDescription: "Montre le nombre de points de pénalité d'un joueur"
+      Response: "%prefix% &6%nick%&7 a &6%points%&7 points de pénalité."
     Set:
-      HelpDescription: "Sets PenalityPoints of player"
-      Response: "%prefix% &6%nick%&7 now has &6%points%&7 PenalityPoints."
-      OnlyNumbers: "%prefix% &cPlease specify a number"
-WordlistSettings:
-  MessageToPlayer: "%prefix% &cStop swearing!"
-SlowMode:
-  MessageToPlayer: "%prefix% &cYou must wait &6%time%&c seconds before sending next message!"
+      HelpDescription: "Gère les points de pénalité d'un joueur"
+      Response: "%prefix% &6%nick%&7 a maintenant &6%points%&7 points de pénalité."
+      OnlyNumbers: "%prefix% &cS'il vous plait, spécifiez un nombre"

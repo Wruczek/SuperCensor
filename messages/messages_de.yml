@@ -1,11 +1,9 @@
-# SuperCensor v3.0-DEV-ALPHA messages file
+# SuperCensor v3-release messages file
 # Dev bukkit page: http://goo.gl/VNPQmp
 # Invalid configuration can crash the plugin. Before saving please check your config here: http://goo.gl/4QIux6
 # Help translate SuperCensor: http://goo.gl/EgVMOa
 # REMEMBER: YOU DO NOT NEED TO TRANSLATE THIS FILE! Just change "Language" in your config.yml
 # REMEMBER: Do not use %prefix% if you are sending message to the console!
-# Information: %prefix% will be replaced with Misc -> PluginPrefix
-
 LocalizationInformations:
   Language: Deutsch
   LanguageCode: DE
@@ -27,8 +25,18 @@ Updater:
         &7Deine Version: &6%currentversion%
         &7Neue Version: &6%newversion%
         &7Downloadlink: &6%downloadlink%
+WordlistSettings:
+  MessageToPlayer: "%prefix% &cHoer auf zu fluchen!"
+SlowMode:
+  MessageToPlayer: "%prefix% &cDu musst &6%time%&c Sekunden warten bevor du die naechste Nachricht senden kannst."
+AntiSpam:
+  RepeatMessage: "%prefix% &cHoer auf dich zu wiederholen"
+  KickMessage: "%prefix% &cDu wurdest wegen spammen gekickt."
 Commands:
   Usage: "&cBenutzung&8:"
+  Description: "&7Befehl Bescheibung&8: &7"
+  HoverCommandTip: "&e&lTIP:&6 Fahre mit der Maus über den Befehl um die Beschreibung zu sehen. Klicke dem ihn zu benutzen. &6Denk dran TAB zu benutzen wenn du Befehle eingibst!"
+  HoverPermissionTip: "&e&lTIP:&6 Fahre mit der Maus ueber die Berechtigung um eine Beschreibung zu sehen."
   UsageFormat: "&8/&7sc &3%command% &3%usage%"
   NoPermissions: "%prefix% &cDu hast nicht die Berechtigung %permission%."
   HelpEntryFormat: "&0- &8/&7sc &3%command% &8-&7 %description%"
@@ -84,7 +92,7 @@ Commands:
       SelfMuteRemovedToSender: "%prefix% Der SelfMute wurde von %nick% entfernt."
   ClearChat:
     HelpDescription: "leert den Chat"
-    CommandDescription: "&6Erlaubt es deinen eigenen Chat oder den von anderen Spielern zu leeren. Du kannst das -a Argument benutzen um den Chat anonym zu leeren. Du kannst die Konsole leeren indem du /sc cc own in die Console eingibst."
+    CommandDescription: "Erlaubt es deinen eigenen Chat oder den von anderen Spielern zu leeren. Du kannst das -a Argument benutzen um den Chat anonym zu leeren. Du kannst die Konsole leeren indem du /sc cc own in die Console eingibst."
     AnonymousMode: "%prefix% Leere chat im anonymen Modus. Dein Nickname wird nicht angezeigt."
     AnonymousModeNoPermissions: "%prefix% &cDu hast keine Berechtigung den anonymen Modus zu benutzen."
     ClearAll:
@@ -97,18 +105,14 @@ Commands:
     ChatCleared:
       AnonymousMode: "%prefix% Dein Chat wurde von einem Admnistrator geleert."
       Normal: "%prefix% Dein Chat wurde von&6 %nick%&7 geleert."
-  SubcommandNotFound: "%prefix% &cCommand do not exists. List of commands: /sc"
+  SubcommandNotFound: "%prefix% &cBefehl existiert nicht. Liste der Befehle: /sc"
   PPM:
-    HelpDescription: "PenalityPoints manager"
-    CommandDescription: "&6Allows to manage players PenalityPoints"
+    HelpDescription: Strafpunkteverwaltung
+    CommandDescription: "Erlaubt es die Strafpunkte der Spieler zu verwalten"
     Check:
-      HelpDescription: "Shows how many PenalityPoints player has"
-      Response: "%prefix% &6%nick%&7 has &6%points%&7 PenalityPoints."
+      HelpDescription: "Zeigt wie viele Strafpunkte der Spieler hat"
+      Response: "%prefix%  &6%nick%&7 hat &6%points%&7 Strafpunkte."
     Set:
-      HelpDescription: "Sets PenalityPoints of player"
-      Response: "%prefix% &6%nick%&7 now has &6%points%&7 PenalityPoints."
-      OnlyNumbers: "%prefix% &cPlease specify a number"
-WordlistSettings:
-  MessageToPlayer: "%prefix% &cStop swearing!"
-SlowMode:
-  MessageToPlayer: "%prefix% &cYou must wait &6%time%&c seconds before sending next message!"
+      HelpDescription: "setzt die Strafpunkte eines Spielers"
+      Response: "%prefix% &c%nick%&7 hat nun &6%points% Strafpunkte."
+      OnlyNumbers: "%prefix% &cBitte gib eine Zahl an"

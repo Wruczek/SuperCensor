@@ -11,7 +11,7 @@ import mr.wruczek.supercensor3.commands.subcommands.SCSelfMuteManager;
 import mr.wruczek.supercensor3.utils.SCPermissionsEnum;
 import mr.wruczek.supercensor3.utils.SCUpdater;
 import mr.wruczek.supercensor3.utils.SCUtils;
-import net.gravitydevelopment.updater.GravityUpdater.UpdateResult;
+import mr.wruczek.supercensor3.utils.GravityUpdater.UpdateResult;
 
 /**
  * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
@@ -24,13 +24,6 @@ public class SCPlayerJoinListener implements Listener {
 	@EventHandler
 	public void onPlayerJoin(final PlayerJoinEvent event) {
 		
-		Bukkit.getScheduler().runTaskAsynchronously(SCMain.getInstance(), new Runnable() {
-			@Override
-			public void run() {
-				checkForUpdates(event);
-			}
-		});
-		
 		changeJoinMessage(event);
 		
 		// We wait to send it after Essentials MOTD ect.
@@ -40,12 +33,22 @@ public class SCPlayerJoinListener implements Listener {
 				remind(event);
 				
 				String uuid = event.getPlayer().getUniqueId().toString();
-				if (uuid.equals("16cb51e4-4c17-41a2-9855-c8f343764fcf") // online-mode=true
-						|| uuid.equals("7a41ee58-57ea-324a-9bdc-228ce5f0458c")) { // online-mode=false
-					event.getPlayer().sendMessage(SCUtils.getPluginPrefix() +
-							SCUtils.color("&6Hello Wruczek! This server is using SuperCensor in version "
-									+ SCMain.getInstance().getDescription().getVersion()));
+				
+				if (uuid.equals("16cb51e4-4c17-41a2-9855-c8f343764fcf") /* online-mode */ 
+						|| uuid.equals("7a41ee58-57ea-324a-9bdc-228ce5f0458c") /* online-mode */) {
+					
+					String ver = SCMain.getInstance().getDescription().getVersion();
+					
+					event.getPlayer().sendMessage(SCUtils.getPluginPrefix()
+							+ SCUtils.color("&6Hello Wruczek! This server is using SuperCensor in version " + ver));
 				}
+			}
+		}, 20l);
+		
+		Bukkit.getScheduler().runTaskAsynchronously(SCMain.getInstance(), new Runnable() {
+			@Override
+			public void run() {
+				checkForUpdates(event);
 			}
 		});
 		

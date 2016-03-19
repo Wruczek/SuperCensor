@@ -1,11 +1,9 @@
-# SuperCensor v3.0-DEV-ALPHA messages file
+# SuperCensor v3-release messages file
 # Dev bukkit page: http://goo.gl/VNPQmp
 # Invalid configuration can crash the plugin. Before saving please check your config here: http://goo.gl/4QIux6
 # Help translate SuperCensor: http://goo.gl/EgVMOa
 # REMEMBER: YOU DO NOT NEED TO TRANSLATE THIS FILE! Just change "Language" in your config.yml
 # REMEMBER: Do not use %prefix% if you are sending message to the console!
-# Information: %prefix% will be replaced with Misc -> PluginPrefix
-
 LocalizationInformations:
   Language: Polski
   LanguageCode: PL
@@ -27,8 +25,20 @@ Updater:
         &7Aktualna wersja: &6%currentversion%
         &7Nowa wersja: &6%newversion%
         &7Link do pobrania aktualizacji: &6%downloadlink%
+WordlistSettings:
+  MessageToPlayer: "%prefix% &cNie przeklinaj!"
+SlowMode:
+  MessageToPlayer: "%prefix% &cMusisz zaczekac &6%time%&c sekund przed wyslaniem kolejnej wiadomosci!"
+AntiSpam:
+  RepeatMessage: "%prefix% &cPrzestan sie powtarzac!"
+  KickMessage: "%prefix% &cZostales wyrzucony za spamowanie"
 Commands:
   Usage: "&cUzycie&8:"
+  Description: "&7Opis komendy&8: &7"
+  HoverCommandTip: |-
+      &e&lTIP:&6 Nakieruj na komende, by zobaczyc jej opis. Kliknij by jej uzyc
+             &6Pamietaj, mozesz uzywac TAB by przyspieszyc wpisywanie komend!
+  HoverPermissionTip: "&e&lTIP:&6 Nakieruj na permisje by poznac jej opis"
   UsageFormat: "&8/&7sc &3%command% &3%usage%"
   NoPermissions: "%prefix% &cNie masz uprawnienia %permission%!"
   HelpEntryFormat: "&0- &8/&7sc &3%command% &8-&7 %description%"
@@ -84,7 +94,7 @@ Commands:
       SelfMuteRemovedToSender: "%prefix% Zdjales SelfMute z gracza %nick%"
   ClearChat:
     HelpDescription: "Czysci czat"
-    CommandDescription: "&6Umozliwia na wyczyszczenie twojego czatu lub innych graczy. Uzyj argumentu -a by ukryc swoj nich. Jesli chcesz wyczyscic konsole, wpisz sc cc own w konsoli"
+    CommandDescription: "Umozliwia na wyczyszczenie twojego czatu lub innych graczy. Uzyj argumentu -a by ukryc swoj nich. Jesli chcesz wyczyscic konsole, wpisz sc cc own w konsoli"
     AnonymousMode: "%prefix% Czyszczenie czatu w trybie anonimowym, nikt nie zobaczy twojego nicku"
     AnonymousModeNoPermissions: "%prefix% &cNie masz uprawnien do uzycia trybu anonimowego!"
     ClearAll:
@@ -100,7 +110,7 @@ Commands:
   SubcommandNotFound: "%prefix% &cKomenda nie istnieje. Lista komend: /sc"
   PPM:
     HelpDescription: "Zarzadzanie punktami ostrzezen"
-    CommandDescription: "&6Pozwala na zarzadzanie punktami ostrzezen"
+    CommandDescription: "Pozwala na zarzadzanie punktami ostrzezen"
     Check:
       HelpDescription: "Pokazuje, ile punktow ostrzezen posiada gracz"
       Response: "%prefix% &6%nick%&7 ma &6%points%&7 punktow ostrzezen."
@@ -108,7 +118,3 @@ Commands:
       HelpDescription: "Ustawia punkty ostrzezen dla danego gracza"
       Response: "%prefix% &6%nick%&7 ma teraz &6%points%&7 punktow ostrzezen."
       OnlyNumbers: "%prefix% &cProsze podac liczbe"
-WordlistSettings:
-  MessageToPlayer: "%prefix% &cNie przeklinaj!"
-SlowMode:
-  MessageToPlayer: "%prefix% &cMusisz zaczekac &6%time%&c sekund przed wyslaniem kolejnej wiadomosci!"
