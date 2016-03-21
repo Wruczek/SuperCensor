@@ -1,4 +1,4 @@
-package mr.wruczek.supercensor3.utils;
+package mr.wruczek.supercensor3.utils.classes;
 
 import org.bukkit.command.CommandSender;
 

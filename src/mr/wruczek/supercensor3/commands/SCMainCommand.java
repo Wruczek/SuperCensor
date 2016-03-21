@@ -1,6 +1,5 @@
 package mr.wruczek.supercensor3.commands;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -22,9 +21,11 @@ import mr.wruczek.supercensor3.commands.subcommands.SubcommandInfo;
 import mr.wruczek.supercensor3.commands.subcommands.SubcommandPPM;
 import mr.wruczek.supercensor3.commands.subcommands.SubcommandPerms;
 import mr.wruczek.supercensor3.commands.subcommands.SubcommandReload;
-import mr.wruczek.supercensor3.utils.SCLogger.LogType;
-import mr.wruczek.supercensor3.utils.SCLogger;
+import mr.wruczek.supercensor3.utils.ConfigUtils;
+import mr.wruczek.supercensor3.utils.LoggerUtils;
 import mr.wruczek.supercensor3.utils.SCUtils;
+import mr.wruczek.supercensor3.utils.StringUtils;
+import mr.wruczek.supercensor3.utils.classes.SCLogger;
 
 public class SCMainCommand implements CommandExecutor, TabCompleter {
 
@@ -75,16 +76,16 @@ public class SCMainCommand implements CommandExecutor, TabCompleter {
 			try {
 				execute.onCommand(sender, commandName, args);
 			} catch (Exception e) {
-				sender.sendMessage(SCUtils.getPluginPrefix() + SCUtils.color("&cAn unknown error "
+				sender.sendMessage(SCUtils.getPluginPrefix() + StringUtils.color("&cAn unknown error "
 						+ "occurred while attempting to perform this command: " + e));
 				
-				SCUtils.logError("An error occurred while attemping to perform command \""
-						+ commandName + "\" with args \"" + args + "\"", LogType.PLUGIN);
+				SCLogger.logError("An error occurred while attemping to perform command \""
+						+ commandName + "\" with args \"" + args + "\"", LoggerUtils.LogType.PLUGIN);
 				
-				SCLogger.handleException(e);
+				LoggerUtils.handleException(e);
 			}
 		} else {
-			sender.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.SubcommandNotFound"));
+			sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.SubcommandNotFound"));
 		}
 
 		return false;

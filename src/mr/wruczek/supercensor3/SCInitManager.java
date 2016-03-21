@@ -13,6 +13,9 @@ import mr.wruczek.supercensor3.commands.SCReportCommand;
 import mr.wruczek.supercensor3.listeners.SCAsyncPlayerChatListener;
 import mr.wruczek.supercensor3.listeners.SCPlayerJoinListener;
 import mr.wruczek.supercensor3.listeners.SCPlayerQuitListener;
+import mr.wruczek.supercensor3.utils.LoggerUtils;
+import mr.wruczek.supercensor3.utils.classes.SCLogger;
+import mr.wruczek.supercensor3.utils.classes.WordlistUpdater;
 
 /**
  * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
@@ -32,6 +35,17 @@ public class SCInitManager {
 		SCAutoMessage.run();
 		
 		new AntiSpam();
+		
+		Bukkit.getScheduler().runTaskAsynchronously(instance, new Runnable() {
+			public void run() {
+				try {
+					new WordlistUpdater().run();
+				} catch (Exception e) {
+					SCLogger.logError("Exception occurred while running WordlistUpdater! " + e);
+					LoggerUtils.handleException(e);
+				}
+			}
+		});
 		// endregion
 		
 		// region Commands

@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import mr.wruczek.supercensor3.utils.SCLogger.LogType;
-import mr.wruczek.supercensor3.utils.SCUtils;
+import mr.wruczek.supercensor3.utils.LoggerUtils;
+import mr.wruczek.supercensor3.utils.LoggerUtils.LogType;
+import mr.wruczek.supercensor3.utils.classes.SCLogger;
 
 /**
  * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
@@ -37,9 +38,9 @@ public class PPLoader {
 					if (cs != null)
 						PPRules.add(cs);
 					
-					SCUtils.logInfo("Loaded " + file.getName() + " PenaltyPointsRules file", LogType.PLUGIN);
+					SCLogger.logInfo("Loaded " + file.getName() + " PenaltyPointsRules file", LoggerUtils.LogType.PLUGIN);
 				} catch (Exception e) {
-					SCUtils.logError("Error while loading " + path + ": " + e, LogType.PLUGIN);
+					SCLogger.logError("Error while loading " + path + ": " + e, LoggerUtils.LogType.PLUGIN);
 				}
 			}
 		}

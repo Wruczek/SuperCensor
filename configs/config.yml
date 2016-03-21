@@ -4,7 +4,7 @@
 # Invalid configuration can crash the plugin. Before saving please check your config here: http://goo.gl/4QIux6
 # *** Additional informations ***
 # > Language: available languages: en, de, fr, it, pl, ro, tr
-# > AutoUpdater -> InformOnJoin: every player with permission "supercensor" will be informed
+# > WordlistUpdater can be used to update wordlist on every server startup from remote URL. More info and format on wiki.
 # > SlowMode is an old SlowChat
 
 Language: en
@@ -22,6 +22,11 @@ Logger:
   TimeFormat: "HH:mm:ss"
   DateFormat: "dd-MM-yyyy"
 
+WordlistUpdater:
+  Enabled: false
+  URL: http://example.com/api/wordlistupdater
+  SaveTo: remotewordlist.yml
+
 MessageFormat:
   PluginPrefix: "&8[&6SC&8]&7"
   UpdaterPrefix: "&8[&6UPDATER&8]&7"
@@ -37,7 +42,7 @@ AntiSpam:
     Enabled: true
     # In milliseconds
     MinimumMessageRepeatTime: 700
-    MaximumNumberOfWarns: 10
+    MaximumNumberOfWarns: 5
     # In Seconds
     RemoveWarnEvery: 30
     PenaltyPoints: 30

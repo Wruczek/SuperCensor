@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 import org.bukkit.entity.Player;
 
 import mr.wruczek.supercensor3.SCConfigManager2;
+import mr.wruczek.supercensor3.utils.ConfigUtils;
 
 /**
  * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
@@ -23,7 +24,7 @@ public class SCSlowModeManager {
 		if(!SCConfigManager2.isInitialized())
 			throw new IllegalStateException("SCConfigManager2 is not initialized!");
 		
-		return SCConfigManager2.config.getBoolean("SlowMode.Enabled");
+		return ConfigUtils.getBooleanFromConfig("SlowMode.Enabled");
 	}
 	
 	public long getSlowModeTimeLeftInMillis(Player player) {
@@ -79,7 +80,7 @@ public class SCSlowModeManager {
 		if(!isEnabled())
 			return 0;
 		
-		return (SCConfigManager2.config.getInt("SlowMode.Time") + 1) * 1000;
+		return (ConfigUtils.getIntFromConfig("SlowMode.Time") + 1) * 1000;
 	}
 	
 	public Entry<String, Long> getPlayerEntry(String player) {

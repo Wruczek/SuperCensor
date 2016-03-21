@@ -8,8 +8,10 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import mr.wruczek.supercensor3.SCMain;
-import mr.wruczek.supercensor3.utils.SCLogger.LogType;
-import mr.wruczek.supercensor3.utils.SCUtils;
+import mr.wruczek.supercensor3.utils.LoggerUtils;
+import mr.wruczek.supercensor3.utils.LoggerUtils.LogType;
+import mr.wruczek.supercensor3.utils.UUIDUtils;
+import mr.wruczek.supercensor3.utils.classes.SCLogger;
 
 public class SCPlayerDataManger {
 
@@ -36,8 +38,8 @@ public class SCPlayerDataManger {
 				userFile.getParentFile().mkdirs();
 				userFile.createNewFile();
 			} catch (Exception e) {
-				SCUtils.logInfo("Exception " + e.toString() + " while creating data file for player " 
-						+ player.getName() + " (UUID " + getUUID() + ")!", LogType.PLUGIN);
+				SCLogger.logInfo("Exception " + e.toString() + " while creating data file for player " 
+						+ player.getName() + " (UUID " + getUUID() + ")!", LoggerUtils.LogType.PLUGIN);
 			}
 		}
 
@@ -45,7 +47,7 @@ public class SCPlayerDataManger {
 	}
 
 	private String getUUID() {
-		return SCUtils.getUUID(player);
+		return UUIDUtils.getUUID(player);
 	}
 
 	public FileConfiguration getConfig() {
@@ -64,13 +66,13 @@ public class SCPlayerDataManger {
 		try {
 			config.save(userFile);
 		} catch (IOException e) {
-			SCUtils.logInfo("Exception " + e.toString() + " while creating data file for player " 
-					+ player.getName() + " (UUID " + getUUID() + ")!", LogType.PLUGIN);
+			SCLogger.logInfo("Exception " + e.toString() + " while creating data file for player " 
+					+ player.getName() + " (UUID " + getUUID() + ")!", LoggerUtils.LogType.PLUGIN);
 		}
 	}
 
 	public static boolean hasDataFile(OfflinePlayer player) {
-		return new File(path + SCUtils.getUUID(player)).exists();
+		return new File(path + UUIDUtils.getUUID(player)).exists();
 	}
 
 	public static File[] getAllDataFiles() {

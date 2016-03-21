@@ -13,8 +13,8 @@ import java.util.regex.Pattern;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import mr.wruczek.supercensor3.utils.SCLogger.LogType;
-import mr.wruczek.supercensor3.utils.SCUtils;
+import mr.wruczek.supercensor3.utils.LoggerUtils;
+import mr.wruczek.supercensor3.utils.classes.SCLogger;
 
 // Small class created to keep all arrays loaded from rules folder
 /**
@@ -57,9 +57,9 @@ public class CensorData {
 						special.add(specialCS);
 					
 					
-					SCUtils.logInfo("Loaded " + file.getName() + " rules file", LogType.PLUGIN);
+					SCLogger.logInfo("Loaded " + file.getName() + " rules file", LoggerUtils.LogType.PLUGIN);
 				} catch (Exception e) {
-					SCUtils.logError("Error while loading " + path + ": " + e, LogType.PLUGIN);
+					SCLogger.logError("Error while loading " + path + ": " + e, LoggerUtils.LogType.PLUGIN);
 				}
 			} else if (fileType.equalsIgnoreCase("regex")) {
 				try {
@@ -81,10 +81,10 @@ public class CensorData {
 
 					br.close();
 					
-					SCUtils.logInfo("Loaded " + file.getName() + " regex rules file", LogType.PLUGIN);
+					SCLogger.logInfo("Loaded " + file.getName() + " regex rules file", LoggerUtils.LogType.PLUGIN);
 					// endregion
 				} catch (Exception e) {
-					SCUtils.logError("Error while loading Regex file " + path + ": " + e, LogType.PLUGIN);
+					SCLogger.logError("Error while loading Regex file " + path + ": " + e, LoggerUtils.LogType.PLUGIN);
 				}
 			}
 		}

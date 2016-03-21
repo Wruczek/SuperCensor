@@ -7,7 +7,7 @@ PenaltyPointsRules:
     # Activate this check when player have 100 PenaltyPoints.
     ActivateOn: 100
     RunCommands:
-      - "kick %nick% &6[SC] &cPlease calm down and stop breaking chat rules or you will be temporary muted."
+      - "kick %nick% [SC] Please calm down and stop breaking chat rules or you will be temporary muted."
     # You can log everything into files, if you want
     # Remove this line to stop logging about this rule
     Log: "Player %nick% has been kicked for receiving 100 PenaltyPoints"

@@ -1,7 +1,7 @@
 package mr.wruczek.supercensor3.commands;
 
 import mr.wruczek.supercensor3.SCMain;
-import mr.wruczek.supercensor3.utils.SCUtils;
+import mr.wruczek.supercensor3.utils.StringUtils;
 
 /**
  * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
@@ -15,8 +15,8 @@ public class SCCommandHeader {
 	private static String header = "";
 	
 	public SCCommandHeader() {
-		headerChar = SCUtils.color("&8&m-&r");
-		header = SCUtils.color(getHeaderChar(5) + " &7SuperCensor &c"
+		headerChar = StringUtils.color("&8&m-&r");
+		header = StringUtils.color(getHeaderChar(5) + " &7SuperCensor &c"
 				+ SCMain.getInstance().getDescription().getVersion()
 				+ "&7 by &6Wruczek " + getHeaderChar(5));
 	}

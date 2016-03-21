@@ -15,8 +15,10 @@ import mr.wruczek.supercensor3.SCConfigManager2;
 import mr.wruczek.supercensor3.SCMain;
 import mr.wruczek.supercensor3.commands.SCMainCommand;
 import mr.wruczek.supercensor3.commands.SCSubcommand;
-import mr.wruczek.supercensor3.utils.SCPermissionsEnum;
+import mr.wruczek.supercensor3.utils.ConfigUtils;
 import mr.wruczek.supercensor3.utils.SCUtils;
+import mr.wruczek.supercensor3.utils.StringUtils;
+import mr.wruczek.supercensor3.utils.classes.SCPermissionsEnum;
 
 /**
  * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
@@ -40,10 +42,10 @@ public class SCMuteChatManager extends SCSubcommand implements Listener {
 			return;
 		
 		if(SCMuteChatManager.isReasonSet())
-			event.getPlayer().sendMessage(SCUtils.getMessageFromMessagesFile("Commands.MuteChat.CannotWriteReason")
+			event.getPlayer().sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.MuteChat.CannotWriteReason")
 					.replace("%reason%", SCMuteChatManager.getReason()));
 		else
-			event.getPlayer().sendMessage(SCUtils.getMessageFromMessagesFile("Commands.MuteChat.CannotWrite"));
+			event.getPlayer().sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.MuteChat.CannotWrite"));
 		
 		event.setCensored(true);
 	}
@@ -51,7 +53,7 @@ public class SCMuteChatManager extends SCSubcommand implements Listener {
 	@Override
 	public void onCommand(CommandSender sender, String command, String[] args) {
 		
-		if(!SCUtils.checkForPermissions(sender, SCPermissionsEnum.MUTECHAT_TOGGLE.toString())) {
+		if(!SCUtils.checkPermissions(sender, SCPermissionsEnum.MUTECHAT_TOGGLE.toString())) {
 			return;
 		}
 		
@@ -59,24 +61,24 @@ public class SCMuteChatManager extends SCSubcommand implements Listener {
 		
 		if(isChatMuted()) {
 			if(silentMode) {
-				sender.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.MuteChat.ChatEnabled"));
+				sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.MuteChat.ChatEnabled"));
 			} else {
-				Bukkit.broadcastMessage(SCUtils.getMessageFromMessagesFile("Commands.MuteChat.ChatEnabledBroadcast")
+				Bukkit.broadcastMessage(ConfigUtils.getMessageFromMessagesFile("Commands.MuteChat.ChatEnabledBroadcast")
 						.replace("%nick%", sender.getName()));
 			}
 		} else {
 			// With reason
 			if (args.length > (silentMode ? 2 : 1)) {
 				
-				String reason = SCUtils.color(SCUtils.argsToString(args, silentMode ? 2 : 1));
+				String reason = StringUtils.color(StringUtils.argsToString(args, silentMode ? 2 : 1));
 				
 				setReason(reason);
 				
 				if (silentMode) {
-					sender.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.MuteChat.ChatDisabledReason")
+					sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.MuteChat.ChatDisabledReason")
 							.replace("%reason%", reason));
 				} else {
-					Bukkit.broadcastMessage(SCUtils.getMessageFromMessagesFile("Commands.MuteChat.ChatDisabledBroadcastReason")
+					Bukkit.broadcastMessage(ConfigUtils.getMessageFromMessagesFile("Commands.MuteChat.ChatDisabledBroadcastReason")
 							.replace("%nick%", sender.getName())
 							.replace("%reason%", reason));
 				}
@@ -85,9 +87,9 @@ public class SCMuteChatManager extends SCSubcommand implements Listener {
 				setReason("");
 				
 				if (silentMode) {
-					sender.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.MuteChat.ChatDisabled"));
+					sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.MuteChat.ChatDisabled"));
 				} else {
-					Bukkit.broadcastMessage(SCUtils.getMessageFromMessagesFile(
+					Bukkit.broadcastMessage(ConfigUtils.getMessageFromMessagesFile(
 							"Commands.MuteChat.ChatDisabledBroadcast").replace("%nick%", sender.getName()));
 				}
 			}

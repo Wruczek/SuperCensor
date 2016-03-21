@@ -9,9 +9,10 @@ import org.bukkit.entity.Player;
 
 import mr.wruczek.supercensor3.SCMain;
 import mr.wruczek.supercensor3.data.SCPlayerDataManger;
-import mr.wruczek.supercensor3.utils.SCLogger;
-import mr.wruczek.supercensor3.utils.SCLogger.LogType;
-import mr.wruczek.supercensor3.utils.SCUtils;
+import mr.wruczek.supercensor3.utils.LoggerUtils;
+import mr.wruczek.supercensor3.utils.LoggerUtils.LogType;
+import mr.wruczek.supercensor3.utils.StringUtils;
+import mr.wruczek.supercensor3.utils.classes.SCLogger;
 
 /**
  * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0
@@ -43,7 +44,7 @@ public class PPCheck {
 				
 				// region Message player
 				if (cs.contains(rule + ".MessagePlayer"))
-					player.sendMessage(SCUtils.color(cs.getString(rule + ".MessagePlayer")
+					player.sendMessage(StringUtils.color(cs.getString(rule + ".MessagePlayer")
 							.replace("%nick%", player.getDisplayName())));
 				// endregion
 				
@@ -59,8 +60,8 @@ public class PPCheck {
 								try {
 									Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%nick%", player.getDisplayName()));
 								} catch (Exception e) {
-									SCUtils.logError("There was exception when executing command \"" + command 
-											+ "\" on player \"" + player.getName(), LogType.PLUGIN);
+									SCLogger.logError("There was exception when executing command \"" + command 
+											+ "\" on player \"" + player.getName(), LoggerUtils.LogType.PLUGIN);
 								}
 							}
 						}
@@ -76,11 +77,11 @@ public class PPCheck {
 				
 				// region Action Log
 				if (cs.contains(rule + ".Log")) {
-					SCUtils.logInfo(cs.getString(rule + ".Log")
-							.replace("%date%", SCLogger.getDate())
-							.replace("%time%", SCLogger.getTime())
+					SCLogger.logInfo(cs.getString(rule + ".Log")
+							.replace("%date%", LoggerUtils.getDate())
+							.replace("%time%", LoggerUtils.getTime())
 							.replace("%nick%", player.getName()),
-						LogType.CENSOR);
+						LoggerUtils.LogType.CENSOR);
 				}
 				// endregion
 				

@@ -1,9 +1,10 @@
-package mr.wruczek.supercensor3.utils;
+package mr.wruczek.supercensor3.utils.classes;
 
 import mr.wruczek.supercensor3.SCConfigManager2;
 import mr.wruczek.supercensor3.SCMain;
-import mr.wruczek.supercensor3.utils.GravityUpdater.UpdateResult;
-import mr.wruczek.supercensor3.utils.GravityUpdater.UpdateType;
+import mr.wruczek.supercensor3.utils.ConfigUtils;
+import mr.wruczek.supercensor3.utils.classes.GravityUpdater.UpdateResult;
+import mr.wruczek.supercensor3.utils.classes.GravityUpdater.UpdateType;
 
 /**
  * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
@@ -56,11 +57,11 @@ public class SCUpdater {
 	}
 
 	public boolean isUpdaterEnabled() {
-		return SCConfigManager2.config.getBoolean("AutoUpdater.Enabled");
+		return ConfigUtils.getBooleanFromConfig("AutoUpdater.Enabled");
 	}
 	
 	public UpdateType getUpdateType() {
-		return SCConfigManager2.config.getBoolean("AutoUpdater.AutoDownload") ? 
+		return ConfigUtils.getBooleanFromConfig("AutoUpdater.AutoDownload") ? 
 				GravityUpdater.UpdateType.DEFAULT : GravityUpdater.UpdateType.NO_DOWNLOAD;
 	}
 	

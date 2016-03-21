@@ -7,11 +7,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 
 import mr.wruczek.supercensor3.SCConfigManager2;
 import mr.wruczek.supercensor3.SCMain;
+import mr.wruczek.supercensor3.utils.classes.SCLogger;
 
 /**
  * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0
@@ -19,7 +21,7 @@ import mr.wruczek.supercensor3.SCMain;
  *
  * @author Wruczek
  */
-public class SCLogger {
+public class LoggerUtils {
 
 	public enum LogType {
 
@@ -36,8 +38,9 @@ public class SCLogger {
 		}
 	}
 
+	public static Logger logger = Logger.getLogger("Minecraft");
 	public static List<String> lastError;
-
+	
 	public static void handleException(Exception e) {
 
 		lastError = new ArrayList<String>();
@@ -80,7 +83,7 @@ public class SCLogger {
 	}
 
 	private static void logerror(String err) {
-		SCUtils.logError(err, LogType.PLUGIN);
+		SCLogger.logError(err, LogType.PLUGIN);
 		lastError.add(err);
 	}
 
@@ -90,7 +93,7 @@ public class SCLogger {
 		boolean loggerEnabled = true;
 
 		try {
-			loggerEnabled = SCConfigManager2.config.getBoolean("Logger.Enabled");
+			loggerEnabled = ConfigUtils.getBooleanFromConfig("Logger.Enabled");
 			sccmInit = SCConfigManager2.isInitialized();
 		} catch (Exception e) {
 		}
@@ -104,11 +107,11 @@ public class SCLogger {
 				String prefix = "[%date% %time%] ";
 
 				try {
-					prefix = SCConfigManager2.config.getString("Logger.Prefix");
+					prefix = ConfigUtils.getStringFromConfig("Logger.Prefix");
 				} catch (Exception e) {
 				}
 
-				File logFile = getLogFile(logType.getFileName());
+				File logFile = SCLogger.getLogFile(logType.getFileName());
 
 				if (!logFile.exists()) {
 					logFile.getParentFile().mkdirs();
@@ -117,10 +120,10 @@ public class SCLogger {
 
 				fw = new FileWriter(logFile, true);
 				pw = new PrintWriter(fw);
-				pw.println(prefix.replace("%date%", getDate()).replace("%time%", getTime()) + SCUtils.unColor(text));
+				pw.println(prefix.replace("%date%", getDate()).replace("%time%", getTime()) + StringUtils.unColor(text));
 				pw.flush();
 			} catch (Exception e) {
-				SCLogger.handleException(e);
+				handleException(e);
 			} finally {
 				try {
 					pw.close();
@@ -130,32 +133,29 @@ public class SCLogger {
 			}
 		}
 	}
-
-	public static String getDate() {
-
-		String dateFormat = "dd-MM-yyyy";
-
-		try {
-			dateFormat = SCConfigManager2.config.getString("Logger.DateFormat");
-		} catch (Exception e) {
-		}
-
-		return new SimpleDateFormat(dateFormat).format(new Date());
-	}
-
+	
 	public static String getTime() {
 
 		String timeFormat = "HH:mm:ss";
 
 		try {
-			timeFormat = SCConfigManager2.config.getString("Logger.TimeFormat");
+			timeFormat = ConfigUtils.getStringFromConfig("Logger.TimeFormat");
 		} catch (Exception e) {
 		}
 
 		return new SimpleDateFormat(timeFormat).format(new Date());
 	}
 
-	public static File getLogFile(String fileName) {
-		return new File(SCConfigManager2.logsFolder + File.separator + getDate(), fileName);
+	public static String getDate() {
+
+		String dateFormat = "dd-MM-yyyy";
+
+		try {
+			dateFormat = ConfigUtils.getStringFromConfig("Logger.DateFormat");
+		} catch (Exception e) {
+		}
+
+		return new SimpleDateFormat(dateFormat).format(new Date());
 	}
+
 }

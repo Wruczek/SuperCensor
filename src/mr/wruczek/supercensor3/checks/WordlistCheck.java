@@ -11,10 +11,11 @@ import mr.wruczek.supercensor3.SCCheckEvent;
 import mr.wruczek.supercensor3.SCConfigManager2;
 import mr.wruczek.supercensor3.SCMain;
 import mr.wruczek.supercensor3.PPUtils.PPManager;
-import mr.wruczek.supercensor3.utils.SCLogger;
-import mr.wruczek.supercensor3.utils.SCLogger.LogType;
-import mr.wruczek.supercensor3.utils.SCPermissionsEnum;
-import mr.wruczek.supercensor3.utils.SCUtils;
+import mr.wruczek.supercensor3.utils.ConfigUtils;
+import mr.wruczek.supercensor3.utils.LoggerUtils;
+import mr.wruczek.supercensor3.utils.StringUtils;
+import mr.wruczek.supercensor3.utils.classes.SCLogger;
+import mr.wruczek.supercensor3.utils.classes.SCPermissionsEnum;
 
 /**
  * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
@@ -35,7 +36,7 @@ public class WordlistCheck implements Listener {
 		String messageToCheck = event.getOriginalMessage();
 		
 		// Replace @ to a, $ to s and remove spaces to avoid exploits
-		if (SCConfigManager2.config.getBoolean("WordlistSettings.DeepSearch")) {
+		if (ConfigUtils.getBooleanFromConfig("WordlistSettings.DeepSearch")) {
 			messageToCheck = messageToCheck.replace(" ", "");
 			messageToCheck = messageToCheck.replace("@", "a");
 			messageToCheck = messageToCheck.replace("$", "s");
@@ -44,7 +45,7 @@ public class WordlistCheck implements Listener {
 		mainLoop: for(String message : messageToCheck.split(" ")) {
 			
 			// Replace special charters
-			for(char specialChar : SCConfigManager2.config.getString("WordlistSettings.SpecialCharters").toCharArray()) {
+			for(char specialChar : ConfigUtils.getStringFromConfig("WordlistSettings.SpecialCharters").toCharArray()) {
 				message = message.replace(String.valueOf(specialChar), "");
 			}
 			
@@ -69,44 +70,44 @@ public class WordlistCheck implements Listener {
 				
 				String lowerCaseMessage = message.toLowerCase();
 				
-				if (!(lowerCaseMessage.contains(censoredWord.toLowerCase()) || SCUtils.checkRegex(censoredWord, lowerCaseMessage))) {
+				if (!(lowerCaseMessage.contains(censoredWord.toLowerCase()) || StringUtils.checkRegex(censoredWord, lowerCaseMessage))) {
 					continue;
 				}
 				
 				// Cancel event
-				if (SCConfigManager2.config.getBoolean("WordlistSettings.CancelMessage"))
+				if (ConfigUtils.getBooleanFromConfig("WordlistSettings.CancelMessage"))
 					event.setCensored(true);
 				
 				// Send message to player
 				String mtp = SCConfigManager2.messages.getString("WordlistSettings.MessageToPlayer");
 				if (mtp != null)
-					event.getPlayer().sendMessage(SCUtils.color(mtp));
+					event.getPlayer().sendMessage(StringUtils.color(mtp));
 				
 				// Replace all swear words
-				if (SCConfigManager2.config.getBoolean("WordlistSettings.Replace.Enabled") && !event.isCensored()) {
+				if (ConfigUtils.getBooleanFromConfig("WordlistSettings.Replace.Enabled") && !event.isCensored()) {
 					
-					List<String> replaceToList = SCConfigManager2.config.getStringList("WordlistSettings.Replace.ReplaceTo");
+					List<String> replaceToList = ConfigUtils.getStringListFromConfig("WordlistSettings.Replace.ReplaceTo");
 					String replaceTo = replaceToList.get(random.nextInt(replaceToList.size()));
 					
 					String newMessage = event.getMessage();
 					
 					for(final String target : CensorData.wordlist) {
 						replaceTo = replaceToList.get(random.nextInt(replaceToList.size()));
-						newMessage = SCUtils.replaceIgnoreCase(newMessage, target, replaceTo);
+						newMessage = StringUtils.replaceIgnoreCase(newMessage, target, replaceTo);
 					}
 					
 					event.setMessage(newMessage);
 				}
 				
 				// Add PenaltyPoints
-				if (SCConfigManager2.config.contains("WordlistSettings.PenaltyPoints")) {
-					int points = SCConfigManager2.config.getInt("WordlistSettings.PenaltyPoints");
+				if (ConfigUtils.configContains("WordlistSettings.PenaltyPoints")) {
+					int points = ConfigUtils.getIntFromConfig("WordlistSettings.PenaltyPoints");
 					PPManager.addPenaltyPoints(event.getPlayer(), points, true);
 				}
 				
 				// Run commands
-				if(SCConfigManager2.config.getBoolean("WordlistSettings.RunCommands.Enabled")) {
-					for(final String command : SCConfigManager2.config.getStringList("WordlistSettings.RunCommands.Commands")) {
+				if(ConfigUtils.getBooleanFromConfig("WordlistSettings.RunCommands.Enabled")) {
+					for(final String command : ConfigUtils.getStringListFromConfig("WordlistSettings.RunCommands.Commands")) {
 						// We want to sync it with Bukkit thread to avoid 
 						//	java.lang.IllegalStateException and allow things like kicking players
 						Bukkit.getScheduler().scheduleSyncDelayedTask(SCMain.getInstance(), new Runnable() {
@@ -116,8 +117,8 @@ public class WordlistCheck implements Listener {
 											.replace("%nick%", event.getPlayer().getName())
 											.replace("%swearword%", censoredWord));
 								} catch (Exception e) {
-									SCUtils.logError("There was exception when executing command \"" + command
-											+ "\" on player \"" + event.getPlayer().getName(), LogType.PLUGIN);
+									SCLogger.logError("There was exception when executing command \"" + command
+											+ "\" on player \"" + event.getPlayer().getName(), LoggerUtils.LogType.PLUGIN);
 								}
 							}
 						});
@@ -125,13 +126,13 @@ public class WordlistCheck implements Listener {
 				}
 				
 				// Log
-				if(SCConfigManager2.config.getBoolean("WordlistSettings.Log.Enabled")) {
-					SCUtils.logInfo(SCConfigManager2.config.getString("WordlistSettings.Log.Format")
-										.replace("%date%", SCLogger.getDate())
-										.replace("%time%", SCLogger.getTime())
+				if(ConfigUtils.getBooleanFromConfig("WordlistSettings.Log.Enabled")) {
+					SCLogger.logInfo(ConfigUtils.getStringFromConfig("WordlistSettings.Log.Format")
+										.replace("%date%", LoggerUtils.getDate())
+										.replace("%time%", LoggerUtils.getTime())
 										.replace("%nick%", event.getPlayer().getName())
 										.replace("%swearword%", censoredWord)
-										.replace("%message%", event.getOriginalMessage()), LogType.CENSOR);
+										.replace("%message%", event.getOriginalMessage()), LoggerUtils.LogType.CENSOR);
 				}
 				
 				return; // Cancel the loops after taking action

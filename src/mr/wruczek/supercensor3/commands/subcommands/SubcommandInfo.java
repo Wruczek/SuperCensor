@@ -21,14 +21,17 @@ import mr.wruczek.supercensor3.checks.SCSlowModeManager;
 import mr.wruczek.supercensor3.commands.SCCommandHeader;
 import mr.wruczek.supercensor3.commands.SCMainCommand;
 import mr.wruczek.supercensor3.commands.SCSubcommand;
-import mr.wruczek.supercensor3.utils.MessagesCreator;
-import mr.wruczek.supercensor3.utils.MessagesCreator.ChatExtra;
-import mr.wruczek.supercensor3.utils.Reflection;
-import mr.wruczek.supercensor3.utils.SCLogger;
-import mr.wruczek.supercensor3.utils.SCPermissionsEnum;
-import mr.wruczek.supercensor3.utils.SCUpdater;
+import mr.wruczek.supercensor3.utils.classes.MessagesCreator;
+import mr.wruczek.supercensor3.utils.classes.Reflection;
+import mr.wruczek.supercensor3.utils.classes.SCPermissionsEnum;
+import mr.wruczek.supercensor3.utils.classes.SCUpdater;
+import mr.wruczek.supercensor3.utils.classes.GravityUpdater.UpdateResult;
+import mr.wruczek.supercensor3.utils.classes.MessagesCreator.ChatExtra;
+import mr.wruczek.supercensor3.utils.ConfigUtils;
+import mr.wruczek.supercensor3.utils.LoggerUtils;
 import mr.wruczek.supercensor3.utils.SCUtils;
-import mr.wruczek.supercensor3.utils.GravityUpdater.UpdateResult;
+import mr.wruczek.supercensor3.utils.StringUtils;
+import mr.wruczek.supercensor3.utils.TellrawUtils;
 
 /**
  * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
@@ -51,14 +54,14 @@ public class SubcommandInfo extends SCSubcommand {
 		links = new HashMap<>();
 		
 		// TITLE, URL
-		links.put(SCUtils.getMessageFromMessagesFile("Commands.Info.BungeeCord"), "Comming soon!");
-		links.put(SCUtils.getMessageFromMessagesFile("Commands.Info.BugReporting"), "https://goo.gl/0H6qfY");
-		links.put(SCUtils.getMessageFromMessagesFile("Commands.Info.BukkitDev"), "https://goo.gl/HCXb1p");
-		links.put(SCUtils.getMessageFromMessagesFile("Commands.Info.SpigotMC"), "Comming soon!");
-		links.put(SCUtils.getMessageFromMessagesFile("Commands.Info.GitHub"), "https://goo.gl/xvMzsJ");
-		links.put(SCUtils.getMessageFromMessagesFile("Commands.Info.Donate"), "https://goo.gl/sY8Gvi");
+		links.put(ConfigUtils.getMessageFromMessagesFile("Commands.Info.BungeeCord"), "Comming soon!");
+		links.put(ConfigUtils.getMessageFromMessagesFile("Commands.Info.BugReporting"), "https://goo.gl/0H6qfY");
+		links.put(ConfigUtils.getMessageFromMessagesFile("Commands.Info.BukkitDev"), "https://goo.gl/HCXb1p");
+		links.put(ConfigUtils.getMessageFromMessagesFile("Commands.Info.SpigotMC"), "Comming soon!");
+		links.put(ConfigUtils.getMessageFromMessagesFile("Commands.Info.GitHub"), "https://goo.gl/xvMzsJ");
+		links.put(ConfigUtils.getMessageFromMessagesFile("Commands.Info.Donate"), "https://goo.gl/sY8Gvi");
 		
-		if(SCUtils.isTellrawSupportedByServer()) {
+		if(TellrawUtils.isTellrawSupportedByServer()) {
 			pluginInfoJSON = generateJSONString(links);
 		}
 	}
@@ -66,7 +69,7 @@ public class SubcommandInfo extends SCSubcommand {
 	@Override
 	public void onCommand(final CommandSender sender, String command, String[] args) {
 		
-		if(!SCUtils.checkForPermissions(sender, SCPermissionsEnum.INFO.toString())) {
+		if(!SCUtils.checkPermissions(sender, SCPermissionsEnum.INFO.toString())) {
 			return;
 		}
 		
@@ -137,38 +140,38 @@ public class SubcommandInfo extends SCSubcommand {
 				
 				if(SCUpdater.instance.isUpdaterEnabled()) {
 					
-					sender.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.Info.CheckingForUpdates"));
+					sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.Info.CheckingForUpdates"));
 					
 					UpdateResult result = SCUpdater.instance.checkForUpdates();
 					
 					if(result == UpdateResult.NO_UPDATE) {
-						addToVersion = SCUtils.getMessageFromMessagesFile("Commands.Info.VersionStatus.UpToDate");
+						addToVersion = ConfigUtils.getMessageFromMessagesFile("Commands.Info.VersionStatus.UpToDate");
 					} else if(result == UpdateResult.UPDATE_AVAILABLE) {
-						addToVersion = SCUtils.getMessageFromMessagesFile("Commands.Info.VersionStatus.UpdateAvailable");
+						addToVersion = ConfigUtils.getMessageFromMessagesFile("Commands.Info.VersionStatus.UpdateAvailable");
 					} else if(result == UpdateResult.SUCCESS) {
-						addToVersion = SCUtils.getMessageFromMessagesFile("Commands.Info.VersionStatus.NewVersionReady");
+						addToVersion = ConfigUtils.getMessageFromMessagesFile("Commands.Info.VersionStatus.NewVersionReady");
 					}
 				}
 				
 				sender.sendMessage(SCCommandHeader.getHeader());
-				sender.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.Info.Version") + pdf.getVersion() + addToVersion);
-				sender.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.Info.Author") + "Wruczek");
+				sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.Info.Version") + pdf.getVersion() + addToVersion);
+				sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.Info.Author") + "Wruczek");
 				
 				sender.sendMessage("");
-				sender.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.Info.UsefulLinks"));
+				sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.Info.UsefulLinks"));
 				
-				if(SCUtils.isTellrawSupported(sender)) {
+				if(TellrawUtils.isTellrawSupported(sender)) {
 		            try {
 		            	Reflection.sendMessage((Player) sender, pluginInfoJSON);
 		            } catch (Exception e) {
-		            	sender.sendMessage(SCUtils.color(SCUtils.getPluginPrefix() + "Cannot send you formatted message. Please check console for full stacktrace. " + e));
-		            	SCLogger.handleException(e);
+		            	sender.sendMessage(StringUtils.color(SCUtils.getPluginPrefix() + "Cannot send you formatted message. Please check console for full stacktrace. " + e));
+		            	LoggerUtils.handleException(e);
 		            }
 				} else {
 					// For console / older Minecraft versions
 					
 					for(Entry<String, String> link : links.entrySet()) {
-						sender.sendMessage(SCUtils.color("&7" + link.getKey() + ": &3" + link.getValue()));
+						sender.sendMessage(StringUtils.color("&7" + link.getKey() + ": &3" + link.getValue()));
 					}
 					
 				}

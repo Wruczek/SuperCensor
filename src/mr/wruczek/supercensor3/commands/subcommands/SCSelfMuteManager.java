@@ -16,8 +16,9 @@ import mr.wruczek.supercensor3.SCConfigManager2;
 import mr.wruczek.supercensor3.SCMain;
 import mr.wruczek.supercensor3.commands.SCMainCommand;
 import mr.wruczek.supercensor3.commands.SCSubcommand;
-import mr.wruczek.supercensor3.utils.SCPermissionsEnum;
+import mr.wruczek.supercensor3.utils.ConfigUtils;
 import mr.wruczek.supercensor3.utils.SCUtils;
+import mr.wruczek.supercensor3.utils.classes.SCPermissionsEnum;
 
 /**
  * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
@@ -61,52 +62,52 @@ public class SCSelfMuteManager extends SCSubcommand implements Listener {
 	public void onCommand(CommandSender sender, String command, String[] args) {
 		
 		if(args.length > 1) {
-			if(!SCUtils.checkForPermissions(sender, SCPermissionsEnum.SELFMUTE_TOGGLE_OTHER.toString())) {
+			if(!SCUtils.checkPermissions(sender, SCPermissionsEnum.SELFMUTE_TOGGLE_OTHER.toString())) {
 				return;
 			}
 			
 			Player target = Bukkit.getPlayer(args[1]);
 			
 			if(target == null) {
-				sender.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.SelfMute.OtherPlayer.PlayerNotFound")
+				sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.SelfMute.OtherPlayer.PlayerNotFound")
 						.replace("%nick%", args[1]));
 				return;
 			}
 			
 			if(SCPermissionsEnum.SELFMUTE_TOGGLE_OTHER_EXEMPT.hasPermission(target)) {
-				sender.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.SelfMute.OtherPlayer.ErrorImmunity")
+				sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.SelfMute.OtherPlayer.ErrorImmunity")
 						.replace("%nick%", target.getName()));
 				return;
 			}
 			
 			if(setSelfMute(target)) {
-				sender.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.SelfMute.OtherPlayer.SelfMutedToSender")
+				sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.SelfMute.OtherPlayer.SelfMutedToSender")
 						.replace("%nick%", target.getName()));
-				target.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.SelfMute.OtherPlayer.SelfMutedToTarget")
+				target.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.SelfMute.OtherPlayer.SelfMutedToTarget")
 						.replace("%nick%", sender.getName()));
 			} else {
-				sender.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.SelfMute.OtherPlayer.SelfMuteRemovedToSender")
+				sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.SelfMute.OtherPlayer.SelfMuteRemovedToSender")
 						.replace("%nick%", target.getName()));
-				target.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.SelfMute.OtherPlayer.SelfMuteRemovedToTarget")
+				target.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.SelfMute.OtherPlayer.SelfMuteRemovedToTarget")
 						.replace("%nick%", sender.getName()));
 			}
 		} else {
 			
 			if(!(sender instanceof Player)) {
-				sender.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.SelfMute.Self.OnlyPlayer"));
+				sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.SelfMute.Self.OnlyPlayer"));
 				return;
 			}
 			
 			Player player = (Player) sender;
 			
-			if(!SCUtils.checkForPermissions(player, SCPermissionsEnum.SELFMUTE_TOGGLE.toString())) {
+			if(!SCUtils.checkPermissions(player, SCPermissionsEnum.SELFMUTE_TOGGLE.toString())) {
 				return;
 			}
 			
 			if(setSelfMute(player)) {
-				player.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.SelfMute.Self.SelfMuted"));
+				player.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.SelfMute.Self.SelfMuted"));
 			} else {
-				player.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.SelfMute.Self.SelfMuteRemoved"));
+				player.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.SelfMute.Self.SelfMuteRemoved"));
 			}
 		}
 	}

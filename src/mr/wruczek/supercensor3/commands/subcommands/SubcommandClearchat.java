@@ -10,8 +10,10 @@ import org.bukkit.entity.Player;
 
 import mr.wruczek.supercensor3.commands.SCMainCommand;
 import mr.wruczek.supercensor3.commands.SCSubcommand;
-import mr.wruczek.supercensor3.utils.SCPermissionsEnum;
+import mr.wruczek.supercensor3.utils.ConfigUtils;
 import mr.wruczek.supercensor3.utils.SCUtils;
+import mr.wruczek.supercensor3.utils.StringUtils;
+import mr.wruczek.supercensor3.utils.classes.SCPermissionsEnum;
 
 /**
  * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
@@ -31,8 +33,8 @@ public class SubcommandClearchat extends SCSubcommand {
 		
 		if(args.length < 2) {
 			sender.sendMessage(SCUtils.getCommandDescription("Commands.ClearChat.CommandDescription"));
-			sender.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.Usage") + " "
-					+ SCUtils.usageFormatter("clear &8(&7clearchat&8)", "own&8|&6all&8|&8<&6playername", "!-a"));
+			sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.Usage") + " "
+					+ StringUtils.usageFormatter("clear &8(&7clearchat&8)", "own&8|&6all&8|&8<&6playername", "!-a"));
 			return;
 		}
 		
@@ -41,23 +43,23 @@ public class SubcommandClearchat extends SCSubcommand {
 		if(args.length > 2) {
 			
 			if(!SCPermissionsEnum.CLEARCHAT_ANONYMOUS.hasPermission(sender)) {
-				sender.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.ClearChat.AnonymousModeNoPermissions"));
+				sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.ClearChat.AnonymousModeNoPermissions"));
 				return;
 			}
 			
 			cc = null;
 			
-			sender.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.ClearChat.AnonymousMode"));
+			sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.ClearChat.AnonymousMode"));
 		}
 		
 		if(args[1].equalsIgnoreCase("own")) {
 			
-			if(!SCUtils.checkForPermissions(sender, SCPermissionsEnum.CLEARCHAT_CLEAROWN.toString())) {
+			if(!SCUtils.checkPermissions(sender, SCPermissionsEnum.CLEARCHAT_CLEAROWN.toString())) {
 				return;
 			}
 			
 			if(!(sender instanceof Player)) {
-				for(int i = 0; i < SCUtils.getIntFromConfig("ClearChat.Lines.Console"); i++) {
+				for(int i = 0; i < ConfigUtils.getIntFromConfig("ClearChat.Lines.Console"); i++) {
 					System.out.println(" ");
 				}
 				return;
@@ -66,7 +68,7 @@ public class SubcommandClearchat extends SCSubcommand {
 			clearChat((Player) sender, sender, false, true);
 		} else if(args[1].equalsIgnoreCase("all")) {
 			
-			if(!SCUtils.checkForPermissions(sender, SCPermissionsEnum.CLEARCHAT_CLEARALL.toString())) {
+			if(!SCUtils.checkPermissions(sender, SCPermissionsEnum.CLEARCHAT_CLEARALL.toString())) {
 				return;
 			}
 			
@@ -76,7 +78,7 @@ public class SubcommandClearchat extends SCSubcommand {
 			for(Player p : Bukkit.getOnlinePlayers()) {
 				if(!p.getName().equalsIgnoreCase(sender.getName())) {
 					if(!clearChat(p, cc, true, false)) {
-						sender.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.ClearChat.ClearAll.Skipped")
+						sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.ClearChat.ClearAll.Skipped")
 								.replace("%nick%", p.getDisplayName()));
 						skipped++;
 					} else {
@@ -85,28 +87,28 @@ public class SubcommandClearchat extends SCSubcommand {
 				}
 			}
 			
-			sender.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.ClearChat.ClearAll.Summary")
+			sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.ClearChat.ClearAll.Summary")
 					.replace("%cleared%", String.valueOf(cleared))
 					.replace("%skipped%", String.valueOf(skipped)));
 		} else {
 			
-			if(!SCUtils.checkForPermissions(sender, SCPermissionsEnum.CLEARCHAT_CLEARPLAYER.toString())) {
+			if(!SCUtils.checkPermissions(sender, SCPermissionsEnum.CLEARCHAT_CLEARPLAYER.toString())) {
 				return;
 			}
 			
 			Player target = Bukkit.getPlayer(args[1]);
 			
 			if(target == null) {
-				sender.sendMessage(SCUtils.getMessageFromMessagesFile(
+				sender.sendMessage(ConfigUtils.getMessageFromMessagesFile(
 						"Commands.ClearChat.ClearSpecificPlayer.PlayerNotFound").replace("%nick%", args[1]));
 				return;
 			}
 			
 			if(!clearChat(target, cc, true, false))
-				sender.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.ClearChat.ClearSpecificPlayer.ErrorImmunity")
+				sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.ClearChat.ClearSpecificPlayer.ErrorImmunity")
 						.replace("%nick%", args[1]));
 			else
-				sender.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.ClearChat.ClearSpecificPlayer.Success")
+				sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.ClearChat.ClearSpecificPlayer.Success")
 						.replace("%nick%", args[1]));
 		}
 	}
@@ -135,15 +137,15 @@ public class SubcommandClearchat extends SCSubcommand {
 			return false;
 		}
 		
-		for(int i = 0; i < SCUtils.getIntFromConfig("ClearChat.Lines.Player"); i++) {
+		for(int i = 0; i < ConfigUtils.getIntFromConfig("ClearChat.Lines.Player"); i++) {
 			toClear.sendMessage(" ");
 		}
 		
 		if(sendMessage) {
 			if(sender == null) { // anonymous
-				toClear.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.ClearChat.ChatCleared.AnonymousMode"));
+				toClear.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.ClearChat.ChatCleared.AnonymousMode"));
 			} else {
-				toClear.sendMessage(SCUtils.getMessageFromMessagesFile("Commands.ClearChat.ChatCleared.Normal")
+				toClear.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.ClearChat.ChatCleared.Normal")
 						.replace("%nick%", sender.getName()));
 			}
 		}

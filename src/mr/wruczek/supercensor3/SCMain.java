@@ -6,11 +6,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import mr.wruczek.supercensor3.commands.subcommands.SCSelfMuteManager;
-import mr.wruczek.supercensor3.utils.GravityUpdater.UpdateResult;
-import mr.wruczek.supercensor3.utils.SCLogger;
-import mr.wruczek.supercensor3.utils.SCLogger.LogType;
-import mr.wruczek.supercensor3.utils.SCUpdater;
-import mr.wruczek.supercensor3.utils.SCUtils;
+import mr.wruczek.supercensor3.utils.ConfigUtils;
+import mr.wruczek.supercensor3.utils.LoggerUtils;
+import mr.wruczek.supercensor3.utils.StringUtils;
+import mr.wruczek.supercensor3.utils.classes.GravityUpdater.UpdateResult;
+import mr.wruczek.supercensor3.utils.classes.SCLogger;
+import mr.wruczek.supercensor3.utils.classes.SCUpdater;
 import mr.wruczek.supercensor3.utils.uuid.UUIDCache;
 
 /**
@@ -31,7 +32,7 @@ public class SCMain extends JavaPlugin {
 		instance = this;
 		
 		long timerStart = System.currentTimeMillis();
-		SCUtils.logInfo("Loading SuperCensor. Version: " + instance.getDescription().getVersion());
+		SCLogger.logInfo("Loading SuperCensor. Version: " + instance.getDescription().getVersion());
 		
 		pluginFile = instance.getFile();
 		
@@ -41,31 +42,31 @@ public class SCMain extends JavaPlugin {
 		SCInitManager.registerListeners();
 		
 		// region Display informations about messages file
-		SCUtils.logInfo(SCUtils.getMessageFromMessagesFile("SystemEnable.MessagesLoaded")
-				.replace("%languagecode%", SCUtils.getMessageFromMessagesFile("LocalizationInformations.LanguageCode"))
-				.replace("%languagename%", SCUtils.getMessageFromMessagesFile("LocalizationInformations.Language")),
-				LogType.PLUGIN);
+		SCLogger.logInfo(ConfigUtils.getMessageFromMessagesFile("SystemEnable.MessagesLoaded")
+				.replace("%languagecode%", ConfigUtils.getMessageFromMessagesFile("LocalizationInformations.LanguageCode"))
+				.replace("%languagename%", ConfigUtils.getMessageFromMessagesFile("LocalizationInformations.Language")),
+				LoggerUtils.LogType.PLUGIN);
 		// endregion
 		
 		// region Auto-Updater
 		Bukkit.getScheduler().scheduleSyncDelayedTask(instance, new Runnable() {
 			@Override
 			public void run() {
-				if(SCUtils.getBooleanFromConfig("AutoUpdater.CheckOnServerStartup")) {
+				if(ConfigUtils.getBooleanFromConfig("AutoUpdater.CheckOnServerStartup")) {
 					UpdateResult result = SCUpdater.instance.getResult();
 					
 					if (result == UpdateResult.SUCCESS) {
-						SCUtils.logInfo(SCUtils.formatUpdaterMessage(SCUtils
+						SCLogger.logInfo(StringUtils.formatUpdaterMessage(ConfigUtils
 										.getMessageFromMessagesFile("Updater.ToConsole.Success")),
-								LogType.PLUGIN);
+								LoggerUtils.LogType.PLUGIN);
 					} else if (result == UpdateResult.UPDATE_AVAILABLE) {
-						SCUtils.logInfo(SCUtils.formatUpdaterMessage(SCUtils
+						SCLogger.logInfo(StringUtils.formatUpdaterMessage(ConfigUtils
 										.getMessageFromMessagesFile("Updater.ToConsole.UpdateAvailable")),
-								LogType.PLUGIN);
+								LoggerUtils.LogType.PLUGIN);
 					} else if (result == UpdateResult.NO_UPDATE) {
-						SCUtils.logInfo(SCUtils.formatUpdaterMessage(SCUtils
+						SCLogger.logInfo(StringUtils.formatUpdaterMessage(ConfigUtils
 										.getMessageFromMessagesFile("Updater.ToConsole.NoUpdate")),
-								LogType.PLUGIN);
+								LoggerUtils.LogType.PLUGIN);
 					}
 				}
 			}
@@ -75,26 +76,26 @@ public class SCMain extends JavaPlugin {
 		try {
 			// scPlayersDataManger = new SCPlayersDataManger(false, null, null, null, null, null);
 		} catch (Exception e) {
-			SCLogger.handleException(e);
+			LoggerUtils.handleException(e);
 		}
 		
 		long loadTime = System.currentTimeMillis() - timerStart;
 		
-		SCUtils.logInfo(SCUtils.getMessageFromMessagesFile("SystemEnable.Loaded")
-				.replace("%time%", String.valueOf(loadTime)), LogType.PLUGIN);
+		SCLogger.logInfo(ConfigUtils.getMessageFromMessagesFile("SystemEnable.Loaded")
+				.replace("%time%", String.valueOf(loadTime)), LoggerUtils.LogType.PLUGIN);
 	}
 	
 	@Override
 	public void onDisable() {
 		
-		SCLogger.log("SuperCensor disabled", LogType.PLUGIN);
+		LoggerUtils.log("SuperCensor disabled", LoggerUtils.LogType.PLUGIN);
 		
 		SCSelfMuteManager.save();
 		SCConfigManager2.data.save();
 		try {
 			// scPlayersDataManger.saveData();
 		} catch (Exception e) {
-			SCLogger.handleException(e);
+			LoggerUtils.handleException(e);
 		}
 		// SCConfigManager.save();
 	}

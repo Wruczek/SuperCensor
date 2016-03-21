@@ -9,7 +9,8 @@ import org.bukkit.command.CommandSender;
 import mr.wruczek.supercensor3.commands.SCCommandHeader;
 import mr.wruczek.supercensor3.commands.SCMainCommand;
 import mr.wruczek.supercensor3.commands.SCSubcommand;
-import mr.wruczek.supercensor3.utils.SCUtils;
+import mr.wruczek.supercensor3.utils.ConfigUtils;
+import mr.wruczek.supercensor3.utils.TellrawUtils;
 
 /**
  * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
@@ -29,20 +30,20 @@ public class SubcommandHelp extends SCSubcommand {
 		
 		sender.sendMessage(SCCommandHeader.getHeader());
 		
-		if(SCUtils.isTellrawSupported(sender)) {
+		if(TellrawUtils.isTellrawSupported(sender)) {
 			sender.sendMessage("\n");
 		}
 		
-		SCUtils.sendCommandUsage(sender, "clear &8<&6own&8|&6all&8|&8<&6playername&8> [&6-a&8]", "Commands.ClearChat.HelpDescription");
-		SCUtils.sendCommandUsage(sender, "mute &8[&6-s&8] &8[&6reason&8]", "Commands.MuteChat.HelpDescription");
-		SCUtils.sendCommandUsage(sender, "selfmute &8[&6playername&8]", "Commands.SelfMute.HelpDescription");
-		SCUtils.sendCommandUsage(sender, "ppm", "Commands.PPM.HelpDescription");
-		SCUtils.sendCommandUsage(sender, "reload", "Commands.Reload.HelpDescription");
-		SCUtils.sendCommandUsage(sender, "info", "Commands.Info.HelpDescription");
-		SCUtils.sendCommandUsage(sender, "perms", "Commands.Permissions.HelpDescription");
+		TellrawUtils.sendCommandUsage(sender, "clear &8<&6own&8|&6all&8|&8<&6playername&8> [&6-a&8]", "Commands.ClearChat.HelpDescription");
+		TellrawUtils.sendCommandUsage(sender, "mute &8[&6-s&8] &8[&6reason&8]", "Commands.MuteChat.HelpDescription");
+		TellrawUtils.sendCommandUsage(sender, "selfmute &8[&6playername&8]", "Commands.SelfMute.HelpDescription");
+		TellrawUtils.sendCommandUsage(sender, "ppm", "Commands.PPM.HelpDescription");
+		TellrawUtils.sendCommandUsage(sender, "reload", "Commands.Reload.HelpDescription");
+		TellrawUtils.sendCommandUsage(sender, "info", "Commands.Info.HelpDescription");
+		TellrawUtils.sendCommandUsage(sender, "perms", "Commands.Permissions.HelpDescription");
 		
-		if(SCUtils.isTellrawSupported(sender)) {
-			sender.sendMessage("\n" + SCUtils.getMessageFromMessagesFile("Commands.HoverCommandTip"));
+		if(TellrawUtils.isTellrawSupported(sender)) {
+			sender.sendMessage("\n" + ConfigUtils.getMessageFromMessagesFile("Commands.HoverCommandTip"));
 		}
 		
 	}

@@ -6,7 +6,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
+import mr.wruczek.supercensor3.utils.ConfigUtils;
 import mr.wruczek.supercensor3.utils.SCUtils;
+import mr.wruczek.supercensor3.utils.StringUtils;
+import mr.wruczek.supercensor3.utils.classes.SCLogger;
 
 /**
  * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
@@ -21,23 +24,23 @@ public class SCAutoMessage {
 	private static List<String> messagesList;
 	
 	public static boolean isEnabled() {
-		return SCConfigManager2.config.getBoolean("FunStuff.AutoMessage.Enabled");
+		return ConfigUtils.getBooleanFromConfig("FunStuff.AutoMessage.Enabled");
 	}
 	
 	public static int getIntervalInSeconds() {
-		return SCConfigManager2.config.getInt("FunStuff.AutoMessage.Interval");
+		return ConfigUtils.getIntFromConfig("FunStuff.AutoMessage.Interval");
 	}
 	
 	public static boolean displayInConsole() {
-		return SCConfigManager2.config.getBoolean("FunStuff.AutoMessage.DisplayInConsole");
+		return ConfigUtils.getBooleanFromConfig("FunStuff.AutoMessage.DisplayInConsole");
 	}
 	
 	public static boolean pauseOnEmptyServer() {
-		return SCConfigManager2.config.getBoolean("FunStuff.AutoMessage.PauseOnEmptyServer");
+		return ConfigUtils.getBooleanFromConfig("FunStuff.AutoMessage.PauseOnEmptyServer");
 	}
 	
 	public static boolean playNiceSoundOnDisplay() {
-		return SCConfigManager2.config.getBoolean("FunStuff.AutoMessage.PlayNiceSoundOnDisplay");
+		return ConfigUtils.getBooleanFromConfig("FunStuff.AutoMessage.PlayNiceSoundOnDisplay");
 	}
 	
 	public static void run() {
@@ -48,7 +51,7 @@ public class SCAutoMessage {
 		if(!isEnabled())
 			return;
 		
-		messagesList = SCConfigManager2.config.getStringList("FunStuff.AutoMessage.Messages");
+		messagesList = ConfigUtils.getStringListFromConfig("FunStuff.AutoMessage.Messages");
 		messageId = 0;
 		
 		schedulerId = Bukkit.getScheduler().scheduleSyncRepeatingTask(SCMain.getInstance(), new Runnable() {
@@ -57,7 +60,7 @@ public class SCAutoMessage {
 				if(pauseOnEmptyServer() && SCUtils.getNumberOfPlayersOnline() == 0)
 					return;
 				
-				String message = SCUtils.color(getNextMessage());
+				String message = StringUtils.color(getNextMessage());
 				
 				for (Player player : Bukkit.getOnlinePlayers()) {
 					player.sendMessage(message.replace("%nick%", player.getName()));
@@ -68,7 +71,7 @@ public class SCAutoMessage {
 				
 				if(displayInConsole())
 					// New lines in console is waste of space, and it doesn't look good. Lets remove it
-					SCUtils.logInfo(SCUtils.unColor(message.replace("\n", " ").replace("%nick%", "CONSOLE")));
+					SCLogger.logInfo(StringUtils.unColor(message.replace("\n", " ").replace("%nick%", "CONSOLE")));
 			}
 		}, getIntervalInSeconds() * 20L, getIntervalInSeconds() * 20L);
 	}

@@ -1,0 +1,5 @@
+# Please check SuperCensor wiki for explanation and complete tutorial
+WordlistUpdater:
+  Enabled: false
+  URL: http://example.com/api/wordlistupdater
+  SaveTo: remotewordlist.yml

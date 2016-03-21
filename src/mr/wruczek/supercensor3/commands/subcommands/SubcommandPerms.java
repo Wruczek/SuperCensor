@@ -7,12 +7,12 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import mr.wruczek.supercensor3.SCConfigManager2;
 import mr.wruczek.supercensor3.commands.SCCommandHeader;
 import mr.wruczek.supercensor3.commands.SCMainCommand;
 import mr.wruczek.supercensor3.commands.SCSubcommand;
-import mr.wruczek.supercensor3.utils.SCPermissionsEnum;
-import mr.wruczek.supercensor3.utils.SCUtils;
+import mr.wruczek.supercensor3.utils.ConfigUtils;
+import mr.wruczek.supercensor3.utils.TellrawUtils;
+import mr.wruczek.supercensor3.utils.classes.SCPermissionsEnum;
 
 /**
  * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0
@@ -38,16 +38,16 @@ public class SubcommandPerms extends SCSubcommand {
 		
 		sender.sendMessage("\n");
 		
-		if(SCUtils.isTellrawSupported(sender)) {
+		if(TellrawUtils.isTellrawSupported(sender)) {
 			// Later will be changed to reflections
 			
 			for(SCPermissionsEnum permission : SCPermissionsEnum.values()) {
 				if(permission != SCPermissionsEnum.PERMISSIONPREFIX) {
-					SCUtils.sendTellraw((Player)sender, format(permission.toString()), permission.getDescription());
+					TellrawUtils.sendTellraw((Player)sender, format(permission.toString()), permission.getDescription());
 				}
 			}
 			
-			sender.sendMessage("\n" + SCUtils.getMessageFromMessagesFile("Commands.HoverPermissionTip"));
+			sender.sendMessage("\n" + ConfigUtils.getMessageFromMessagesFile("Commands.HoverPermissionTip"));
 		} else {
 			// For console / older Minecraft versions
 			
@@ -64,12 +64,12 @@ public class SubcommandPerms extends SCSubcommand {
 	}
 
 	private String format(String permission) {
-		return SCConfigManager2.config.getColored("MessageFormat.PermissionEntryFormat")
+		return ConfigUtils.getColoredStringFromConfig("MessageFormat.PermissionEntryFormat")
 				.replace("%permission%", permission);
 	}
 
 	private String oldFormat(String permission, String description) {
-		return SCConfigManager2.config.getColored("MessageFormat.OldPermissionEntryFormat")
+		return ConfigUtils.getColoredStringFromConfig("MessageFormat.OldPermissionEntryFormat")
 				.replace("%permission%", permission).replace("%description%", description);
 	}
 }

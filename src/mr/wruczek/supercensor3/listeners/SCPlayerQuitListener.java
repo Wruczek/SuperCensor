@@ -7,7 +7,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import mr.wruczek.supercensor3.SCConfigManager2;
 import mr.wruczek.supercensor3.checks.AntiSpam;
 import mr.wruczek.supercensor3.checks.SCSlowModeManager;
-import mr.wruczek.supercensor3.utils.SCUtils;
+import mr.wruczek.supercensor3.utils.ConfigUtils;
 
 /**
  * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0
@@ -24,7 +24,7 @@ public class SCPlayerQuitListener implements Listener {
 	}
 
 	private void cleanup(PlayerQuitEvent event) {
-		if (SCConfigManager2.config.getBoolean("SlowMode.AlwaysCleanupOnQuit")
+		if (ConfigUtils.getBooleanFromConfig("SlowMode.AlwaysCleanupOnQuit")
 				|| SCSlowModeManager.getManager.getSlowModeTimeLeftInMillis(event.getPlayer()) <= 0)
 			SCSlowModeManager.getManager.removeFromMap(event.getPlayer());
 		
@@ -32,8 +32,8 @@ public class SCPlayerQuitListener implements Listener {
 	}
 
 	private void changeQuitMessage(PlayerQuitEvent event) {
-		if (SCUtils.getBooleanFromConfig("FunStuff.QuitMessage.Change")) {
-			String message = SCUtils.getStringFromConfig("FunStuff.QuitMessage.Message");
+		if (ConfigUtils.getBooleanFromConfig("FunStuff.QuitMessage.Change")) {
+			String message = ConfigUtils.getStringFromConfig("FunStuff.QuitMessage.Message");
 
 			if (message != null)
 				message = message.replace("%nick%", event.getPlayer().getDisplayName());

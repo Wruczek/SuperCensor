@@ -11,8 +11,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import mr.wruczek.supercensor3.utils.SCLogger;
-import mr.wruczek.supercensor3.utils.SCPermissionsEnum;
+import mr.wruczek.supercensor3.utils.LoggerUtils;
+import mr.wruczek.supercensor3.utils.SCUtils;
+import mr.wruczek.supercensor3.utils.classes.SCPermissionsEnum;
 
 /**
  * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0
@@ -25,19 +26,18 @@ public class SCReportCommand implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		
-		if (!SCPermissionsEnum.BASICADMIN.hasPermission(sender)) {
-			sender.sendMessage("[SC] You need permission \"supercensor\" to use this command.");
+		if (!SCUtils.checkPermissions(sender, SCPermissionsEnum.BASICADMIN.toString())) {
 			return false;
 		}
 		
-		if (SCLogger.lastError == null || SCLogger.lastError.isEmpty()) {
+		if (LoggerUtils.lastError == null || LoggerUtils.lastError.isEmpty()) {
 			sender.sendMessage("[SC] No last error found. Nothing to report.");
 			return false;
 		}
 
 		StringBuilder sb = new StringBuilder();
 
-		for (String str : SCLogger.lastError) {
+		for (String str : LoggerUtils.lastError) {
 			sb.append(str + "\n");
 		}
 

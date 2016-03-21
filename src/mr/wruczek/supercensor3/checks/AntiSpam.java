@@ -8,11 +8,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 import mr.wruczek.supercensor3.SCCheckEvent;
-import mr.wruczek.supercensor3.SCConfigManager2;
 import mr.wruczek.supercensor3.SCMain;
 import mr.wruczek.supercensor3.PPUtils.PPManager;
-import mr.wruczek.supercensor3.utils.SCPermissionsEnum;
-import mr.wruczek.supercensor3.utils.SCUtils;
+import mr.wruczek.supercensor3.utils.ConfigUtils;
+import mr.wruczek.supercensor3.utils.classes.SCPermissionsEnum;
 
 /**
  * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0
@@ -28,7 +27,7 @@ public class AntiSpam implements Listener {
 	
 	public AntiSpam() {
 		
-		if(!SCConfigManager2.config.getBoolean("AntiSpam.AntiSpam.Enabled"))
+		if(!ConfigUtils.getBooleanFromConfig("AntiSpam.AntiSpam.Enabled"))
 			return;
 		
 		Bukkit.getScheduler().cancelTask(schedulerId);
@@ -41,8 +40,8 @@ public class AntiSpam implements Listener {
 		if (event.isCensored())
 			return;
 
-		boolean enabledAntiSpam = SCConfigManager2.config.getBoolean("AntiSpam.AntiSpam.Enabled");
-		boolean enabledAntiRepeat = SCConfigManager2.config.getBoolean("AntiSpam.AntiRepeat.Enabled");
+		boolean enabledAntiSpam = ConfigUtils.getBooleanFromConfig("AntiSpam.AntiSpam.Enabled");
+		boolean enabledAntiRepeat = ConfigUtils.getBooleanFromConfig("AntiSpam.AntiRepeat.Enabled");
 		
 		if(!enabledAntiSpam && !enabledAntiRepeat) {
 			return;
@@ -57,9 +56,9 @@ public class AntiSpam implements Listener {
 		
 		if(enabledAntiSpam && !SCPermissionsEnum.ANTISPAM_BYPASS.hasPermission(event.getPlayer())) {
 			
-			long minimumMessageRepeatTime = SCConfigManager2.config.getLong("AntiSpam.AntiSpam.MinimumMessageRepeatTime");
-			int allowedNumberOfWarns = SCConfigManager2.config.getInt("AntiSpam.AntiSpam.MaximumNumberOfWarns");
-			int penaltyPoints = SCConfigManager2.config.getInt("AntiSpam.AntiSpam.PenaltyPoints");
+			long minimumMessageRepeatTime = ConfigUtils.getIntFromConfig("AntiSpam.AntiSpam.MinimumMessageRepeatTime");
+			int allowedNumberOfWarns = ConfigUtils.getIntFromConfig("AntiSpam.AntiSpam.MaximumNumberOfWarns");
+			int penaltyPoints = ConfigUtils.getIntFromConfig("AntiSpam.AntiSpam.PenaltyPoints");
 			
 			long time = data.getTime();
 			data.setLastMessageTime();
@@ -73,7 +72,7 @@ public class AntiSpam implements Listener {
 				Bukkit.getScheduler().runTask(SCMain.getInstance(), new Runnable() {
 					@Override
 					public void run() {
-						event.getPlayer().kickPlayer(SCUtils.getMessageFromMessagesFile("AntiSpam.KickMessage"));
+						event.getPlayer().kickPlayer(ConfigUtils.getMessageFromMessagesFile("AntiSpam.KickMessage"));
 					}
 				});
 				
@@ -92,13 +91,13 @@ public class AntiSpam implements Listener {
 				return;
 			}
 			
-			int allowedRepeats = SCConfigManager2.config.getInt("AntiSpam.AntiRepeat.AllowedRepeats");
-			int penaltyPoints = SCConfigManager2.config.getInt("AntiSpam.AntiRepeat.PenaltyPoints");
-			boolean cancelMessage = SCConfigManager2.config.getBoolean("AntiSpam.AntiRepeat.CancelMessage");
+			int allowedRepeats = ConfigUtils.getIntFromConfig("AntiSpam.AntiRepeat.AllowedRepeats");
+			int penaltyPoints = ConfigUtils.getIntFromConfig("AntiSpam.AntiRepeat.PenaltyPoints");
+			boolean cancelMessage = ConfigUtils.getBooleanFromConfig("AntiSpam.AntiRepeat.CancelMessage");
 			
 			if(data.getRepeats() >= allowedRepeats && !event.isCensored()) {
 				
-				event.getPlayer().sendMessage(SCUtils.getMessageFromMessagesFile("AntiSpam.RepeatMessage"));
+				event.getPlayer().sendMessage(ConfigUtils.getMessageFromMessagesFile("AntiSpam.RepeatMessage"));
 				
 				if(cancelMessage)
 					event.setCensored(true);
@@ -147,7 +146,7 @@ public class AntiSpam implements Listener {
 	
 	public static int runWarnScheduler() {
 		
-		long removeWarnEvery = SCConfigManager2.config.getInt("AntiSpam.AntiSpam.RemoveWarnEvery");
+		long removeWarnEvery = ConfigUtils.getIntFromConfig("AntiSpam.AntiSpam.RemoveWarnEvery");
 		
 		if (removeWarnEvery == 0)
 			return -1;

@@ -1,4 +1,4 @@
-package mr.wruczek.supercensor3.utils;
+package mr.wruczek.supercensor3.utils.classes;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
@@ -9,6 +9,8 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
+
+import mr.wruczek.supercensor3.utils.LoggerUtils;
 
 /**
  * The MIT License (MIT)
@@ -26,7 +28,7 @@ public class Reflection {
                     .replace("{cb}", "org.bukkit.craftbukkit.."+version);
             return Class.forName(path);
         } catch (Exception e) {
-        	SCLogger.handleException(e);
+        	LoggerUtils.handleException(e);
             return null;
         }
     }
@@ -37,7 +39,7 @@ public class Reflection {
             String path = "net.minecraft.server."+version+"."+className;
             return Class.forName(path);
         } catch (Exception e) {
-        	SCLogger.handleException(e);
+        	LoggerUtils.handleException(e);
             return null;
         }
     }
@@ -50,7 +52,7 @@ public class Reflection {
                     .replace("{cb}", "org.bukkit.craftbukkit.."+version);
             return new Class[]{ Array.newInstance(getClass(classname), arraySize).getClass() };
         } catch (Exception e) {
-        	SCLogger.handleException(e);
+        	LoggerUtils.handleException(e);
             return null;
         }
     }
@@ -119,7 +121,7 @@ public class Reflection {
         try {
             return (T) field.get(obj);
         } catch (Exception e) {
-        	SCLogger.handleException(e);
+        	LoggerUtils.handleException(e);
             return null;
         }
     }
@@ -136,7 +138,7 @@ public class Reflection {
             f.setAccessible(true);
             f.set(instance, value);
         } catch (Exception e) {
-        	SCLogger.handleException(e);
+        	LoggerUtils.handleException(e);
         }
     }
     public static void sendAllPacket(Object packet) throws Exception {
@@ -154,7 +156,7 @@ public class Reflection {
                 connection.getClass().getMethod("sendPacket", Reflection.getClass("{nms}.Packet")).invoke(connection, packet);
             }
         } catch (Exception e) {
-        	SCLogger.handleException(e);
+        	LoggerUtils.handleException(e);
         }
     }
     public static void sendPlayerPacket(Player p, Object packet) throws Exception {

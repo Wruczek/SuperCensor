@@ -1,4 +1,4 @@
-﻿package mr.wruczek.supercensor3.utils;
+﻿package mr.wruczek.supercensor3.utils.classes;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

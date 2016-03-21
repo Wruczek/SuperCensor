@@ -14,8 +14,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import mr.wruczek.supercensor3.utils.SCLogger;
-import mr.wruczek.supercensor3.utils.SCUtils;
+import mr.wruczek.supercensor3.utils.LoggerUtils;
+import mr.wruczek.supercensor3.utils.classes.SCLogger;
 
 /**
  * A cache of username->UUID mappings that automatically cleans itself.
@@ -116,13 +116,13 @@ public class UUIDCache implements Listener {
         } catch (Exception e) {
         	if(e.toString().contains("java.net.")) {
 				if (showLookupError) {
-					SCUtils.logError(e + "! Are servers down or no internet access?");
+					SCLogger.logError(e + "! Are servers down or no internet access?");
 					showLookupError = false;
 				}
 				return;
 			}
         	
-			SCLogger.handleException(e);
+			LoggerUtils.handleException(e);
         }
     }
     

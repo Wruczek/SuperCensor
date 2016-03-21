@@ -1,4 +1,4 @@
-package mr.wruczek.supercensor3.utils;
+package mr.wruczek.supercensor3.utils.classes;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,7 +11,9 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import mr.wruczek.supercensor3.SCMain;
-import mr.wruczek.supercensor3.utils.SCLogger.LogType;
+import mr.wruczek.supercensor3.utils.IOUtils;
+import mr.wruczek.supercensor3.utils.LoggerUtils;
+import mr.wruczek.supercensor3.utils.StringUtils;
 
 /**
  * Found somewhere without a license. Modified by Wruczek for SuperCensor.
@@ -54,8 +56,8 @@ public class SCConfig extends YamlConfiguration {
         try {
             save(configFile);
         } catch (IOException e) {
-        	SCUtils.logError("Error saving config file \"" + fileName + "\"!", LogType.PLUGIN);
-        	SCLogger.handleException(e);
+        	SCLogger.logError("Error saving config file \"" + fileName + "\"!", LoggerUtils.LogType.PLUGIN);
+        	LoggerUtils.handleException(e);
         }
     }
 
@@ -66,8 +68,8 @@ public class SCConfig extends YamlConfiguration {
         try {
             load(configFile);
         }  catch (IOException | InvalidConfigurationException e) {
-        	SCUtils.logError("Error creating config file \"" + fileName + "\"!", LogType.PLUGIN);
-        	SCLogger.handleException(e);
+        	SCLogger.logError("Error creating config file \"" + fileName + "\"!", LoggerUtils.LogType.PLUGIN);
+        	LoggerUtils.handleException(e);
         }
     }
 
@@ -75,7 +77,7 @@ public class SCConfig extends YamlConfiguration {
         try {
             if (!configFile.exists()) {
                 if (plugin.getResource(fileName) != null) {
-					SCUtils.copyResource(fileName, configFile, true);
+					IOUtils.copyResource(fileName, configFile, true);
                     load(configFile);
                 } else {
                     save(configFile);
@@ -85,8 +87,8 @@ public class SCConfig extends YamlConfiguration {
                 save(configFile);
             }
         } catch (Exception e) {
-        	SCUtils.logError("Error creating config file \"" + fileName + "\"!", LogType.PLUGIN);
-        	SCLogger.handleException(e);
+        	SCLogger.logError("Error creating config file \"" + fileName + "\"!", LoggerUtils.LogType.PLUGIN);
+        	LoggerUtils.handleException(e);
         }
     }
 
@@ -97,7 +99,7 @@ public class SCConfig extends YamlConfiguration {
      * @return The string from the config at specified path, with replaced colors using SCUtils.color method.
      */
     public String getColored(String path) {
-        return SCUtils.color(getString(path));
+        return StringUtils.color(getString(path));
     }
 
     public void setLocation(String path, Location location) {
