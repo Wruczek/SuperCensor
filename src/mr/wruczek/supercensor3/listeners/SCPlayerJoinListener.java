@@ -92,7 +92,7 @@ public class SCPlayerJoinListener implements Listener {
 	
 	private void changeJoinMessage(PlayerJoinEvent event) {
 		if(ConfigUtils.getBooleanFromConfig("FunStuff.JoinMessage.Change")) {
-			String message = ConfigUtils.getStringFromConfig("FunStuff.JoinMessage.Message");
+			String message = ConfigUtils.getColoredStringFromConfig("FunStuff.JoinMessage.Message");
 			
 			if(message != null)
 				message = message.replace("%nick%", event.getPlayer().getDisplayName());

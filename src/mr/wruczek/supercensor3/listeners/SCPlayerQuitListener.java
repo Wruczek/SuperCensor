@@ -4,7 +4,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import mr.wruczek.supercensor3.SCConfigManager2;
 import mr.wruczek.supercensor3.checks.AntiSpam;
 import mr.wruczek.supercensor3.checks.SCSlowModeManager;
 import mr.wruczek.supercensor3.utils.ConfigUtils;
@@ -33,7 +32,7 @@ public class SCPlayerQuitListener implements Listener {
 
 	private void changeQuitMessage(PlayerQuitEvent event) {
 		if (ConfigUtils.getBooleanFromConfig("FunStuff.QuitMessage.Change")) {
-			String message = ConfigUtils.getStringFromConfig("FunStuff.QuitMessage.Message");
+			String message = ConfigUtils.getColoredStringFromConfig("FunStuff.QuitMessage.Message");
 
 			if (message != null)
 				message = message.replace("%nick%", event.getPlayer().getDisplayName());

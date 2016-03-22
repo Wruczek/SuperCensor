@@ -60,10 +60,10 @@ public class SCAutoMessage {
 				if(pauseOnEmptyServer() && SCUtils.getNumberOfPlayersOnline() == 0)
 					return;
 				
-				String message = StringUtils.color(getNextMessage());
+				String nextMessage = getNextMessage();
 				
 				for (Player player : Bukkit.getOnlinePlayers()) {
-					player.sendMessage(message.replace("%nick%", player.getName()));
+					player.sendMessage(StringUtils.color(nextMessage).replace("%nick%", player.getName()));
 					
 					if(playNiceSoundOnDisplay())
 						player.playSound(player.getLocation(), Sound.ITEM_PICKUP, 1, 1);
@@ -71,7 +71,7 @@ public class SCAutoMessage {
 				
 				if(displayInConsole())
 					// New lines in console is waste of space, and it doesn't look good. Lets remove it
-					SCLogger.logInfo(StringUtils.unColor(message.replace("\n", " ").replace("%nick%", "CONSOLE")));
+					SCLogger.logInfo(nextMessage.replace("\n", " ").replace("%nick%", "CONSOLE"));
 			}
 		}, getIntervalInSeconds() * 20L, getIntervalInSeconds() * 20L);
 	}

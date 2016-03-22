@@ -16,7 +16,10 @@ import mr.wruczek.supercensor3.utils.classes.SCUpdater;
  * @author Wruczek
  */
 public class StringUtils {
-
+	
+	/**
+	 * @see ChatColor#translateAlternateColorCodes(char, String)
+	 */
 	public static String color(String str) {
 		if (str == null)
 			return null;
@@ -27,7 +30,10 @@ public class StringUtils {
 		
 		return ChatColor.translateAlternateColorCodes('&', str);
 	}
-
+	
+	/**
+	 * @see ChatColor#stripColor(String)
+	 */
 	public static String unColor(String str) {
 		return ChatColor.stripColor(str);
 	}
