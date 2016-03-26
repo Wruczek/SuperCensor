@@ -12,6 +12,7 @@ import org.bukkit.event.Listener;
 import mr.wruczek.supercensor3.SCCheckEvent;
 import mr.wruczek.supercensor3.SCMain;
 import mr.wruczek.supercensor3.PPUtils.PPManager;
+import mr.wruczek.supercensor3.commands.subcommands.SubcommandInfo;
 import mr.wruczek.supercensor3.utils.LoggerUtils;
 import mr.wruczek.supercensor3.utils.StringUtils;
 import mr.wruczek.supercensor3.utils.classes.SCLogger;
@@ -47,7 +48,7 @@ public class SpecialCheck implements Listener {
 						boolean found = false;
 
 						for (String regex : regexList) {
-							if (StringUtils.checkRegex(regex, wordToCheck)) {
+							if (StringUtils.checkRegex(regex, wordToCheck, true)) {
 								found = true;
 								break;
 							}
@@ -69,7 +70,7 @@ public class SpecialCheck implements Listener {
 								if (regexFinder.getKey().equalsIgnoreCase(regexName))
 									regex = regexFinder.getValue();
 
-							if (regex != null && StringUtils.checkRegex(regex, wordToCheck)) {
+							if (regex != null && StringUtils.checkRegex(regex, wordToCheck, true)) {
 								found = true;
 								break;
 							}
@@ -89,13 +90,15 @@ public class SpecialCheck implements Listener {
 					if (event.getPlayer().hasPermission("supercensor.bypass.special." + specialEntries))
 						continue;
 					
+					SubcommandInfo.latestFilter = "S:" + specialEntries;
+					
 					/* **************************** */
 					/* CHECKS */
 					/* **************************** */
 					
 					// region Caps percent check
 					if (specialLists.contains(specialEntries + ".OnCapsPercent"))
-						if (specialLists.getDouble(specialEntries + ".OnCapsPercent") > StringUtils.getCapsPercent(wordToCheck))
+						if (specialLists.getDouble(specialEntries + ".OnCapsPercent") > StringUtils.getCapsPercent(str))
 							continue;
 					// endregion
 

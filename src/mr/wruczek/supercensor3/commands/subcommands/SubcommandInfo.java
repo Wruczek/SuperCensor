@@ -43,6 +43,7 @@ public class SubcommandInfo extends SCSubcommand {
 
 	private static String pluginInfoJSON;
 	private static HashMap<String, String> links;
+	public static String latestFilter;
 	
 	public SubcommandInfo() {
 		SCMainCommand.registerSubcommand(this, "info", "informations", "about", "author");
@@ -125,6 +126,10 @@ public class SubcommandInfo extends SCSubcommand {
 			
 			for(Entry<String, UUID> entry : SCMain.getUUIDCacher().getMap().entrySet())
 				sender.sendMessage("UUID CACHE: " + entry.getKey() + " - " + entry.getValue());
+			
+			sender.sendMessage(" ");
+			
+			sender.sendMessage("Latest filter: " + latestFilter);
 			
 			sender.sendMessage(" ");
 			

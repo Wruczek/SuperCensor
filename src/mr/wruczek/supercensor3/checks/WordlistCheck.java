@@ -11,6 +11,7 @@ import mr.wruczek.supercensor3.SCCheckEvent;
 import mr.wruczek.supercensor3.SCConfigManager2;
 import mr.wruczek.supercensor3.SCMain;
 import mr.wruczek.supercensor3.PPUtils.PPManager;
+import mr.wruczek.supercensor3.commands.subcommands.SubcommandInfo;
 import mr.wruczek.supercensor3.utils.ConfigUtils;
 import mr.wruczek.supercensor3.utils.LoggerUtils;
 import mr.wruczek.supercensor3.utils.StringUtils;
@@ -70,9 +71,11 @@ public class WordlistCheck implements Listener {
 				
 				String lowerCaseMessage = message.toLowerCase();
 				
-				if (!(lowerCaseMessage.contains(censoredWord.toLowerCase()) || StringUtils.checkRegex(censoredWord, lowerCaseMessage))) {
+				if (!(lowerCaseMessage.contains(censoredWord.toLowerCase()) || StringUtils.checkRegex(censoredWord, lowerCaseMessage, true))) {
 					continue;
 				}
+				
+				SubcommandInfo.latestFilter = "W:" + censoredWord;
 				
 				// Cancel event
 				if (ConfigUtils.getBooleanFromConfig("WordlistSettings.CancelMessage"))
