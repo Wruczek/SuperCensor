@@ -86,28 +86,14 @@ public class SCConfigManager2 {
 			try {
 				IOUtils.copyResource("configs/Readme_rulesfolder.txt", new File(rulesFolder, "Readme.txt"), false);
 				
-				// EXAMPLE CONFIG FILES
-				File exampleFile = new File(rulesFolder, "exampleFile.yml");
-				IOUtils.copyResource("configs/examples/exampleFile.yml", exampleFile, false);
-				// We dont want to comments go away after save()
-				// exampleFile.setReadOnly();
-				
-				File specialExample = new File(rulesFolder, "specialExample.yml");
-				IOUtils.copyResource("configs/examples/specialExample.yml", specialExample, false);
-				// We dont want to comments go away after save()
-				// specialExample.setReadOnly();
-				
-				File wordreplacerExample = new File(rulesFolder, "wordreplacerExample.yml");
-				IOUtils.copyResource("configs/examples/wordreplacerExample.yml", wordreplacerExample, false);
-				// We dont want to comments go away after save()
-				// wordreplacerExample.setReadOnly();
-				
-				File regexExample = new File(rulesFolder, "regexExample.regex");
-				IOUtils.copyResource("configs/examples/regexExample.regex", regexExample, false);
-				// We dont want to comments go away after save()
-				// regexExample.setReadOnly();
+				copyExampleFile("exampleFile.yml");
+				copyExampleFile("specialExample.yml");
+				copyExampleFile("wordreplacerExample.yml");
+				copyExampleFile("regexExample.regex");
+				copyExampleFile("EnglishSwearWords.yml");
 			} catch (IOException e) {
-				// ¯\_(ツ)_/¯
+				SCLogger.logError("Cannot copy example rules files! " + e);
+				LoggerUtils.handleException(e);
 			}
 		}
 		
@@ -163,5 +149,13 @@ public class SCConfigManager2 {
 	public static void save() {
 		config.save();
 		messages.save();
+	}
+	
+	private static void copyExampleFile(String file) throws IOException {
+		copyExampleFile(file, file);
+	}
+	
+	private static void copyExampleFile(String source, String saveTo) throws IOException {
+		IOUtils.copyResource("configs/examples/" + source, new File(rulesFolder, saveTo), false);
 	}
 }

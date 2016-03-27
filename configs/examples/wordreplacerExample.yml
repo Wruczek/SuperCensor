@@ -106,3 +106,7 @@ Special:
     Normal: r8
     ReplaceTo:
     - rate
+  Replacew8:
+    Normal: w8
+    ReplaceTo:
+    - wait
