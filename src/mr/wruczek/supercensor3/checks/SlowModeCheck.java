@@ -14,24 +14,24 @@ import mr.wruczek.supercensor3.utils.classes.SCPermissionsEnum;
  * @author Wruczek
  */
 public class SlowModeCheck implements Listener {
-	
-	@EventHandler
-	public void checkListener(SCCheckEvent event) {
-		
-		if (event.isCensored() || !SCSlowModeManager.getManager.isEnabled())
-			return;
-		
-		if (SCPermissionsEnum.SLOWMODE_BYPASS.hasPermission(event.getPlayer()))
-			return;
-		
-		long timeInSeconds = SCSlowModeManager.getManager.getSlowModeTimeLeftInMillis(event.getPlayer()) / 1000;
-		
-		if(timeInSeconds > 0) {
-			event.getPlayer().sendMessage(ConfigUtils.getMessageFromMessagesFile("SlowMode.MessageToPlayer").replace("%time%", String.valueOf(timeInSeconds)));
-			event.setCensored(true);
-			return;
-		}
-		
-		SCSlowModeManager.getManager.addToMap(event.getPlayer());
-	}
+
+    @EventHandler
+    public void checkListener(SCCheckEvent event) {
+
+        if (event.isCensored() || !SCSlowModeManager.getManager.isEnabled())
+            return;
+
+        if (SCPermissionsEnum.SLOWMODE_BYPASS.hasPermission(event.getPlayer()))
+            return;
+
+        long timeInSeconds = SCSlowModeManager.getManager.getSlowModeTimeLeftInMillis(event.getPlayer()) / 1000;
+
+        if (timeInSeconds > 0) {
+            event.getPlayer().sendMessage(ConfigUtils.getMessageFromMessagesFile("SlowMode.MessageToPlayer").replace("%time%", String.valueOf(timeInSeconds)));
+            event.setCensored(true);
+            return;
+        }
+
+        SCSlowModeManager.getManager.addToMap(event.getPlayer());
+    }
 }

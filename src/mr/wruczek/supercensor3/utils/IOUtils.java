@@ -22,58 +22,58 @@ import mr.wruczek.supercensor3.utils.classes.SCLogger;
  */
 public class IOUtils {
 
-	public static String getContentFromURL(String url) {
-		try {
-			return getContentFromURL(new URL(url));
-		} catch (Exception e) {
-		}
-		return null;
-	}
+    public static String getContentFromURL(String url) {
+        try {
+            return getContentFromURL(new URL(url));
+        } catch (Exception e) {
+        }
+        return null;
+    }
 
-	public static String getContentFromURL(URL url) {
-		try {
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setConnectTimeout(5000);
-			conn.setDoOutput(true);
+    public static String getContentFromURL(URL url) {
+        try {
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(5000);
+            conn.setDoOutput(true);
 
-			Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+            Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
 
-			StringBuilder sb = new StringBuilder();
-			for (int c; (c = in.read()) >= 0;)
-				sb.append((char) c);
+            StringBuilder sb = new StringBuilder();
+            for (int c; (c = in.read()) >= 0; )
+                sb.append((char) c);
 
-			return sb.toString().trim();
-		} catch (IOException e) {
+            return sb.toString().trim();
+        } catch (IOException e) {
 
-		}
-		return null;
-	}
+        }
+        return null;
+    }
 
-	public static void copyResource(String resourcePath, File saveTo, boolean force) throws IOException {
-		InputStream in = SCMain.getInstance().getResource(resourcePath);
+    public static void copyResource(String resourcePath, File saveTo, boolean force) throws IOException {
+        InputStream in = SCMain.getInstance().getResource(resourcePath);
 
-		if (in == null) {
-			throw new IllegalArgumentException("Resource \"" + resourcePath + "\" not found!");
-		}
+        if (in == null) {
+            throw new IllegalArgumentException("Resource \"" + resourcePath + "\" not found!");
+        }
 
-		if (saveTo.exists() && !force)
-			return;
+        if (saveTo.exists() && !force)
+            return;
 
-		File parent = saveTo.getParentFile();
-		if (!(parent.exists())) {
-			parent.mkdirs();
-		}
+        File parent = saveTo.getParentFile();
+        if (!(parent.exists())) {
+            parent.mkdirs();
+        }
 
-		OutputStream out = new FileOutputStream(saveTo);
-		byte[] buf = new byte[1024];
-		int len;
-		while ((len = in.read(buf)) > 0) {
-			out.write(buf, 0, len);
-		}
-		out.close();
-		in.close();
+        OutputStream out = new FileOutputStream(saveTo);
+        byte[] buf = new byte[1024];
+        int len;
+        while ((len = in.read(buf)) > 0) {
+            out.write(buf, 0, len);
+        }
+        out.close();
+        in.close();
 
-		SCLogger.logInfo("Created new file from resource: " + saveTo.getName());
-	}
+        SCLogger.logInfo("Created new file from resource: " + saveTo.getName());
+    }
 
 }

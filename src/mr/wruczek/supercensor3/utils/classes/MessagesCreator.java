@@ -1,9 +1,9 @@
 ﻿package mr.wruczek.supercensor3.utils.classes;
 
+import java.util.List;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
-import java.util.List;
 
 /**
  * The MIT License (MIT)
@@ -45,8 +45,8 @@ public class MessagesCreator {
         return chatObject.toJSONString();
     }
 
-    public static String stripColor(String input){
-        for(String s : colors){
+    public static String stripColor(String input) {
+        for (String s : colors) {
             input = input.replaceAll(s, "");
         }
         return input;
@@ -59,8 +59,8 @@ public class MessagesCreator {
             chatExtra = new JSONObject();
             chatExtra.put("text", text);
             chatExtra.put("color", color.getColorString());
-            if(formats != null) {
-            	for (ChatFormat format : formats) {
+            if (formats != null) {
+                for (ChatFormat format : formats) {
                     chatExtra.put(format.getFormatString(), true);
                 }
             }
@@ -86,7 +86,7 @@ public class MessagesCreator {
             return chatExtra;
         }
 
-        public ChatExtra build(){
+        public ChatExtra build() {
             return this;
         }
     }

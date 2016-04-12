@@ -19,16 +19,15 @@ import mr.wruczek.supercensor3.utils.classes.SCLogger;
 
 /**
  * A cache of username->UUID mappings that automatically cleans itself.
- * 
+ * <p>
  * This cache is meant to be used in plugins such that plugins can look up the
  * UUID of a player by using the name of the player.
- * 
+ * <p>
  * For the most part, when the plugin asks the cache for the UUID of an online
- * player, it should have it available immediately because the cache registers 
+ * player, it should have it available immediately because the cache registers
  * itself for the player join/quit events and does background fetches.
- * 
- * @author James Crasta
  *
+ * @author James Crasta
  */
 public class UUIDCache implements Listener {
     private static final UUID ZERO_UUID = UUID.fromString("00000000-0000-0000-0000-000000000000");
@@ -41,10 +40,10 @@ public class UUIDCache implements Listener {
         this.plugin = plugin;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
-    
+
     /**
      * Get the UUID from the cache for the player named 'name'.
-     * 
+     * <p>
      * If the id does not exist in our database, then we will queue
      * a fetch to get it, and return null. A fetch at a later point
      * will then be able to return this id.
@@ -58,14 +57,14 @@ public class UUIDCache implements Listener {
         }
         return uuid;
     }
-    
+
     /**
-     * Get the UUID from the cache for the player named 'name', with blocking get. 
-     * 
+     * Get the UUID from the cache for the player named 'name', with blocking get.
+     * <p>
      * If the player named is not in the cache, then we will fetch the UUID in
      * a blocking fashion. Note that this will block the thread until the fetch
      * is complete, so only use this in a thread or in special circumstances.
-     * 
+     *
      * @param name The player name.
      * @return a UUID
      */
@@ -80,19 +79,20 @@ public class UUIDCache implements Listener {
         }
         return uuid;
     }
-    
+
     /**
      * Clean up any resources used by this class.
-     * 
+     * <p>
      * Most commonly you will use this in your plugin's onDisable.
      */
     public void shutdown() {
         HandlerList.unregisterAll(this);
         this.plugin = null;
     }
-    
+
     /**
      * Asynchronously fetch the name if it's not in our internal map.
+     *
      * @param name The player's name
      */
     public void ensurePlayerUUID(String name) {
@@ -102,47 +102,47 @@ public class UUIDCache implements Listener {
     }
 
     private void asyncFetch(final ArrayList<String> names) {
-    	Bukkit.getScheduler().runTaskAsynchronously(plugin, new Runnable() {
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, new Runnable() {
             public void run() {
                 syncFetch(names);
             }
         });
     }
-    
+
     private void syncFetch(ArrayList<String> names) {
         final UUIDFetcher fetcher = new UUIDFetcher(names);
         try {
             cache.putAll(fetcher.call());
         } catch (Exception e) {
-        	if(e.toString().contains("java.net.")) {
-				if (showLookupError) {
-					SCLogger.logError(e + "! Are servers down or no internet access?");
-					showLookupError = false;
-				}
-				return;
-			}
-        	
-			LoggerUtils.handleException(e);
+            if (e.toString().contains("java.net.")) {
+                if (showLookupError) {
+                    SCLogger.logError(e + "! Are servers down or no internet access?");
+                    showLookupError = false;
+                }
+                return;
+            }
+
+            LoggerUtils.handleException(e);
         }
     }
-    
+
     private ArrayList<String> nameList(String name) {
         ArrayList<String> names = new ArrayList<String>();
         names.add(name);
         return names;
     }
-    
+
     @EventHandler
     void onPlayerJoin(PlayerJoinEvent event) {
         ensurePlayerUUID(event.getPlayer().getName());
     }
-    
+
     @EventHandler
     void onPlayerQuit(PlayerQuitEvent event) {
         cache.remove(event.getPlayer().getName());
     }
 
-	public Map<String, UUID> getMap() {
-		return cache;
-	}
+    public Map<String, UUID> getMap() {
+        return cache;
+    }
 }

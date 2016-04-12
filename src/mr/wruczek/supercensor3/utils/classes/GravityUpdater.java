@@ -60,7 +60,7 @@ public class GravityUpdater {
     // Used for locating version numbers in file names
     private static final String DELIMETER = "^v|[\\s_-]v";
     // If the version number contains one of these, don't update.
-    private static final String[] NO_UPDATE_TAG = { "-DEV", "-PRE", "-SNAPSHOT" };
+    private static final String[] NO_UPDATE_TAG = {"-DEV", "-PRE", "-SNAPSHOT"};
     // Used for downloading files
     private static final int BYTE_SIZE = 1024;
     // Config key for api key
@@ -498,6 +498,7 @@ public class GravityUpdater {
 
     /**
      * Find any new files extracted from an update into the plugin's data directory.
+     *
      * @param zipPath path of extracted files.
      */
     private void moveNewZipFiles(String zipPath) {
@@ -606,7 +607,8 @@ public class GravityUpdater {
      * Without revision, this method will always consider a remote version at all different from
      * that of the local version a new update.
      * </p>
-     * @param localVersion the current version
+     *
+     * @param localVersion  the current version
      * @param remoteVersion the remote version
      * @return true if Updater should consider the remote version an update, false if not.
      */
@@ -681,7 +683,8 @@ public class GravityUpdater {
 
     /**
      * Perform a file operation and log any errors if it fails.
-     * @param file file operation is performed on.
+     *
+     * @param file   file operation is performed on.
      * @param result result of file operation.
      * @param create true if a file is being created, false if deleted.
      */
@@ -708,6 +711,7 @@ public class GravityUpdater {
     public interface UpdateCallback {
         /**
          * Called when the updater has finished working.
+         *
          * @param updater The updater instance
          */
         void onFinish(GravityUpdater updater);

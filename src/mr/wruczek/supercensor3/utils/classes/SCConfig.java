@@ -56,8 +56,8 @@ public class SCConfig extends YamlConfiguration {
         try {
             save(configFile);
         } catch (IOException e) {
-        	SCLogger.logError("Error saving config file \"" + fileName + "\"!", LoggerUtils.LogType.PLUGIN);
-        	LoggerUtils.handleException(e);
+            SCLogger.logError("Error saving config file \"" + fileName + "\"!", LoggerUtils.LogType.PLUGIN);
+            LoggerUtils.handleException(e);
         }
     }
 
@@ -67,9 +67,9 @@ public class SCConfig extends YamlConfiguration {
     public void reload() {
         try {
             load(configFile);
-        }  catch (IOException | InvalidConfigurationException e) {
-        	SCLogger.logError("Error creating config file \"" + fileName + "\"!", LoggerUtils.LogType.PLUGIN);
-        	LoggerUtils.handleException(e);
+        } catch (IOException | InvalidConfigurationException e) {
+            SCLogger.logError("Error creating config file \"" + fileName + "\"!", LoggerUtils.LogType.PLUGIN);
+            LoggerUtils.handleException(e);
         }
     }
 
@@ -77,7 +77,7 @@ public class SCConfig extends YamlConfiguration {
         try {
             if (!configFile.exists()) {
                 if (plugin.getResource(fileName) != null) {
-					IOUtils.copyResource(fileName, configFile, true);
+                    IOUtils.copyResource(fileName, configFile, true);
                     load(configFile);
                 } else {
                     save(configFile);
@@ -87,8 +87,8 @@ public class SCConfig extends YamlConfiguration {
                 save(configFile);
             }
         } catch (Exception e) {
-        	SCLogger.logError("Error creating config file \"" + fileName + "\"!", LoggerUtils.LogType.PLUGIN);
-        	LoggerUtils.handleException(e);
+            SCLogger.logError("Error creating config file \"" + fileName + "\"!", LoggerUtils.LogType.PLUGIN);
+            LoggerUtils.handleException(e);
         }
     }
 
@@ -111,10 +111,10 @@ public class SCConfig extends YamlConfiguration {
     public void setLocation(ConfigurationSection section, Location location) {
         if (section == null) return;
         section.set(section + ".world", location.getWorld());
-        section.set(section + ".x",     location.getX());
-        section.set(section + ".y",     location.getY());
-        section.set(section + ".z",     location.getZ());
-        section.set(section + ".yaw",   location.getYaw());
+        section.set(section + ".x", location.getX());
+        section.set(section + ".y", location.getY());
+        section.set(section + ".z", location.getZ());
+        section.set(section + ".yaw", location.getYaw());
         section.set(section + ".pitch", location.getPitch());
     }
 
@@ -122,23 +122,23 @@ public class SCConfig extends YamlConfiguration {
      * Gets a Location from a specified ConfigurationSection.
      *
      * @param section The ConfigurationSection in which the Location is stored.
-     * @return        The Location stored in the specified ConfigurationSection.
+     * @return The Location stored in the specified ConfigurationSection.
      */
     public Location getLocation(ConfigurationSection section) {
         if (section == null) return null;
         return new Location(Bukkit.getWorld(section.getString("world")),
-                            section.getDouble("x"),
-                            section.getDouble("y"),
-                            section.getDouble("z"),
-                            section.getInt("yaw"),
-                            section.getInt("pitch"));
+                section.getDouble("x"),
+                section.getDouble("y"),
+                section.getDouble("z"),
+                section.getInt("yaw"),
+                section.getInt("pitch"));
     }
 
     /**
      * Gets a Location from a specified path.
      *
      * @param path The path in which the Location is stored.
-     * @return     The Location stored at specified path.
+     * @return The Location stored at specified path.
      */
     public Location getLocation(String path) {
         return getLocation(getConfigurationSection(path));

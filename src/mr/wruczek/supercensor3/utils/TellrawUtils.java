@@ -16,54 +16,54 @@ import mr.wruczek.supercensor3.utils.classes.Reflection;
  */
 public class TellrawUtils {
 
-	public static void sendCommandUsage(CommandSender sender, String command, String descriptionPath) {
-		
-		String description = ConfigUtils.getMessageFromMessagesFile(descriptionPath);
-		
-		if(isTellrawSupported(sender)) {
-			String commandUsageFormat = ConfigUtils.getColoredStringFromConfig("MessageFormat.HelpEntryFormat");
-			commandUsageFormat = StringUtils.color(commandUsageFormat.replace("%command%", command));
-			
-			sendTellraw((Player)sender, commandUsageFormat, description, StringUtils.unColor(commandUsageFormat.replace("- ", "")));
-			return;
-		}
-		
-		String commandUsageFormat = ConfigUtils.getColoredStringFromConfig("MessageFormat.OldHelpEntryFormat");
-		
-		sender.sendMessage(StringUtils.color(commandUsageFormat.replace("%command%", command).replace("%description%", description)));
-	}
-	
-	public static void sendTellraw(Player player, String message, String hovertext) {
-		TellrawUtils.sendTellraw(player, message, hovertext, "");
-	}
+    public static void sendCommandUsage(CommandSender sender, String command, String descriptionPath) {
 
-	public static void sendTellraw(Player player, String message, String hovertext, String suggestedCommand) {
-		MessagesCreator ms = new MessagesCreator("", null, null);
-		ChatExtra extra = new MessagesCreator.ChatExtra(message, MessagesCreator.Color.WHITE, null);
-		
-		if(suggestedCommand != null)
-			extra.setClickEvent(MessagesCreator.ClickEventType.SUGGEST_COMMAND, suggestedCommand);
-		
-		if(hovertext != null)
-			extra.setHoverEvent(MessagesCreator.HoverEventType.SHOW_TEXT, hovertext);
-		
-		ms.addExtra(extra);
-		
-		 try {
-	     	Reflection.sendMessage(player, ms.toString());
-	     } catch (Exception e) {
-	    	player.sendMessage(StringUtils.color(SCUtils.getPluginPrefix() + "Cannot send you formatted message. Please check console for full stacktrace. " + e));
-	    	LoggerUtils.handleException(e);
-	     }
-	}
+        String description = ConfigUtils.getMessageFromMessagesFile(descriptionPath);
 
-	public static boolean isTellrawSupportedByServer() {
-		String version = Bukkit.getBukkitVersion();
-		return version.startsWith("1.9") || version.startsWith("1.8") || version.startsWith("1.7");
-	}
+        if (isTellrawSupported(sender)) {
+            String commandUsageFormat = ConfigUtils.getColoredStringFromConfig("MessageFormat.HelpEntryFormat");
+            commandUsageFormat = StringUtils.color(commandUsageFormat.replace("%command%", command));
 
-	public static boolean isTellrawSupported(CommandSender sender) {
-		return isTellrawSupportedByServer() && sender instanceof Player;
-	}
+            sendTellraw((Player) sender, commandUsageFormat, description, StringUtils.unColor(commandUsageFormat.replace("- ", "")));
+            return;
+        }
+
+        String commandUsageFormat = ConfigUtils.getColoredStringFromConfig("MessageFormat.OldHelpEntryFormat");
+
+        sender.sendMessage(StringUtils.color(commandUsageFormat.replace("%command%", command).replace("%description%", description)));
+    }
+
+    public static void sendTellraw(Player player, String message, String hovertext) {
+        TellrawUtils.sendTellraw(player, message, hovertext, "");
+    }
+
+    public static void sendTellraw(Player player, String message, String hovertext, String suggestedCommand) {
+        MessagesCreator ms = new MessagesCreator("", null, null);
+        ChatExtra extra = new MessagesCreator.ChatExtra(message, MessagesCreator.Color.WHITE, null);
+
+        if (suggestedCommand != null)
+            extra.setClickEvent(MessagesCreator.ClickEventType.SUGGEST_COMMAND, suggestedCommand);
+
+        if (hovertext != null)
+            extra.setHoverEvent(MessagesCreator.HoverEventType.SHOW_TEXT, hovertext);
+
+        ms.addExtra(extra);
+
+        try {
+            Reflection.sendMessage(player, ms.toString());
+        } catch (Exception e) {
+            player.sendMessage(StringUtils.color(SCUtils.getPluginPrefix() + "Cannot send you formatted message. Please check console for full stacktrace. " + e));
+            LoggerUtils.handleException(e);
+        }
+    }
+
+    public static boolean isTellrawSupportedByServer() {
+        String version = Bukkit.getBukkitVersion();
+        return version.startsWith("1.9") || version.startsWith("1.8") || version.startsWith("1.7");
+    }
+
+    public static boolean isTellrawSupported(CommandSender sender) {
+        return isTellrawSupportedByServer() && sender instanceof Player;
+    }
 
 }

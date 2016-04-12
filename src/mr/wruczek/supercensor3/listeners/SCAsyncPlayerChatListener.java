@@ -16,25 +16,25 @@ import mr.wruczek.supercensor3.SCCheckEvent;
  */
 public class SCAsyncPlayerChatListener implements Listener {
 
-	@EventHandler(priority = EventPriority.HIGH)
-	public void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
-		checkEventExecutor(event);
-	}
+    @EventHandler(priority = EventPriority.HIGH)
+    public void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
+        checkEventExecutor(event);
+    }
 
-	private void checkEventExecutor(AsyncPlayerChatEvent event) {
-		if (event.isCancelled())
-			return;
-		
-		// region SCCheckEvent executor
-		SCCheckEvent checkEvent = new SCCheckEvent(event.getPlayer(), event.getMessage());
-		
-		Bukkit.getServer().getPluginManager().callEvent(checkEvent);
-		
-		if(checkEvent.isCensored())
-			event.setCancelled(true);
-		
-		event.setMessage(checkEvent.getMessage());
-		// endregion
-	}
+    private void checkEventExecutor(AsyncPlayerChatEvent event) {
+        if (event.isCancelled())
+            return;
+
+        // region SCCheckEvent executor
+        SCCheckEvent checkEvent = new SCCheckEvent(event.getPlayer(), event.getMessage());
+
+        Bukkit.getServer().getPluginManager().callEvent(checkEvent);
+
+        if (checkEvent.isCensored())
+            event.setCancelled(true);
+
+        event.setMessage(checkEvent.getMessage());
+        // endregion
+    }
 
 }

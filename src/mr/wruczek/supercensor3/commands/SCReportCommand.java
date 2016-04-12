@@ -23,65 +23,65 @@ import mr.wruczek.supercensor3.utils.classes.SCPermissionsEnum;
  */
 public class SCReportCommand implements CommandExecutor {
 
-	@Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		
-		if (!SCUtils.checkPermissions(sender, SCPermissionsEnum.BASICADMIN.toString())) {
-			return false;
-		}
-		
-		if (LoggerUtils.lastError == null || LoggerUtils.lastError.isEmpty()) {
-			sender.sendMessage("[SC] No last error found. Nothing to report.");
-			return false;
-		}
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-		StringBuilder sb = new StringBuilder();
+        if (!SCUtils.checkPermissions(sender, SCPermissionsEnum.BASICADMIN.toString())) {
+            return false;
+        }
 
-		for (String str : LoggerUtils.lastError) {
-			sb.append(str + "\n");
-		}
+        if (LoggerUtils.lastError == null || LoggerUtils.lastError.isEmpty()) {
+            sender.sendMessage("[SC] No last error found. Nothing to report.");
+            return false;
+        }
 
-		try {
-			sender.sendMessage("[SC] Link to report: " + hastebinPost(sb.toString()));
-			sender.sendMessage("Please use this link when creating new issue.");
-		} catch (IOException e) {
-			sender.sendMessage("[SC] Cannot send error report! " + e);
-			e.printStackTrace();
-		}
-		return false;
-	}
+        StringBuilder sb = new StringBuilder();
 
-	
-	/**
-	 * Simple API for uploading data to hastebin.com<br>
-	 * (c) 2016 Wruczek<br>
-	 * MIT license
-	 * 
-	 * @param data Message body
-	 * @return URL to paste
-	 */
-	public static URL hastebinPost(String data) throws IOException {
-		URL url = new URL("http://hastebin.com/documents");
+        for (String str : LoggerUtils.lastError) {
+            sb.append(str + "\n");
+        }
 
-		byte[] postData = data.getBytes("UTF-8");
+        try {
+            sender.sendMessage("[SC] Link to report: " + hastebinPost(sb.toString()));
+            sender.sendMessage("Please use this link when creating new issue.");
+        } catch (IOException e) {
+            sender.sendMessage("[SC] Cannot send error report! " + e);
+            e.printStackTrace();
+        }
+        return false;
+    }
 
-		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		conn.setRequestMethod("POST");
-		conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-		conn.setRequestProperty("Content-Length", String.valueOf(postData.length));
-		conn.setDoOutput(true);
-		conn.getOutputStream().write(postData);
 
-		Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+    /**
+     * Simple API for uploading data to hastebin.com<br>
+     * (c) 2016 Wruczek<br>
+     * MIT license
+     *
+     * @param data Message body
+     * @return URL to paste
+     */
+    public static URL hastebinPost(String data) throws IOException {
+        URL url = new URL("http://hastebin.com/documents");
 
-		StringBuilder sb = new StringBuilder();
-		for (int c; (c = in.read()) >= 0;)
-			sb.append((char) c);
+        byte[] postData = data.getBytes("UTF-8");
 
-		String response = sb.toString();
-		String id = response.trim().substring(8, response.length() - 2); // You can also use JSON library and get "key" from response
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("POST");
+        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        conn.setRequestProperty("Content-Length", String.valueOf(postData.length));
+        conn.setDoOutput(true);
+        conn.getOutputStream().write(postData);
 
-		return new URL("http://hastebin.com/" + id);
-	}
-	
+        Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+
+        StringBuilder sb = new StringBuilder();
+        for (int c; (c = in.read()) >= 0; )
+            sb.append((char) c);
+
+        String response = sb.toString();
+        String id = response.trim().substring(8, response.length() - 2); // You can also use JSON library and get "key" from response
+
+        return new URL("http://hastebin.com/" + id);
+    }
+
 }

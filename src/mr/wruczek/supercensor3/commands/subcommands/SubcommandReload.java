@@ -24,53 +24,53 @@ import mr.wruczek.supercensor3.utils.classes.SCPermissionsEnum;
  */
 public class SubcommandReload extends SCSubcommand {
 
-	public SubcommandReload() {
-		SCMainCommand.registerSubcommand(this, "reload", "rl");
-		SCMainCommand.registerTabCompletion(this);
-	}
-	
-	@Override
-	public void onCommand(CommandSender sender, String command, String[] args) {
-		
-		if(!SCUtils.checkPermissions(sender, SCPermissionsEnum.RELOAD.toString())) {
-			return;
-		}
-		
-		sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.Reload.Reloading"));
-		
-		try {
-			long start = System.currentTimeMillis();
-			
+    public SubcommandReload() {
+        SCMainCommand.registerSubcommand(this, "reload", "rl");
+        SCMainCommand.registerTabCompletion(this);
+    }
+
+    @Override
+    public void onCommand(CommandSender sender, String command, String[] args) {
+
+        if (!SCUtils.checkPermissions(sender, SCPermissionsEnum.RELOAD.toString())) {
+            return;
+        }
+
+        sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.Reload.Reloading"));
+
+        try {
+            long start = System.currentTimeMillis();
+
 			/* unregister old listeners
 			SCCheckEvent.getHandlerList();
 			HandlerList.unregisterAll();
 			SCUtils.logInfo("Old listeners unregistered");
 			*/
-			
-			SCInitManager.init();
-			
-			long time = System.currentTimeMillis() - start;
-			
-			sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.Reload.Reloaded")
-					.replace("%time%", String.valueOf(time)));
-		} catch (Exception e) {
-			
-			if(ConfigUtils.getMessageFromMessagesFile("Commands.Reload.Exception") != null) {
-				sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.Reload.Exception"));
-			} else {
-				sender.sendMessage(ChatColor.RED + "An exception occurred while attemping to reload plugin! "
-						+ "Please check console for more informations");
-			}
-			
-			sender.sendMessage(ChatColor.RED + e.toString());
-			
-			SCLogger.logError("Exception while reloading plugin", LoggerUtils.LogType.PLUGIN);
-			LoggerUtils.handleException(e);
-		}
-	}
-	
-	@Override
-	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-		return Arrays.asList(); // no arguments
-	}
+
+            SCInitManager.init();
+
+            long time = System.currentTimeMillis() - start;
+
+            sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.Reload.Reloaded")
+                    .replace("%time%", String.valueOf(time)));
+        } catch (Exception e) {
+
+            if (ConfigUtils.getMessageFromMessagesFile("Commands.Reload.Exception") != null) {
+                sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.Reload.Exception"));
+            } else {
+                sender.sendMessage(ChatColor.RED + "An exception occurred while attemping to reload plugin! "
+                        + "Please check console for more informations");
+            }
+
+            sender.sendMessage(ChatColor.RED + e.toString());
+
+            SCLogger.logError("Exception while reloading plugin", LoggerUtils.LogType.PLUGIN);
+            LoggerUtils.handleException(e);
+        }
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        return Arrays.asList(); // no arguments
+    }
 }
