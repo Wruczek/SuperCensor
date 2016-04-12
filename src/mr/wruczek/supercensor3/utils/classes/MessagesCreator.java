@@ -1,21 +1,18 @@
 ﻿package mr.wruczek.supercensor3.utils.classes;
 
+import java.util.List;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.util.List;
-
 /**
- * The MIT License (MIT)
- * Created on 31/01/2016.
- * Copyright (c) 2016 Vinetos
+ * The MIT License (MIT) Created on 31/01/2016. Copyright (c) 2016 Vinetos
  */
 public class MessagesCreator {
 
-    private static final String[] colors = new String[]{
-            "&0", "&1", "&2", "&3", "&4", "&5", "&6", "&7", "&8", "&9", "&a", "&b", "&c", "&d", "&e", "&f", "&k", "&l", "&m", "&n", "&o", "&r",
-            "§0", "§1", "§2", "§3", "§4", "§5", "§6", "§7", "§8", "§9", "§a", "§b", "§c", "§d", "§e", "§f", "§k", "§l", "§m", "§n", "§o", "§r"
-    };
+    private static final String[] colors = new String[] { "&0", "&1", "&2", "&3", "&4", "&5", "&6", "&7", "&8", "&9",
+            "&a", "&b", "&c", "&d", "&e", "&f", "&k", "&l", "&m", "&n", "&o", "&r", "§0", "§1", "§2", "§3", "§4", "§5",
+            "§6", "§7", "§8", "§9", "§a", "§b", "§c", "§d", "§e", "§f", "§k", "§l", "§m", "§n", "§o", "§r" };
     private JSONObject chatObject;
 
     public MessagesCreator(String text, Color color, List<ChatFormat> formats) {
@@ -45,8 +42,8 @@ public class MessagesCreator {
         return chatObject.toJSONString();
     }
 
-    public static String stripColor(String input){
-        for(String s : colors){
+    public static String stripColor(String input) {
+        for (String s : colors) {
             input = input.replaceAll(s, "");
         }
         return input;
@@ -59,8 +56,8 @@ public class MessagesCreator {
             chatExtra = new JSONObject();
             chatExtra.put("text", text);
             chatExtra.put("color", color.getColorString());
-            if(formats != null) {
-            	for (ChatFormat format : formats) {
+            if (formats != null) {
+                for (ChatFormat format : formats) {
                     chatExtra.put(format.getFormatString(), true);
                 }
             }
@@ -86,28 +83,16 @@ public class MessagesCreator {
             return chatExtra;
         }
 
-        public ChatExtra build(){
+        public ChatExtra build() {
             return this;
         }
     }
 
     public static enum Color {
-        WHITE("white"),
-        YELLOW("yellow"),
-        LIGHT_PURPLE("light_purple"),
-        RED("red"),
-        AQUA("aqua"),
-        GREEN("green"),
-        BLUE("blue"),
-        DARK_GRAY("dark_gray"),
-        GRAY("gray"),
-        GOLD("gold"),
-        DARK_PURPLE("dark_purple"),
-        DARK_RED("dark_red"),
-        DARK_AQUA("dark_aqua"),
-        DARK_GREEN("dark_green"),
-        DARK_BLUE("dark_blue"),
-        BLACK("black");
+        WHITE("white"), YELLOW("yellow"), LIGHT_PURPLE("light_purple"), RED("red"), AQUA("aqua"), GREEN("green"), BLUE(
+                "blue"), DARK_GRAY("dark_gray"), GRAY("gray"), GOLD("gold"), DARK_PURPLE("dark_purple"), DARK_RED(
+                        "dark_red"), DARK_AQUA("dark_aqua"), DARK_GREEN("dark_green"), DARK_BLUE("dark_blue"), BLACK(
+                                "black");
         private final String color;
 
         Color(String color) {
@@ -120,10 +105,8 @@ public class MessagesCreator {
     }
 
     public static enum ClickEventType {
-        RUN_COMMAND("run_command"),
-        SUGGEST_COMMAND("suggest_command"),
-        OPEN_URL("open_url"),
-        CHANGE_PAGE("change_page");
+        RUN_COMMAND("run_command"), SUGGEST_COMMAND("suggest_command"), OPEN_URL("open_url"), CHANGE_PAGE(
+                "change_page");
 
         private final String type;
 
@@ -137,9 +120,7 @@ public class MessagesCreator {
     }
 
     public static enum HoverEventType {
-        SHOW_TEXT("show_text"),
-        SHOW_ITEM("show_item"),
-        SHOW_ACHIEVEMENT("show_achievement");
+        SHOW_TEXT("show_text"), SHOW_ITEM("show_item"), SHOW_ACHIEVEMENT("show_achievement");
         private final String type;
 
         HoverEventType(String type) {
@@ -152,11 +133,8 @@ public class MessagesCreator {
     }
 
     public static enum ChatFormat {
-        BOLD("bold"),
-        UNDERLINED("underlined"),
-        STRIKETHROUGH("strikethrough"),
-        ITALIC("italic"),
-        OBFUSCATED("obfuscated");
+        BOLD("bold"), UNDERLINED("underlined"), STRIKETHROUGH("strikethrough"), ITALIC("italic"), OBFUSCATED(
+                "obfuscated");
         private final String format;
 
         ChatFormat(String format) {

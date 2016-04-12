@@ -24,7 +24,7 @@ import mr.wruczek.supercensor3.utils.classes.SCLogger;
  * UUID of a player by using the name of the player.
  * 
  * For the most part, when the plugin asks the cache for the UUID of an online
- * player, it should have it available immediately because the cache registers 
+ * player, it should have it available immediately because the cache registers
  * itself for the player join/quit events and does background fetches.
  * 
  * @author James Crasta
@@ -41,13 +41,13 @@ public class UUIDCache implements Listener {
         this.plugin = plugin;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
-    
+
     /**
      * Get the UUID from the cache for the player named 'name'.
      * 
-     * If the id does not exist in our database, then we will queue
-     * a fetch to get it, and return null. A fetch at a later point
-     * will then be able to return this id.
+     * If the id does not exist in our database, then we will queue a fetch to
+     * get it, and return null. A fetch at a later point will then be able to
+     * return this id.
      */
     public UUID getIdOptimistic(String name) {
         Validate.notEmpty(name);
@@ -58,15 +58,17 @@ public class UUIDCache implements Listener {
         }
         return uuid;
     }
-    
+
     /**
-     * Get the UUID from the cache for the player named 'name', with blocking get. 
+     * Get the UUID from the cache for the player named 'name', with blocking
+     * get.
      * 
-     * If the player named is not in the cache, then we will fetch the UUID in
-     * a blocking fashion. Note that this will block the thread until the fetch
-     * is complete, so only use this in a thread or in special circumstances.
+     * If the player named is not in the cache, then we will fetch the UUID in a
+     * blocking fashion. Note that this will block the thread until the fetch is
+     * complete, so only use this in a thread or in special circumstances.
      * 
-     * @param name The player name.
+     * @param name
+     *            The player name.
      * @return a UUID
      */
     public UUID getId(String name) {
@@ -80,7 +82,7 @@ public class UUIDCache implements Listener {
         }
         return uuid;
     }
-    
+
     /**
      * Clean up any resources used by this class.
      * 
@@ -90,59 +92,62 @@ public class UUIDCache implements Listener {
         HandlerList.unregisterAll(this);
         this.plugin = null;
     }
-    
+
     /**
      * Asynchronously fetch the name if it's not in our internal map.
-     * @param name The player's name
+     * 
+     * @param name
+     *            The player's name
      */
     public void ensurePlayerUUID(String name) {
-        if (cache.containsKey(name)) return;
+        if (cache.containsKey(name))
+            return;
         cache.put(name, ZERO_UUID);
         asyncFetch(nameList(name));
     }
 
     private void asyncFetch(final ArrayList<String> names) {
-    	Bukkit.getScheduler().runTaskAsynchronously(plugin, new Runnable() {
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, new Runnable() {
             public void run() {
                 syncFetch(names);
             }
         });
     }
-    
+
     private void syncFetch(ArrayList<String> names) {
         final UUIDFetcher fetcher = new UUIDFetcher(names);
         try {
             cache.putAll(fetcher.call());
         } catch (Exception e) {
-        	if(e.toString().contains("java.net.")) {
-				if (showLookupError) {
-					SCLogger.logError(e + "! Are servers down or no internet access?");
-					showLookupError = false;
-				}
-				return;
-			}
-        	
-			LoggerUtils.handleException(e);
+            if (e.toString().contains("java.net.")) {
+                if (showLookupError) {
+                    SCLogger.logError(e + "! Are servers down or no internet access?");
+                    showLookupError = false;
+                }
+                return;
+            }
+
+            LoggerUtils.handleException(e);
         }
     }
-    
+
     private ArrayList<String> nameList(String name) {
         ArrayList<String> names = new ArrayList<String>();
         names.add(name);
         return names;
     }
-    
+
     @EventHandler
     void onPlayerJoin(PlayerJoinEvent event) {
         ensurePlayerUUID(event.getPlayer().getName());
     }
-    
+
     @EventHandler
     void onPlayerQuit(PlayerQuitEvent event) {
         cache.remove(event.getPlayer().getName());
     }
 
-	public Map<String, UUID> getMap() {
-		return cache;
-	}
+    public Map<String, UUID> getMap() {
+        return cache;
+    }
 }

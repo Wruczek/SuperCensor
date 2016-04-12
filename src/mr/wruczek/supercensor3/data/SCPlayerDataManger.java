@@ -9,73 +9,72 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import mr.wruczek.supercensor3.SCMain;
 import mr.wruczek.supercensor3.utils.LoggerUtils;
-import mr.wruczek.supercensor3.utils.LoggerUtils.LogType;
 import mr.wruczek.supercensor3.utils.UUIDUtils;
 import mr.wruczek.supercensor3.utils.classes.SCLogger;
 
 public class SCPlayerDataManger {
 
-	private File userFile;
-	private OfflinePlayer player;
-	private FileConfiguration config;
-	public static String path;
+    private File userFile;
+    private OfflinePlayer player;
+    private FileConfiguration config;
+    public static String path;
 
-	static {
-		path = SCMain.getInstance().getDataFolder() + File.separator + "userdata" + File.separator;
-	}
+    static {
+        path = SCMain.getInstance().getDataFolder() + File.separator + "userdata" + File.separator;
+    }
 
-	public static FileConfiguration getPlayerConfig(OfflinePlayer player) {
-		return new SCPlayerDataManger(player).getConfig();
-	}
-	
-	public SCPlayerDataManger(OfflinePlayer player) {
+    public static FileConfiguration getPlayerConfig(OfflinePlayer player) {
+        return new SCPlayerDataManger(player).getConfig();
+    }
 
-		this.player = player;
-		userFile = new File(path + getUUID());
+    public SCPlayerDataManger(OfflinePlayer player) {
 
-		if (!userFile.exists()) {
-			try {
-				userFile.getParentFile().mkdirs();
-				userFile.createNewFile();
-			} catch (Exception e) {
-				SCLogger.logInfo("Exception " + e.toString() + " while creating data file for player " 
-						+ player.getName() + " (UUID " + getUUID() + ")!", LoggerUtils.LogType.PLUGIN);
-			}
-		}
+        this.player = player;
+        userFile = new File(path + getUUID());
 
-		config = YamlConfiguration.loadConfiguration(userFile);
-	}
+        if (!userFile.exists()) {
+            try {
+                userFile.getParentFile().mkdirs();
+                userFile.createNewFile();
+            } catch (Exception e) {
+                SCLogger.logInfo("Exception " + e.toString() + " while creating data file for player "
+                        + player.getName() + " (UUID " + getUUID() + ")!", LoggerUtils.LogType.PLUGIN);
+            }
+        }
 
-	private String getUUID() {
-		return UUIDUtils.getUUID(player);
-	}
+        config = YamlConfiguration.loadConfiguration(userFile);
+    }
 
-	public FileConfiguration getConfig() {
-		return config;
-	}
+    private String getUUID() {
+        return UUIDUtils.getUUID(player);
+    }
 
-	public String getName() {
-		return player.getName();
-	}
+    public FileConfiguration getConfig() {
+        return config;
+    }
 
-	public File getDataFile() {
-		return userFile;
-	}
+    public String getName() {
+        return player.getName();
+    }
 
-	public void saveConfig() {
-		try {
-			config.save(userFile);
-		} catch (IOException e) {
-			SCLogger.logInfo("Exception " + e.toString() + " while creating data file for player " 
-					+ player.getName() + " (UUID " + getUUID() + ")!", LoggerUtils.LogType.PLUGIN);
-		}
-	}
+    public File getDataFile() {
+        return userFile;
+    }
 
-	public static boolean hasDataFile(OfflinePlayer player) {
-		return new File(path + UUIDUtils.getUUID(player)).exists();
-	}
+    public void saveConfig() {
+        try {
+            config.save(userFile);
+        } catch (IOException e) {
+            SCLogger.logInfo("Exception " + e.toString() + " while creating data file for player " + player.getName()
+                    + " (UUID " + getUUID() + ")!", LoggerUtils.LogType.PLUGIN);
+        }
+    }
 
-	public static File[] getAllDataFiles() {
-		return new File(path).listFiles();
-	}
+    public static boolean hasDataFile(OfflinePlayer player) {
+        return new File(path + UUIDUtils.getUUID(player)).exists();
+    }
+
+    public static File[] getAllDataFiles() {
+        return new File(path).listFiles();
+    }
 }

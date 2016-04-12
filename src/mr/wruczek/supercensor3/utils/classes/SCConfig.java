@@ -26,21 +26,26 @@ public class SCConfig extends YamlConfiguration {
     /**
      * Create a new Config.
      *
-     * @param fileName The name of the file being created.
+     * @param fileName
+     *            The name of the file being created.
      */
     public SCConfig(String fileName) {
-        this("configs/" + fileName, new File(plugin.getDataFolder(), fileName + (fileName.endsWith(".yml") ? "" : ".yml")));
+        this("configs/" + fileName,
+                new File(plugin.getDataFolder(), fileName + (fileName.endsWith(".yml") ? "" : ".yml")));
     }
 
     public SCConfig(String folder, String fileName) {
-        this(folder + (folder.endsWith("/") ? "" : "/") + fileName, new File(plugin.getDataFolder(), fileName + (fileName.endsWith(".yml") ? "" : ".yml")));
+        this(folder + (folder.endsWith("/") ? "" : "/") + fileName,
+                new File(plugin.getDataFolder(), fileName + (fileName.endsWith(".yml") ? "" : ".yml")));
     }
 
     /**
      * Creates a new Config.
      *
-     * @param fileName The name of the file being created.
-     * @param file     The output file.
+     * @param fileName
+     *            The name of the file being created.
+     * @param file
+     *            The output file.
      */
     private SCConfig(String fileName, File file) {
         this.fileName = fileName + (fileName.endsWith(".yml") ? "" : ".yml");
@@ -56,8 +61,8 @@ public class SCConfig extends YamlConfiguration {
         try {
             save(configFile);
         } catch (IOException e) {
-        	SCLogger.logError("Error saving config file \"" + fileName + "\"!", LoggerUtils.LogType.PLUGIN);
-        	LoggerUtils.handleException(e);
+            SCLogger.logError("Error saving config file \"" + fileName + "\"!", LoggerUtils.LogType.PLUGIN);
+            LoggerUtils.handleException(e);
         }
     }
 
@@ -67,9 +72,9 @@ public class SCConfig extends YamlConfiguration {
     public void reload() {
         try {
             load(configFile);
-        }  catch (IOException | InvalidConfigurationException e) {
-        	SCLogger.logError("Error creating config file \"" + fileName + "\"!", LoggerUtils.LogType.PLUGIN);
-        	LoggerUtils.handleException(e);
+        } catch (IOException | InvalidConfigurationException e) {
+            SCLogger.logError("Error creating config file \"" + fileName + "\"!", LoggerUtils.LogType.PLUGIN);
+            LoggerUtils.handleException(e);
         }
     }
 
@@ -77,7 +82,7 @@ public class SCConfig extends YamlConfiguration {
         try {
             if (!configFile.exists()) {
                 if (plugin.getResource(fileName) != null) {
-					IOUtils.copyResource(fileName, configFile, true);
+                    IOUtils.copyResource(fileName, configFile, true);
                     load(configFile);
                 } else {
                     save(configFile);
@@ -87,16 +92,18 @@ public class SCConfig extends YamlConfiguration {
                 save(configFile);
             }
         } catch (Exception e) {
-        	SCLogger.logError("Error creating config file \"" + fileName + "\"!", LoggerUtils.LogType.PLUGIN);
-        	LoggerUtils.handleException(e);
+            SCLogger.logError("Error creating config file \"" + fileName + "\"!", LoggerUtils.LogType.PLUGIN);
+            LoggerUtils.handleException(e);
         }
     }
 
     /**
      * Gets a string from the config and translates all of the colors.
      *
-     * @param path The path to get the colored string from.
-     * @return The string from the config at specified path, with replaced colors using SCUtils.color method.
+     * @param path
+     *            The path to get the colored string from.
+     * @return The string from the config at specified path, with replaced
+     *         colors using SCUtils.color method.
      */
     public String getColored(String path) {
         return StringUtils.color(getString(path));
@@ -104,41 +111,42 @@ public class SCConfig extends YamlConfiguration {
 
     public void setLocation(String path, Location location) {
         ConfigurationSection section = getConfigurationSection(path);
-        if (section == null) section = createSection(path);
+        if (section == null)
+            section = createSection(path);
         setLocation(section, location);
     }
 
     public void setLocation(ConfigurationSection section, Location location) {
-        if (section == null) return;
+        if (section == null)
+            return;
         section.set(section + ".world", location.getWorld());
-        section.set(section + ".x",     location.getX());
-        section.set(section + ".y",     location.getY());
-        section.set(section + ".z",     location.getZ());
-        section.set(section + ".yaw",   location.getYaw());
+        section.set(section + ".x", location.getX());
+        section.set(section + ".y", location.getY());
+        section.set(section + ".z", location.getZ());
+        section.set(section + ".yaw", location.getYaw());
         section.set(section + ".pitch", location.getPitch());
     }
 
     /**
      * Gets a Location from a specified ConfigurationSection.
      *
-     * @param section The ConfigurationSection in which the Location is stored.
-     * @return        The Location stored in the specified ConfigurationSection.
+     * @param section
+     *            The ConfigurationSection in which the Location is stored.
+     * @return The Location stored in the specified ConfigurationSection.
      */
     public Location getLocation(ConfigurationSection section) {
-        if (section == null) return null;
-        return new Location(Bukkit.getWorld(section.getString("world")),
-                            section.getDouble("x"),
-                            section.getDouble("y"),
-                            section.getDouble("z"),
-                            section.getInt("yaw"),
-                            section.getInt("pitch"));
+        if (section == null)
+            return null;
+        return new Location(Bukkit.getWorld(section.getString("world")), section.getDouble("x"), section.getDouble("y"),
+                section.getDouble("z"), section.getInt("yaw"), section.getInt("pitch"));
     }
 
     /**
      * Gets a Location from a specified path.
      *
-     * @param path The path in which the Location is stored.
-     * @return     The Location stored at specified path.
+     * @param path
+     *            The path in which the Location is stored.
+     * @return The Location stored at specified path.
      */
     public Location getLocation(String path) {
         return getLocation(getConfigurationSection(path));

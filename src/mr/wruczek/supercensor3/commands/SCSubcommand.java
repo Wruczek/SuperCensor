@@ -13,10 +13,10 @@ import org.bukkit.command.CommandSender;
  */
 public abstract class SCSubcommand {
 
-	public abstract void onCommand(CommandSender sender, String command, String[] args);
+    public abstract void onCommand(CommandSender sender, String command, String[] args);
 
-	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-		return null;
-	}
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        return null;
+    }
 
 }

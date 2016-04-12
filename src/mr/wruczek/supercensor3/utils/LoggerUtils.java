@@ -23,139 +23,140 @@ import mr.wruczek.supercensor3.utils.classes.SCLogger;
  */
 public class LoggerUtils {
 
-	public enum LogType {
+    public enum LogType {
 
-		CHAT("chat.txt"), CENSOR("censor.txt"), PLUGIN("plugin.txt");
+        CHAT("chat.txt"), CENSOR("censor.txt"), PLUGIN("plugin.txt");
 
-		private final String fileName;
+        private final String fileName;
 
-		private LogType(String fileName) {
-			this.fileName = fileName;
-		}
+        private LogType(String fileName) {
+            this.fileName = fileName;
+        }
 
-		public String getFileName() {
-			return fileName;
-		}
-	}
+        public String getFileName() {
+            return fileName;
+        }
+    }
 
-	public static Logger logger = Logger.getLogger("Minecraft");
-	public static List<String> lastError;
-	
-	public static void handleException(Exception e) {
+    public static Logger logger = Logger.getLogger("Minecraft");
+    public static List<String> lastError;
 
-		lastError = new ArrayList<String>();
+    public static void handleException(Exception e) {
 
-		logerror("");
-		logerror("Exception in plugin SuperCensor");
-		logerror(e.toString());
+        lastError = new ArrayList<String>();
 
-		if (e.getCause() != null)
-			logerror(e.getCause().getMessage());
+        logerror("");
+        logerror("Exception in plugin SuperCensor");
+        logerror(e.toString());
 
-		logerror("");
+        if (e.getCause() != null)
+            logerror(e.getCause().getMessage());
 
-		logerror("Server informations:");
-		logerror("  " + SCMain.getInstance().getDescription().getFullName());
-		logerror("  Server: " + Bukkit.getBukkitVersion() + " [" + Bukkit.getVersion() + "]");
-		logerror("  Java: " + System.getProperty("java.version"));
-		logerror("  Thread: " + Thread.currentThread());
-		logerror("");
+        logerror("");
 
-		logerror("StackTrace");
-		logerror("");
+        logerror("Server informations:");
+        logerror("  " + SCMain.getInstance().getDescription().getFullName());
+        logerror("  Server: " + Bukkit.getBukkitVersion() + " [" + Bukkit.getVersion() + "]");
+        logerror("  Java: " + System.getProperty("java.version"));
+        logerror("  Thread: " + Thread.currentThread());
+        logerror("");
 
-		for (StackTraceElement stacktrace : e.getStackTrace()) {
-			String st = stacktrace.toString();
+        logerror("StackTrace");
+        logerror("");
 
-			if (st.contains("mr.wruczek"))
-				logerror("  @ > " + st);
-			else
-				logerror("  @ " + st);
-		}
+        for (StackTraceElement stacktrace : e.getStackTrace()) {
+            String st = stacktrace.toString();
 
-		logerror("");
-		logerror("End of error");
-		logerror("");
-		logerror("If you want get help with this error:");
-		logerror("  1. Run command \"SCreport\". It will send this error to hastebin,");
-		logerror("  2. Use this link when creating new issue on BukkitDev.");
-		logerror("");
-	}
+            if (st.contains("mr.wruczek"))
+                logerror("  @ > " + st);
+            else
+                logerror("  @ " + st);
+        }
 
-	private static void logerror(String err) {
-		SCLogger.logError(err, LogType.PLUGIN);
-		lastError.add(err);
-	}
+        logerror("");
+        logerror("End of error");
+        logerror("");
+        logerror("If you want get help with this error:");
+        logerror("  1. Run command \"SCreport\". It will send this error to hastebin,");
+        logerror("  2. Use this link when creating new issue on BukkitDev.");
+        logerror("");
+    }
 
-	public static void log(String text, LogType logType) {
+    private static void logerror(String err) {
+        SCLogger.logError(err, LogType.PLUGIN);
+        lastError.add(err);
+    }
 
-		boolean sccmInit = true;
-		boolean loggerEnabled = true;
+    public static void log(String text, LogType logType) {
 
-		try {
-			loggerEnabled = ConfigUtils.getBooleanFromConfig("Logger.Enabled");
-			sccmInit = SCConfigManager2.isInitialized();
-		} catch (Exception e) {
-		}
+        boolean sccmInit = true;
+        boolean loggerEnabled = true;
 
-		if (sccmInit && loggerEnabled) {
+        try {
+            loggerEnabled = ConfigUtils.getBooleanFromConfig("Logger.Enabled");
+            sccmInit = SCConfigManager2.isInitialized();
+        } catch (Exception e) {
+        }
 
-			FileWriter fw = null;
-			PrintWriter pw = null;
+        if (sccmInit && loggerEnabled) {
 
-			try {
-				String prefix = "[%date% %time%] ";
+            FileWriter fw = null;
+            PrintWriter pw = null;
 
-				try {
-					prefix = ConfigUtils.getStringFromConfig("Logger.Prefix");
-				} catch (Exception e) {
-				}
+            try {
+                String prefix = "[%date% %time%] ";
 
-				File logFile = SCLogger.getLogFile(logType.getFileName());
+                try {
+                    prefix = ConfigUtils.getStringFromConfig("Logger.Prefix");
+                } catch (Exception e) {
+                }
 
-				if (!logFile.exists()) {
-					logFile.getParentFile().mkdirs();
-					logFile.createNewFile();
-				}
+                File logFile = SCLogger.getLogFile(logType.getFileName());
 
-				fw = new FileWriter(logFile, true);
-				pw = new PrintWriter(fw);
-				pw.println(prefix.replace("%date%", getDate()).replace("%time%", getTime()) + StringUtils.unColor(text));
-				pw.flush();
-			} catch (Exception e) {
-				handleException(e);
-			} finally {
-				try {
-					pw.close();
-					fw.close();
-				} catch (Exception e) {
-				}
-			}
-		}
-	}
-	
-	public static String getTime() {
+                if (!logFile.exists()) {
+                    logFile.getParentFile().mkdirs();
+                    logFile.createNewFile();
+                }
 
-		String timeFormat = "HH:mm:ss";
+                fw = new FileWriter(logFile, true);
+                pw = new PrintWriter(fw);
+                pw.println(
+                        prefix.replace("%date%", getDate()).replace("%time%", getTime()) + StringUtils.unColor(text));
+                pw.flush();
+            } catch (Exception e) {
+                handleException(e);
+            } finally {
+                try {
+                    pw.close();
+                    fw.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+    }
 
-		try {
-			timeFormat = ConfigUtils.getStringFromConfig("Logger.TimeFormat");
-		} catch (Exception e) {
-		}
+    public static String getTime() {
 
-		return new SimpleDateFormat(timeFormat).format(new Date());
-	}
+        String timeFormat = "HH:mm:ss";
 
-	public static String getDate() {
+        try {
+            timeFormat = ConfigUtils.getStringFromConfig("Logger.TimeFormat");
+        } catch (Exception e) {
+        }
 
-		String dateFormat = "dd-MM-yyyy";
+        return new SimpleDateFormat(timeFormat).format(new Date());
+    }
 
-		try {
-			dateFormat = ConfigUtils.getStringFromConfig("Logger.DateFormat");
-		} catch (Exception e) {
-		}
+    public static String getDate() {
 
-		return new SimpleDateFormat(dateFormat).format(new Date());
-	}
+        String dateFormat = "dd-MM-yyyy";
+
+        try {
+            dateFormat = ConfigUtils.getStringFromConfig("Logger.DateFormat");
+        } catch (Exception e) {
+        }
+
+        return new SimpleDateFormat(dateFormat).format(new Date());
+    }
 
 }

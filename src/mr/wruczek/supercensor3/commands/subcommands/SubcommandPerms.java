@@ -22,54 +22,55 @@ import mr.wruczek.supercensor3.utils.classes.SCPermissionsEnum;
  */
 public class SubcommandPerms extends SCSubcommand {
 
-	public SubcommandPerms() {
-		SCMainCommand.registerSubcommand(this, "perms", "permissions");
-		SCMainCommand.registerTabCompletion(this);
-	}
+    public SubcommandPerms() {
+        SCMainCommand.registerSubcommand(this, "perms", "permissions");
+        SCMainCommand.registerTabCompletion(this);
+    }
 
-	@Override
-	public void onCommand(CommandSender sender, String command, String[] args) {
-		
-		if(!(command.equalsIgnoreCase("perms") || command.equalsIgnoreCase("permissions"))) {
-			return;
-		}
-		
-		sender.sendMessage(SCCommandHeader.getHeader());
-		
-		sender.sendMessage("\n");
-		
-		if(TellrawUtils.isTellrawSupported(sender)) {
-			// Later will be changed to reflections
-			
-			for(SCPermissionsEnum permission : SCPermissionsEnum.values()) {
-				if(permission != SCPermissionsEnum.PERMISSIONPREFIX) {
-					TellrawUtils.sendTellraw((Player)sender, format(permission.toString()), permission.getDescription());
-				}
-			}
-			
-			sender.sendMessage("\n" + ConfigUtils.getMessageFromMessagesFile("Commands.HoverPermissionTip"));
-		} else {
-			// For console / older Minecraft versions
-			
-			for(SCPermissionsEnum permission : SCPermissionsEnum.values()) {
-				if(permission != SCPermissionsEnum.PERMISSIONPREFIX)
-					sender.sendMessage(oldFormat(permission.toString(), permission.getDescription()));
-			}
-		}
-	}
-	
-	@Override
-	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-		return Arrays.asList(); // no arguments
-	}
+    @Override
+    public void onCommand(CommandSender sender, String command, String[] args) {
 
-	private String format(String permission) {
-		return ConfigUtils.getColoredStringFromConfig("MessageFormat.PermissionEntryFormat")
-				.replace("%permission%", permission);
-	}
+        if (!(command.equalsIgnoreCase("perms") || command.equalsIgnoreCase("permissions"))) {
+            return;
+        }
 
-	private String oldFormat(String permission, String description) {
-		return ConfigUtils.getColoredStringFromConfig("MessageFormat.OldPermissionEntryFormat")
-				.replace("%permission%", permission).replace("%description%", description);
-	}
+        sender.sendMessage(SCCommandHeader.getHeader());
+
+        sender.sendMessage("\n");
+
+        if (TellrawUtils.isTellrawSupported(sender)) {
+            // Later will be changed to reflections
+
+            for (SCPermissionsEnum permission : SCPermissionsEnum.values()) {
+                if (permission != SCPermissionsEnum.PERMISSIONPREFIX) {
+                    TellrawUtils.sendTellraw((Player) sender, format(permission.toString()),
+                            permission.getDescription());
+                }
+            }
+
+            sender.sendMessage("\n" + ConfigUtils.getMessageFromMessagesFile("Commands.HoverPermissionTip"));
+        } else {
+            // For console / older Minecraft versions
+
+            for (SCPermissionsEnum permission : SCPermissionsEnum.values()) {
+                if (permission != SCPermissionsEnum.PERMISSIONPREFIX)
+                    sender.sendMessage(oldFormat(permission.toString(), permission.getDescription()));
+            }
+        }
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        return Arrays.asList(); // no arguments
+    }
+
+    private String format(String permission) {
+        return ConfigUtils.getColoredStringFromConfig("MessageFormat.PermissionEntryFormat").replace("%permission%",
+                permission);
+    }
+
+    private String oldFormat(String permission, String description) {
+        return ConfigUtils.getColoredStringFromConfig("MessageFormat.OldPermissionEntryFormat")
+                .replace("%permission%", permission).replace("%description%", description);
+    }
 }
