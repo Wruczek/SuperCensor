@@ -16,8 +16,8 @@ import mr.wruczek.supercensor3.utils.StringUtils;
 import mr.wruczek.supercensor3.utils.classes.SCPermissionsEnum;
 
 /**
- * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0
- * International License. http://creativecommons.org/licenses/by-nd/4.0/
+ * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
+ * http://creativecommons.org/licenses/by-nd/4.0/
  *
  * @author Wruczek
  */
@@ -43,8 +43,7 @@ public class SubcommandClearchat extends SCSubcommand {
         if (args.length > 2) {
 
             if (!SCPermissionsEnum.CLEARCHAT_ANONYMOUS.hasPermission(sender)) {
-                sender.sendMessage(
-                        ConfigUtils.getMessageFromMessagesFile("Commands.ClearChat.AnonymousModeNoPermissions"));
+                sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.ClearChat.AnonymousModeNoPermissions"));
                 return;
             }
 
@@ -74,8 +73,7 @@ public class SubcommandClearchat extends SCSubcommand {
             }
 
             int cleared = 0;
-            int skipped = 1; // Set to one, we are already skipping
-            // CommandSender
+            int skipped = 1; // Set to one, we are already skipping CommandSender
 
             for (Player p : Bukkit.getOnlinePlayers()) {
                 if (!p.getName().equalsIgnoreCase(sender.getName())) {
@@ -90,7 +88,8 @@ public class SubcommandClearchat extends SCSubcommand {
             }
 
             sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.ClearChat.ClearAll.Summary")
-                    .replace("%cleared%", String.valueOf(cleared)).replace("%skipped%", String.valueOf(skipped)));
+                    .replace("%cleared%", String.valueOf(cleared))
+                    .replace("%skipped%", String.valueOf(skipped)));
         } else {
 
             if (!SCUtils.checkPermissions(sender, SCPermissionsEnum.CLEARCHAT_CLEARPLAYER.toString())) {
@@ -100,20 +99,17 @@ public class SubcommandClearchat extends SCSubcommand {
             Player target = Bukkit.getPlayer(args[1]);
 
             if (target == null) {
-                sender.sendMessage(
-                        ConfigUtils.getMessageFromMessagesFile("Commands.ClearChat.ClearSpecificPlayer.PlayerNotFound")
-                                .replace("%nick%", args[1]));
+                sender.sendMessage(ConfigUtils.getMessageFromMessagesFile(
+                        "Commands.ClearChat.ClearSpecificPlayer.PlayerNotFound").replace("%nick%", args[1]));
                 return;
             }
 
             if (!clearChat(target, cc, true, false))
-                sender.sendMessage(
-                        ConfigUtils.getMessageFromMessagesFile("Commands.ClearChat.ClearSpecificPlayer.ErrorImmunity")
-                                .replace("%nick%", target.getName()));
+                sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.ClearChat.ClearSpecificPlayer.ErrorImmunity")
+                        .replace("%nick%", args[1]));
             else
-                sender.sendMessage(
-                        ConfigUtils.getMessageFromMessagesFile("Commands.ClearChat.ClearSpecificPlayer.Success")
-                                .replace("%nick%", target.getName()));
+                sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.ClearChat.ClearSpecificPlayer.Success")
+                        .replace("%nick%", args[1]));
         }
     }
 
@@ -147,8 +143,7 @@ public class SubcommandClearchat extends SCSubcommand {
 
         if (sendMessage) {
             if (sender == null) { // anonymous
-                toClear.sendMessage(
-                        ConfigUtils.getMessageFromMessagesFile("Commands.ClearChat.ChatCleared.AnonymousMode"));
+                toClear.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.ClearChat.ChatCleared.AnonymousMode"));
             } else {
                 toClear.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.ClearChat.ChatCleared.Normal")
                         .replace("%nick%", sender.getName()));

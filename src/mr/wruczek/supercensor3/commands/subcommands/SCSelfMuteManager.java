@@ -21,8 +21,8 @@ import mr.wruczek.supercensor3.utils.SCUtils;
 import mr.wruczek.supercensor3.utils.classes.SCPermissionsEnum;
 
 /**
- * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0
- * International License. http://creativecommons.org/licenses/by-nd/4.0/
+ * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
+ * http://creativecommons.org/licenses/by-nd/4.0/
  *
  * @author Wruczek
  */
@@ -69,9 +69,8 @@ public class SCSelfMuteManager extends SCSubcommand implements Listener {
             Player target = Bukkit.getPlayer(args[1]);
 
             if (target == null) {
-                sender.sendMessage(
-                        ConfigUtils.getMessageFromMessagesFile("Commands.SelfMute.OtherPlayer.PlayerNotFound")
-                                .replace("%nick%", args[1]));
+                sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.SelfMute.OtherPlayer.PlayerNotFound")
+                        .replace("%nick%", args[1]));
                 return;
             }
 
@@ -82,19 +81,15 @@ public class SCSelfMuteManager extends SCSubcommand implements Listener {
             }
 
             if (setSelfMute(target)) {
-                sender.sendMessage(
-                        ConfigUtils.getMessageFromMessagesFile("Commands.SelfMute.OtherPlayer.SelfMutedToSender")
-                                .replace("%nick%", target.getName()));
-                target.sendMessage(
-                        ConfigUtils.getMessageFromMessagesFile("Commands.SelfMute.OtherPlayer.SelfMutedToTarget")
-                                .replace("%nick%", sender.getName()));
+                sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.SelfMute.OtherPlayer.SelfMutedToSender")
+                        .replace("%nick%", target.getName()));
+                target.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.SelfMute.OtherPlayer.SelfMutedToTarget")
+                        .replace("%nick%", sender.getName()));
             } else {
-                sender.sendMessage(
-                        ConfigUtils.getMessageFromMessagesFile("Commands.SelfMute.OtherPlayer.SelfMuteRemovedToSender")
-                                .replace("%nick%", target.getName()));
-                target.sendMessage(
-                        ConfigUtils.getMessageFromMessagesFile("Commands.SelfMute.OtherPlayer.SelfMuteRemovedToTarget")
-                                .replace("%nick%", sender.getName()));
+                sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.SelfMute.OtherPlayer.SelfMuteRemovedToSender")
+                        .replace("%nick%", target.getName()));
+                target.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.SelfMute.OtherPlayer.SelfMuteRemovedToTarget")
+                        .replace("%nick%", sender.getName()));
             }
         } else {
 
@@ -152,7 +147,7 @@ public class SCSelfMuteManager extends SCSubcommand implements Listener {
 
     /**
      * Switches selfmute on given player
-     * 
+     *
      * @return Returns true if player is now selfmuted, otherwise false.
      */
     public static boolean setSelfMute(String player) {

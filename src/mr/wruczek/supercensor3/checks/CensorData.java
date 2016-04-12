@@ -17,9 +17,10 @@ import mr.wruczek.supercensor3.utils.LoggerUtils;
 import mr.wruczek.supercensor3.utils.classes.SCLogger;
 
 // Small class created to keep all arrays loaded from rules folder
+
 /**
- * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0
- * International License. http://creativecommons.org/licenses/by-nd/4.0/
+ * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
+ * http://creativecommons.org/licenses/by-nd/4.0/
  *
  * @author Wruczek
  */
@@ -56,6 +57,7 @@ public class CensorData {
                     if (specialCS != null)
                         special.add(specialCS);
 
+
                     SCLogger.logInfo("Loaded " + file.getName() + " rules file", LoggerUtils.LogType.PLUGIN);
                 } catch (Exception e) {
                     SCLogger.logError("Error while loading " + path + ": " + e, LoggerUtils.LogType.PLUGIN);
@@ -68,15 +70,14 @@ public class CensorData {
 
                     String regex;
                     while ((regex = br.readLine()) != null) {
-                        if (regex.startsWith("#") || regex.trim().isEmpty())
-                            continue;
+                        if (regex.startsWith("#") || regex.trim().isEmpty()) continue;
 
                         // if(hasName(regex)) {
                         String[] split = regex.split(": ", 2);
                         regexList.put(split[0].trim(), split[1].trim());
-                        /*
-                         * } else { regexList.add(regex); }
-                         */
+                        /* } else {
+							regexList.add(regex);
+						} */
                     }
 
                     br.close();

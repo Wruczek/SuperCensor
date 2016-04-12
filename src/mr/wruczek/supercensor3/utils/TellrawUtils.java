@@ -9,8 +9,8 @@ import mr.wruczek.supercensor3.utils.classes.MessagesCreator.ChatExtra;
 import mr.wruczek.supercensor3.utils.classes.Reflection;
 
 /**
- * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0
- * International License. http://creativecommons.org/licenses/by-nd/4.0/
+ * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
+ * http://creativecommons.org/licenses/by-nd/4.0/
  *
  * @author Wruczek
  */
@@ -24,15 +24,13 @@ public class TellrawUtils {
             String commandUsageFormat = ConfigUtils.getColoredStringFromConfig("MessageFormat.HelpEntryFormat");
             commandUsageFormat = StringUtils.color(commandUsageFormat.replace("%command%", command));
 
-            sendTellraw((Player) sender, commandUsageFormat, description,
-                    StringUtils.unColor(commandUsageFormat.replace("- ", "")));
+            sendTellraw((Player) sender, commandUsageFormat, description, StringUtils.unColor(commandUsageFormat.replace("- ", "")));
             return;
         }
 
         String commandUsageFormat = ConfigUtils.getColoredStringFromConfig("MessageFormat.OldHelpEntryFormat");
 
-        sender.sendMessage(StringUtils
-                .color(commandUsageFormat.replace("%command%", command).replace("%description%", description)));
+        sender.sendMessage(StringUtils.color(commandUsageFormat.replace("%command%", command).replace("%description%", description)));
     }
 
     public static void sendTellraw(Player player, String message, String hovertext) {
@@ -54,8 +52,7 @@ public class TellrawUtils {
         try {
             Reflection.sendMessage(player, ms.toString());
         } catch (Exception e) {
-            player.sendMessage(StringUtils.color(SCUtils.getPluginPrefix()
-                    + "Cannot send you formatted message. Please check console for full stacktrace. " + e));
+            player.sendMessage(StringUtils.color(SCUtils.getPluginPrefix() + "Cannot send you formatted message. Please check console for full stacktrace. " + e));
             LoggerUtils.handleException(e);
         }
     }

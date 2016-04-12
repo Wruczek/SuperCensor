@@ -7,9 +7,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
+import mr.wruczek.supercensor3.PPUtils.PPManager;
 import mr.wruczek.supercensor3.SCCheckEvent;
 import mr.wruczek.supercensor3.SCMain;
-import mr.wruczek.supercensor3.PPUtils.PPManager;
 import mr.wruczek.supercensor3.utils.ConfigUtils;
 import mr.wruczek.supercensor3.utils.classes.SCPermissionsEnum;
 

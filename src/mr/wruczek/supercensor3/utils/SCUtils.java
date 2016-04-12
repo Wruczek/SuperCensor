@@ -9,8 +9,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
- * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0
- * International License. http://creativecommons.org/licenses/by-nd/4.0/
+ * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
+ * http://creativecommons.org/licenses/by-nd/4.0/
  *
  * @author Wruczek
  */
@@ -29,21 +29,18 @@ public class SCUtils {
             return true;
         }
 
-        sender.sendMessage(
-                ConfigUtils.getMessageFromMessagesFile("Commands.NoPermissions").replace("%permission%", permission));
+        sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.NoPermissions").replace("%permission%", permission));
         return false;
     }
 
     public static String getCommandDescription(String descriptionPath) {
-        return ConfigUtils.getMessageFromMessagesFile("Commands.Description")
-                + ConfigUtils.getMessageFromMessagesFile(descriptionPath);
+        return ConfigUtils.getMessageFromMessagesFile("Commands.Description") + ConfigUtils.getMessageFromMessagesFile(descriptionPath);
     }
 
     // This is simple workaround over 1.8 changes.
     public static int getNumberOfPlayersOnline() {
         int i = 0;
-        for (@SuppressWarnings("unused")
-        Player player : Bukkit.getOnlinePlayers())
+        for (@SuppressWarnings("unused") Player player : Bukkit.getOnlinePlayers())
             i++;
         return i;
     }

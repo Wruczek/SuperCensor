@@ -43,8 +43,7 @@ public class SubcommandPerms extends SCSubcommand {
 
             for (SCPermissionsEnum permission : SCPermissionsEnum.values()) {
                 if (permission != SCPermissionsEnum.PERMISSIONPREFIX) {
-                    TellrawUtils.sendTellraw((Player) sender, format(permission.toString()),
-                            permission.getDescription());
+                    TellrawUtils.sendTellraw((Player) sender, format(permission.toString()), permission.getDescription());
                 }
             }
 
@@ -65,8 +64,8 @@ public class SubcommandPerms extends SCSubcommand {
     }
 
     private String format(String permission) {
-        return ConfigUtils.getColoredStringFromConfig("MessageFormat.PermissionEntryFormat").replace("%permission%",
-                permission);
+        return ConfigUtils.getColoredStringFromConfig("MessageFormat.PermissionEntryFormat")
+                .replace("%permission%", permission);
     }
 
     private String oldFormat(String permission, String description) {

@@ -10,8 +10,8 @@ import mr.wruczek.supercensor3.utils.LoggerUtils;
 import mr.wruczek.supercensor3.utils.classes.SCLogger;
 
 /**
- * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0
- * International License. http://creativecommons.org/licenses/by-nd/4.0/
+ * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
+ * http://creativecommons.org/licenses/by-nd/4.0/
  *
  * @author Wruczek
  */
@@ -37,8 +37,7 @@ public class PPLoader {
                     if (cs != null)
                         PPRules.add(cs);
 
-                    SCLogger.logInfo("Loaded " + file.getName() + " PenaltyPointsRules file",
-                            LoggerUtils.LogType.PLUGIN);
+                    SCLogger.logInfo("Loaded " + file.getName() + " PenaltyPointsRules file", LoggerUtils.LogType.PLUGIN);
                 } catch (Exception e) {
                     SCLogger.logError("Error while loading " + path + ": " + e, LoggerUtils.LogType.PLUGIN);
                 }

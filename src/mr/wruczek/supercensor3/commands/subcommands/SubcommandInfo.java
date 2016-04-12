@@ -34,8 +34,8 @@ import mr.wruczek.supercensor3.utils.classes.SCPermissionsEnum;
 import mr.wruczek.supercensor3.utils.classes.SCUpdater;
 
 /**
- * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0
- * International License. http://creativecommons.org/licenses/by-nd/4.0/
+ * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
+ * http://creativecommons.org/licenses/by-nd/4.0/
  *
  * @author Wruczek
  */
@@ -43,7 +43,6 @@ public class SubcommandInfo extends SCSubcommand {
 
     private static String pluginInfoJSON;
     private static HashMap<String, String> links;
-    public static String latestFilter;
 
     public SubcommandInfo() {
         SCMainCommand.registerSubcommand(this, "info", "informations", "about", "author");
@@ -75,8 +74,9 @@ public class SubcommandInfo extends SCSubcommand {
         }
 
         if (args.length > 1) {
-            sender.sendMessage(
-                    "SuperCensor " + SCMain.getInstance().getDescription().getVersion() + " - Developer Informations");
+            sender.sendMessage("SuperCensor "
+                    + SCMain.getInstance().getDescription().getVersion()
+                    + " - Developer Informations");
 
             sender.sendMessage("Server version: " + Bukkit.getVersion());
 
@@ -95,7 +95,8 @@ public class SubcommandInfo extends SCSubcommand {
             sender.sendMessage(" ");
 
             for (Entry<String, String> entry : CensorData.regexList.entrySet())
-                sender.sendMessage("* CensorData.regexWithNames: " + entry.getKey() + ": " + entry.getValue());
+                sender.sendMessage("* CensorData.regexWithNames: " +
+                        entry.getKey() + ": " + entry.getValue());
 
             sender.sendMessage(" ");
 
@@ -127,10 +128,6 @@ public class SubcommandInfo extends SCSubcommand {
 
             sender.sendMessage(" ");
 
-            sender.sendMessage("Latest filter: " + latestFilter);
-
-            sender.sendMessage(" ");
-
             return;
         }
 
@@ -150,17 +147,14 @@ public class SubcommandInfo extends SCSubcommand {
                     if (result == UpdateResult.NO_UPDATE) {
                         addToVersion = ConfigUtils.getMessageFromMessagesFile("Commands.Info.VersionStatus.UpToDate");
                     } else if (result == UpdateResult.UPDATE_AVAILABLE) {
-                        addToVersion = ConfigUtils
-                                .getMessageFromMessagesFile("Commands.Info.VersionStatus.UpdateAvailable");
+                        addToVersion = ConfigUtils.getMessageFromMessagesFile("Commands.Info.VersionStatus.UpdateAvailable");
                     } else if (result == UpdateResult.SUCCESS) {
-                        addToVersion = ConfigUtils
-                                .getMessageFromMessagesFile("Commands.Info.VersionStatus.NewVersionReady");
+                        addToVersion = ConfigUtils.getMessageFromMessagesFile("Commands.Info.VersionStatus.NewVersionReady");
                     }
                 }
 
                 sender.sendMessage(SCCommandHeader.getHeader());
-                sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.Info.Version") + pdf.getVersion()
-                        + addToVersion);
+                sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.Info.Version") + pdf.getVersion() + addToVersion);
                 sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.Info.Author") + "Wruczek");
 
                 sender.sendMessage("");
@@ -170,8 +164,7 @@ public class SubcommandInfo extends SCSubcommand {
                     try {
                         Reflection.sendMessage((Player) sender, pluginInfoJSON);
                     } catch (Exception e) {
-                        sender.sendMessage(StringUtils.color(SCUtils.getPluginPrefix()
-                                + "Cannot send you formatted message. Please check console for full stacktrace. " + e));
+                        sender.sendMessage(StringUtils.color(SCUtils.getPluginPrefix() + "Cannot send you formatted message. Please check console for full stacktrace. " + e));
                         LoggerUtils.handleException(e);
                     }
                 } else {

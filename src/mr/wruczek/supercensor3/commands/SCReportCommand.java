@@ -51,13 +51,13 @@ public class SCReportCommand implements CommandExecutor {
         return false;
     }
 
+
     /**
      * Simple API for uploading data to hastebin.com<br>
      * (c) 2016 Wruczek<br>
      * MIT license
-     * 
-     * @param data
-     *            Message body
+     *
+     * @param data Message body
      * @return URL to paste
      */
     public static URL hastebinPost(String data) throws IOException {
@@ -75,21 +75,11 @@ public class SCReportCommand implements CommandExecutor {
         Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
 
         StringBuilder sb = new StringBuilder();
-        for (int c; (c = in.read()) >= 0;)
+        for (int c; (c = in.read()) >= 0; )
             sb.append((char) c);
 
         String response = sb.toString();
-        String id = response.trim().substring(8, response.length() - 2); // You
-        // can
-        // also
-        // use
-        // JSON
-        // library
-        // and
-        // get
-        // "key"
-        // from
-        // response
+        String id = response.trim().substring(8, response.length() - 2); // You can also use JSON library and get "key" from response
 
         return new URL("http://hastebin.com/" + id);
     }

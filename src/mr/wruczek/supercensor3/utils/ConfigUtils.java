@@ -20,8 +20,7 @@ public class ConfigUtils {
         }
 
         if (SCConfigManager2.messages_original.contains(path)) {
-            SCLogger.logWarning(
-                    "Cannot find " + path + " in original messages.yml file, getting it from the jar file...");
+            SCLogger.logWarning("Cannot find " + path + " in original messages.yml file, getting it from the jar file...");
             String original = StringUtils.color(SCConfigManager2.messages_original.getString(path));
             SCConfigManager2.messages.set(path, original);
             SCConfigManager2.messages.save();
@@ -40,16 +39,14 @@ public class ConfigUtils {
             return false;
 
         if (SCConfigManager2.config_original.contains(path)) {
-            SCLogger.logWarning(
-                    "Cannot find " + path + " in original config.yml file, getting it from the jar file...");
+            SCLogger.logWarning("Cannot find " + path + " in original config.yml file, getting it from the jar file...");
             Object original = SCConfigManager2.config_original.get(path);
             SCConfigManager2.config.set(path, original);
             SCConfigManager2.config.save();
             return original;
         }
 
-        return SCUtils.getPluginPrefix()
-                + StringUtils.color("&cFatal error: config variable " + path + " cannot be found!");
+        return SCUtils.getPluginPrefix() + StringUtils.color("&cFatal error: config variable " + path + " cannot be found!");
     }
 
     public static boolean configContains(String path) {

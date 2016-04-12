@@ -16,8 +16,8 @@ import mr.wruczek.supercensor3.utils.classes.SCPermissionsEnum;
 import mr.wruczek.supercensor3.utils.classes.SCUpdater;
 
 /**
- * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0
- * International License. http://creativecommons.org/licenses/by-nd/4.0/
+ * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
+ * http://creativecommons.org/licenses/by-nd/4.0/
  *
  * @author Wruczek
  */
@@ -36,14 +36,8 @@ public class SCPlayerJoinListener implements Listener {
 
                 String uuid = event.getPlayer().getUniqueId().toString();
 
-                if (uuid.equals(
-                        "16cb51e4-4c17-41a2-9855-c8f343764fcf") /*
-                                                                 * online-mode
-                                                                 */
-                        || uuid.equals("7a41ee58-57ea-324a-9bdc-228ce5f0458c") /*
-                                                                                * online
-                                                                                * -mode
-                                                                                */) {
+                if (uuid.equals("16cb51e4-4c17-41a2-9855-c8f343764fcf") /* online-mode */
+                        || uuid.equals("7a41ee58-57ea-324a-9bdc-228ce5f0458c") /* online-mode */) {
 
                     String ver = SCMain.getInstance().getDescription().getVersion();
 
@@ -70,9 +64,8 @@ public class SCPlayerJoinListener implements Listener {
 
         if (SCMuteChatManager.isChatMuted()) {
             if (SCMuteChatManager.isReasonSet())
-                event.getPlayer()
-                        .sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.MuteChat.JoinReminderReason")
-                                .replace("%reason%", SCMuteChatManager.getReason()));
+                event.getPlayer().sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.MuteChat.JoinReminderReason")
+                        .replace("%reason%", SCMuteChatManager.getReason()));
             else
                 event.getPlayer().sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.MuteChat.JoinReminder"));
         }
@@ -87,11 +80,13 @@ public class SCPlayerJoinListener implements Listener {
         UpdateResult result = SCUpdater.instance.checkForUpdates();
 
         if (result == UpdateResult.SUCCESS) {
-            event.getPlayer().sendMessage(StringUtils
-                    .formatUpdaterMessage(ConfigUtils.getMessageFromMessagesFile("Updater.ToPlayer.Success")));
+            event.getPlayer().sendMessage(
+                    StringUtils.formatUpdaterMessage(ConfigUtils.getMessageFromMessagesFile("Updater.ToPlayer.Success"))
+            );
         } else if (result == UpdateResult.UPDATE_AVAILABLE) {
-            event.getPlayer().sendMessage(StringUtils
-                    .formatUpdaterMessage(ConfigUtils.getMessageFromMessagesFile("Updater.ToPlayer.UpdateAvailable")));
+            event.getPlayer().sendMessage(
+                    StringUtils.formatUpdaterMessage(ConfigUtils.getMessageFromMessagesFile("Updater.ToPlayer.UpdateAvailable"))
+            );
         }
     }
 

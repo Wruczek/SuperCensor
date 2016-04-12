@@ -65,8 +65,8 @@ public class SCPlayerDataManger {
         try {
             config.save(userFile);
         } catch (IOException e) {
-            SCLogger.logInfo("Exception " + e.toString() + " while creating data file for player " + player.getName()
-                    + " (UUID " + getUUID() + ")!", LoggerUtils.LogType.PLUGIN);
+            SCLogger.logInfo("Exception " + e.toString() + " while creating data file for player "
+                    + player.getName() + " (UUID " + getUUID() + ")!", LoggerUtils.LogType.PLUGIN);
         }
     }
 

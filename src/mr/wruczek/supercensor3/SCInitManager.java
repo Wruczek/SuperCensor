@@ -18,8 +18,8 @@ import mr.wruczek.supercensor3.utils.classes.SCLogger;
 import mr.wruczek.supercensor3.utils.classes.WordlistUpdater;
 
 /**
- * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0
- * International License. http://creativecommons.org/licenses/by-nd/4.0/
+ * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
+ * http://creativecommons.org/licenses/by-nd/4.0/
  *
  * @author Wruczek
  */
@@ -66,10 +66,10 @@ public class SCInitManager {
         // enderegion
 
         // region Checks
-        pluginManager.registerEvents(new SpecialCheck(), instance);
-        pluginManager.registerEvents(new WordlistCheck(), instance);
         pluginManager.registerEvents(new AntiSpam(), instance);
         pluginManager.registerEvents(new SlowModeCheck(), instance);
+        pluginManager.registerEvents(new WordlistCheck(), instance);
+        pluginManager.registerEvents(new SpecialCheck(), instance);
         // endregion
     }
 

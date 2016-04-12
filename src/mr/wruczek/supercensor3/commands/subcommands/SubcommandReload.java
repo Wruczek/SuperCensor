@@ -17,8 +17,8 @@ import mr.wruczek.supercensor3.utils.classes.SCLogger;
 import mr.wruczek.supercensor3.utils.classes.SCPermissionsEnum;
 
 /**
- * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0
- * International License. http://creativecommons.org/licenses/by-nd/4.0/
+ * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
+ * http://creativecommons.org/licenses/by-nd/4.0/
  *
  * @author Wruczek
  */
@@ -41,18 +41,18 @@ public class SubcommandReload extends SCSubcommand {
         try {
             long start = System.currentTimeMillis();
 
-            /*
-             * unregister old listeners SCCheckEvent.getHandlerList();
-             * HandlerList.unregisterAll(); SCUtils.logInfo(
-             * "Old listeners unregistered");
-             */
+			/* unregister old listeners
+			SCCheckEvent.getHandlerList();
+			HandlerList.unregisterAll();
+			SCUtils.logInfo("Old listeners unregistered");
+			*/
 
             SCInitManager.init();
 
             long time = System.currentTimeMillis() - start;
 
-            sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.Reload.Reloaded").replace("%time%",
-                    String.valueOf(time)));
+            sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.Reload.Reloaded")
+                    .replace("%time%", String.valueOf(time)));
         } catch (Exception e) {
 
             if (ConfigUtils.getMessageFromMessagesFile("Commands.Reload.Exception") != null) {

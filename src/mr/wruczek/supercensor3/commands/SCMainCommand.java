@@ -63,7 +63,8 @@ public class SCMainCommand implements CommandExecutor, TabCompleter {
 
         SCSubcommand execute = null;
 
-        searchLoop: for (Entry<SCSubcommand, String[]> entry : subcommands.entrySet()) {
+        searchLoop:
+        for (Entry<SCSubcommand, String[]> entry : subcommands.entrySet()) {
             for (String cmd : entry.getValue()) {
                 if (cmd.equalsIgnoreCase(commandName)) {
                     execute = entry.getKey();
@@ -76,11 +77,11 @@ public class SCMainCommand implements CommandExecutor, TabCompleter {
             try {
                 execute.onCommand(sender, commandName, args);
             } catch (Exception e) {
-                sender.sendMessage(SCUtils.getPluginPrefix() + StringUtils
-                        .color("&cAn unknown error " + "occurred while attempting to perform this command: " + e));
+                sender.sendMessage(SCUtils.getPluginPrefix() + StringUtils.color("&cAn unknown error "
+                        + "occurred while attempting to perform this command: " + e));
 
-                SCLogger.logError("An error occurred while attemping to perform command \"" + commandName
-                        + "\" with args \"" + args + "\"", LoggerUtils.LogType.PLUGIN);
+                SCLogger.logError("An error occurred while attemping to perform command \""
+                        + commandName + "\" with args \"" + args + "\"", LoggerUtils.LogType.PLUGIN);
 
                 LoggerUtils.handleException(e);
             }

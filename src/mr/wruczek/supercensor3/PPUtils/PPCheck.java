@@ -26,7 +26,8 @@ public class PPCheck {
         if (newPoints < oldPoints)
             return;
 
-        configLoop: for (final ConfigurationSection cs : PPLoader.PPRules) {
+        configLoop:
+        for (final ConfigurationSection cs : PPLoader.PPRules) {
             for (final String rule : cs.getKeys(false)) {
 
                 // region Check for points and LatestPunishment
@@ -43,9 +44,9 @@ public class PPCheck {
 
                 // region Message player
                 if (cs.contains(rule + ".MessagePlayer"))
-                    player.sendMessage(StringUtils
-                            .color(cs.getString(rule + ".MessagePlayer").replace("%nick%", player.getDisplayName())));
-                        // endregion
+                    player.sendMessage(StringUtils.color(cs.getString(rule + ".MessagePlayer")
+                            .replace("%nick%", player.getDisplayName())));
+                // endregion
 
                 // region Run commands
                 if (cs.contains(rule + ".RunCommands")) {
@@ -57,8 +58,7 @@ public class PPCheck {
                         public void run() {
                             for (String command : cs.getStringList(rule + ".RunCommands")) {
                                 try {
-                                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
-                                            command.replace("%nick%", player.getDisplayName()));
+                                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%nick%", player.getDisplayName()));
                                 } catch (Exception e) {
                                     SCLogger.logError("There was exception when executing command \"" + command
                                             + "\" on player \"" + player.getName(), LoggerUtils.LogType.PLUGIN);
@@ -77,9 +77,10 @@ public class PPCheck {
 
                 // region Action Log
                 if (cs.contains(rule + ".Log")) {
-                    SCLogger.logInfo(
-                            cs.getString(rule + ".Log").replace("%date%", LoggerUtils.getDate())
-                                    .replace("%time%", LoggerUtils.getTime()).replace("%nick%", player.getName()),
+                    SCLogger.logInfo(cs.getString(rule + ".Log")
+                                    .replace("%date%", LoggerUtils.getDate())
+                                    .replace("%time%", LoggerUtils.getTime())
+                                    .replace("%nick%", player.getName()),
                             LoggerUtils.LogType.CENSOR);
                 }
                 // endregion

@@ -13,8 +13,10 @@ import org.bukkit.scoreboard.Scoreboard;
 import mr.wruczek.supercensor3.utils.LoggerUtils;
 
 /**
- * The MIT License (MIT) Created on 27/01/2016. Updated on 15/02/2016 Copyright
- * (c) 2016 Vinetos
+ * The MIT License (MIT)
+ * Created on 27/01/2016.
+ * Updated on 15/02/2016
+ * Copyright (c) 2016 Vinetos
  */
 public class Reflection {
 
@@ -22,7 +24,8 @@ public class Reflection {
         try {
             String version = getNmsVersion();
             String path = classname.replace("{nms}", "net.minecraft.server." + version)
-                    .replace("{nm}", "net.minecraft." + version).replace("{cb}", "org.bukkit.craftbukkit.." + version);
+                    .replace("{nm}", "net.minecraft." + version)
+                    .replace("{cb}", "org.bukkit.craftbukkit.." + version);
             return Class.forName(path);
         } catch (Exception e) {
             LoggerUtils.handleException(e);
@@ -45,8 +48,9 @@ public class Reflection {
         try {
             String version = getNmsVersion();
             String path = classname.replace("{nms}", "net.minecraft.server." + version)
-                    .replace("{nm}", "net.minecraft." + version).replace("{cb}", "org.bukkit.craftbukkit.." + version);
-            return new Class[] { Array.newInstance(getClass(classname), arraySize).getClass() };
+                    .replace("{nm}", "net.minecraft." + version)
+                    .replace("{cb}", "org.bukkit.craftbukkit.." + version);
+            return new Class[]{Array.newInstance(getClass(classname), arraySize).getClass()};
         } catch (Exception e) {
             LoggerUtils.handleException(e);
             return null;
@@ -73,8 +77,7 @@ public class Reflection {
         return field.get(instance);
     }
 
-    public static Object getFieldValueFromSuperClass(Class<?> superClass, Object instance, String fieldName)
-            throws Exception {
+    public static Object getFieldValueFromSuperClass(Class<?> superClass, Object instance, String fieldName) throws Exception {
         Field field = superClass.getDeclaredField(fieldName);
         field.setAccessible(true);
         return field.get(instance);
@@ -105,13 +108,13 @@ public class Reflection {
                     field.setAccessible(true);
                     fieldArrayList.add(field);
                 } else {
-                    // System.out.println("Nop: " + field.getType().toString() +
-                    // " |> " + fieldName);
+                    // System.out.println("Nop: " + field.getType().toString() + " |> " + fieldName);
                 }
             }
         }
         return fieldArrayList;
     }
+
 
     @SuppressWarnings("unchecked")
     public static <T> T getFieldValue(Field field, Object obj) {
@@ -143,8 +146,7 @@ public class Reflection {
         for (Player p : Bukkit.getOnlinePlayers()) {
             Object nmsPlayer = getNmsPlayer(p);
             Object connection = nmsPlayer.getClass().getField("playerConnection").get(nmsPlayer);
-            connection.getClass().getMethod("sendPacket", Reflection.getClass("{nms}.Packet")).invoke(connection,
-                    packet);
+            connection.getClass().getMethod("sendPacket", Reflection.getClass("{nms}.Packet")).invoke(connection, packet);
         }
     }
 
@@ -153,8 +155,7 @@ public class Reflection {
             for (String name : players) {
                 Object nmsPlayer = getNmsPlayer(Bukkit.getPlayer(name));
                 Object connection = nmsPlayer.getClass().getField("playerConnection").get(nmsPlayer);
-                connection.getClass().getMethod("sendPacket", Reflection.getClass("{nms}.Packet")).invoke(connection,
-                        packet);
+                connection.getClass().getMethod("sendPacket", Reflection.getClass("{nms}.Packet")).invoke(connection, packet);
             }
         } catch (Exception e) {
             LoggerUtils.handleException(e);
@@ -174,16 +175,15 @@ public class Reflection {
     }
 
     public static void sendMessage(Player p, String message) throws Exception {
-        Object chat = getNmsClass("IChatBaseComponent").getDeclaredClasses()[0].getMethod("a", String.class)
-                .invoke(null, message);
+        Object chat = getNmsClass("IChatBaseComponent").getDeclaredClasses()[0].getMethod("a", String.class).invoke(null, message);
         sendMessage(p, chat);
     }
 
     public static void sendMessages(Player p, Object message) throws Exception {
         Object nmsPlayer = getNmsPlayer(p);
         Class<?> c = Reflection.getClass("{nms}.IChatBaseComponent");
-        Method m = nmsPlayer.getClass().getMethod("sendMessage", new Class[] { Array.newInstance(c, 4).getClass() });
-        m.invoke(nmsPlayer, new Object[] { message });
+        Method m = nmsPlayer.getClass().getMethod("sendMessage", new Class[]{Array.newInstance(c, 4).getClass()});
+        m.invoke(nmsPlayer, new Object[]{message});
 
     }
 

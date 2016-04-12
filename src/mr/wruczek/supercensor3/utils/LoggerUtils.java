@@ -120,8 +120,7 @@ public class LoggerUtils {
 
                 fw = new FileWriter(logFile, true);
                 pw = new PrintWriter(fw);
-                pw.println(
-                        prefix.replace("%date%", getDate()).replace("%time%", getTime()) + StringUtils.unColor(text));
+                pw.println(prefix.replace("%date%", getDate()).replace("%time%", getTime()) + StringUtils.unColor(text));
                 pw.flush();
             } catch (Exception e) {
                 handleException(e);

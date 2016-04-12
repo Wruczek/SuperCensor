@@ -15,8 +15,8 @@ import mr.wruczek.supercensor3.utils.classes.SCUpdater;
 import mr.wruczek.supercensor3.utils.uuid.UUIDCache;
 
 /**
- * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0
- * International License. http://creativecommons.org/licenses/by-nd/4.0/
+ * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
+ * http://creativecommons.org/licenses/by-nd/4.0/
  *
  * @author Wruczek
  */
@@ -42,13 +42,11 @@ public class SCMain extends JavaPlugin {
         SCInitManager.registerListeners();
 
         // region Display informations about messages file
-        SCLogger.logInfo(
-                ConfigUtils.getMessageFromMessagesFile("SystemEnable.MessagesLoaded")
-                        .replace("%languagecode%",
-                                ConfigUtils.getMessageFromMessagesFile("LocalizationInformations.LanguageCode"))
-                .replace("%languagename%", ConfigUtils.getMessageFromMessagesFile("LocalizationInformations.Language")),
+        SCLogger.logInfo(ConfigUtils.getMessageFromMessagesFile("SystemEnable.MessagesLoaded")
+                        .replace("%languagecode%", ConfigUtils.getMessageFromMessagesFile("LocalizationInformations.LanguageCode"))
+                        .replace("%languagename%", ConfigUtils.getMessageFromMessagesFile("LocalizationInformations.Language")),
                 LoggerUtils.LogType.PLUGIN);
-                // endregion
+        // endregion
 
         // region Auto-Updater
         Bukkit.getScheduler().scheduleSyncDelayedTask(instance, new Runnable() {
@@ -58,19 +56,16 @@ public class SCMain extends JavaPlugin {
                     UpdateResult result = SCUpdater.instance.getResult();
 
                     if (result == UpdateResult.SUCCESS) {
-                        SCLogger.logInfo(
-                                StringUtils.formatUpdaterMessage(
-                                        ConfigUtils.getMessageFromMessagesFile("Updater.ToConsole.Success")),
+                        SCLogger.logInfo(StringUtils.formatUpdaterMessage(ConfigUtils
+                                        .getMessageFromMessagesFile("Updater.ToConsole.Success")),
                                 LoggerUtils.LogType.PLUGIN);
                     } else if (result == UpdateResult.UPDATE_AVAILABLE) {
-                        SCLogger.logInfo(
-                                StringUtils.formatUpdaterMessage(
-                                        ConfigUtils.getMessageFromMessagesFile("Updater.ToConsole.UpdateAvailable")),
+                        SCLogger.logInfo(StringUtils.formatUpdaterMessage(ConfigUtils
+                                        .getMessageFromMessagesFile("Updater.ToConsole.UpdateAvailable")),
                                 LoggerUtils.LogType.PLUGIN);
                     } else if (result == UpdateResult.NO_UPDATE) {
-                        SCLogger.logInfo(
-                                StringUtils.formatUpdaterMessage(
-                                        ConfigUtils.getMessageFromMessagesFile("Updater.ToConsole.NoUpdate")),
+                        SCLogger.logInfo(StringUtils.formatUpdaterMessage(ConfigUtils
+                                        .getMessageFromMessagesFile("Updater.ToConsole.NoUpdate")),
                                 LoggerUtils.LogType.PLUGIN);
                     }
                 }
@@ -79,16 +74,15 @@ public class SCMain extends JavaPlugin {
         // endregion
 
         try {
-            // scPlayersDataManger = new SCPlayersDataManger(false, null, null,
-            // null, null, null);
+            // scPlayersDataManger = new SCPlayersDataManger(false, null, null, null, null, null);
         } catch (Exception e) {
             LoggerUtils.handleException(e);
         }
 
         long loadTime = System.currentTimeMillis() - timerStart;
 
-        SCLogger.logInfo(ConfigUtils.getMessageFromMessagesFile("SystemEnable.Loaded").replace("%time%",
-                String.valueOf(loadTime)), LoggerUtils.LogType.PLUGIN);
+        SCLogger.logInfo(ConfigUtils.getMessageFromMessagesFile("SystemEnable.Loaded")
+                .replace("%time%", String.valueOf(loadTime)), LoggerUtils.LogType.PLUGIN);
     }
 
     @Override

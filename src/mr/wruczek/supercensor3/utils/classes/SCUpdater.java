@@ -7,8 +7,8 @@ import mr.wruczek.supercensor3.utils.classes.GravityUpdater.UpdateResult;
 import mr.wruczek.supercensor3.utils.classes.GravityUpdater.UpdateType;
 
 /**
- * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0
- * International License. http://creativecommons.org/licenses/by-nd/4.0/
+ * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
+ * http://creativecommons.org/licenses/by-nd/4.0/
  *
  * @author Wruczek
  */
@@ -61,8 +61,8 @@ public class SCUpdater {
     }
 
     public UpdateType getUpdateType() {
-        return ConfigUtils.getBooleanFromConfig("AutoUpdater.AutoDownload") ? GravityUpdater.UpdateType.DEFAULT
-                : GravityUpdater.UpdateType.NO_DOWNLOAD;
+        return ConfigUtils.getBooleanFromConfig("AutoUpdater.AutoDownload") ?
+                GravityUpdater.UpdateType.DEFAULT : GravityUpdater.UpdateType.NO_DOWNLOAD;
     }
 
     private void initUpdater() {

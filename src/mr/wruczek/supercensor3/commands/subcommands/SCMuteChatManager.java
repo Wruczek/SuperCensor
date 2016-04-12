@@ -21,8 +21,8 @@ import mr.wruczek.supercensor3.utils.StringUtils;
 import mr.wruczek.supercensor3.utils.classes.SCPermissionsEnum;
 
 /**
- * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0
- * International License. http://creativecommons.org/licenses/by-nd/4.0/
+ * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
+ * http://creativecommons.org/licenses/by-nd/4.0/
  *
  * @author Wruczek
  */
@@ -36,7 +36,9 @@ public class SCMuteChatManager extends SCSubcommand implements Listener {
 
     @EventHandler
     public void checkListener(SCCheckEvent event) {
-        if (event.isCensored() || SCPermissionsEnum.MUTECHAT_EXEMPT.hasPermission(event.getPlayer()) || !isChatMuted())
+        if (event.isCensored()
+                || SCPermissionsEnum.MUTECHAT_EXEMPT.hasPermission(event.getPlayer())
+                || !isChatMuted())
             return;
 
         if (SCMuteChatManager.isReasonSet())
@@ -76,9 +78,9 @@ public class SCMuteChatManager extends SCSubcommand implements Listener {
                     sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.MuteChat.ChatDisabledReason")
                             .replace("%reason%", reason));
                 } else {
-                    Bukkit.broadcastMessage(
-                            ConfigUtils.getMessageFromMessagesFile("Commands.MuteChat.ChatDisabledBroadcastReason")
-                                    .replace("%nick%", sender.getName()).replace("%reason%", reason));
+                    Bukkit.broadcastMessage(ConfigUtils.getMessageFromMessagesFile("Commands.MuteChat.ChatDisabledBroadcastReason")
+                            .replace("%nick%", sender.getName())
+                            .replace("%reason%", reason));
                 }
             } else {
 
@@ -87,9 +89,8 @@ public class SCMuteChatManager extends SCSubcommand implements Listener {
                 if (silentMode) {
                     sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.MuteChat.ChatDisabled"));
                 } else {
-                    Bukkit.broadcastMessage(
-                            ConfigUtils.getMessageFromMessagesFile("Commands.MuteChat.ChatDisabledBroadcast")
-                                    .replace("%nick%", sender.getName()));
+                    Bukkit.broadcastMessage(ConfigUtils.getMessageFromMessagesFile(
+                            "Commands.MuteChat.ChatDisabledBroadcast").replace("%nick%", sender.getName()));
                 }
             }
         }
@@ -128,7 +129,6 @@ public class SCMuteChatManager extends SCSubcommand implements Listener {
     }
 
     public static void setReason(String reason) {
-        SCConfigManager2.data.set("GlobalChatMute.Reason",
-                reason.replace(Character.toString('\u00A7'), String.valueOf(ChatColor.COLOR_CHAR)));
+        SCConfigManager2.data.set("GlobalChatMute.Reason", reason.replace(Character.toString('\u00A7'), String.valueOf(ChatColor.COLOR_CHAR)));
     }
 }

@@ -7,10 +7,11 @@ import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import mr.wruczek.supercensor3.SCConfigManager2;
 import mr.wruczek.supercensor3.SCMain;
@@ -21,8 +22,8 @@ import mr.wruczek.supercensor3.utils.LoggerUtils;
 import mr.wruczek.supercensor3.utils.SCUtils;
 
 /**
- * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0
- * International License. http://creativecommons.org/licenses/by-nd/4.0/
+ * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
+ * http://creativecommons.org/licenses/by-nd/4.0/
  *
  * @author Wruczek
  */
@@ -69,23 +70,12 @@ public class WordlistUpdater {
 
         String result = IOUtils.getContentFromURL(url);
 
-        try {
-            JSONObject.testValidity(result);
-        } catch (Exception e) {
-            SCLogger.logError(prefix + "JSON downloaded from \"" + url + "\" is invalid, abandoning!");
-            return;
-        }
+        Gson gson = new Gson();
+        JsonObject jsonobj = gson.fromJson(result, JsonObject.class);
 
-        JSONObject jsonobj = new JSONObject(result);
-
-        String checksum = jsonobj.getString("checksum");
-
-        JSONArray jsonarray = jsonobj.getJSONArray("wordlist");
-
-        ArrayList<String> wordlist = new ArrayList<>();
-
-        for (int i = 0; i < jsonarray.length(); i++)
-            wordlist.add(jsonarray.getString(i));
+        String checksum = jsonobj.get("checksum").getAsString();
+        @SuppressWarnings("unchecked")
+        ArrayList<String> wordlist = gson.fromJson(jsonobj.getAsJsonArray("wordlist"), ArrayList.class);
 
         FileConfiguration saveToConfig = YamlConfiguration.loadConfiguration(saveTo);
 
@@ -96,8 +86,7 @@ public class WordlistUpdater {
 
         SCLogger.logInfo(prefix + "Checksum is diffrent, updating!");
 
-        saveToConfig.set("Info",
-                "Updated " + LoggerUtils.getDate() + " at " + LoggerUtils.getTime() + " from url " + url);
+        saveToConfig.set("Info", "Updated " + LoggerUtils.getDate() + " at " + LoggerUtils.getTime() + " from url " + url);
         saveToConfig.set("Wordlist", wordlist);
 
         saveToConfig.save(saveTo);
@@ -114,11 +103,9 @@ public class WordlistUpdater {
 
         try {
             this.url = new URL(ConfigUtils.getStringFromConfig("WordlistUpdater.URL"));
-            this.saveTo = new File(SCConfigManager2.rulesFolder,
-                    ConfigUtils.getStringFromConfig("WordlistUpdater.SaveTo"));
+            this.saveTo = new File(SCConfigManager2.rulesFolder, ConfigUtils.getStringFromConfig("WordlistUpdater.SaveTo"));
         } catch (MalformedURLException e) {
-            SCLogger.logError(
-                    prefix + "The given url in WordlistUpdater is malformed. WordlistUpdater has been disabled.");
+            SCLogger.logError(prefix + "The given url in WordlistUpdater is malformed. WordlistUpdater has been disabled.");
             return false;
         }
 
@@ -127,17 +114,14 @@ public class WordlistUpdater {
 
     private boolean getDataFromJarEmbeddedConfig() {
         try {
-            YamlConfiguration jarconfig = YamlConfiguration
-                    .loadConfiguration(SCMain.getInstance().getResource("wordlistupdater.yml"));
+            YamlConfiguration jarconfig = YamlConfiguration.loadConfiguration(SCMain.getInstance().getResource("wordlistupdater.yml"));
 
-            if (jarconfig.getBoolean("WordlistUpdater.Enabled") && jarconfig.contains("WordlistUpdater.URL")
-                    && jarconfig.contains("WordlistUpdater.SaveTo")) {
+            if (jarconfig.getBoolean("WordlistUpdater.Enabled") && jarconfig.contains("WordlistUpdater.URL") && jarconfig.contains("WordlistUpdater.SaveTo")) {
                 this.url = new URL(jarconfig.getString("WordlistUpdater.URL"));
                 this.saveTo = new File(SCConfigManager2.rulesFolder, jarconfig.getString("WordlistUpdater.SaveTo"));
             }
         } catch (MalformedURLException e) {
-            SCLogger.logError(prefix
-                    + "The given url in Jar-Embedded WordlistUpdater is malformed. WordlistUpdater has been disabled.");
+            SCLogger.logError(prefix + "The given url in Jar-Embedded WordlistUpdater is malformed. WordlistUpdater has been disabled.");
             return false;
         }
 

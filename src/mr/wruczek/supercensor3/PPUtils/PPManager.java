@@ -47,12 +47,7 @@ public class PPManager {
 
         pdm.saveConfig();
 
-        if (runPPRCheck && player instanceof Player && player.isOnline()) // we
-            // can
-            // only
-            // punish
-            // online
-            // player
+        if (runPPRCheck && player instanceof Player && player.isOnline()) // we can only punish online player
             PPCheck.checkPlayer((Player) player, penaltyPoints, oldPenaltyPoints);
     }
 

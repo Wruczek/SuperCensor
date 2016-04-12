@@ -39,7 +39,7 @@ public class IOUtils {
             Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
 
             StringBuilder sb = new StringBuilder();
-            for (int c; (c = in.read()) >= 0;)
+            for (int c; (c = in.read()) >= 0; )
                 sb.append((char) c);
 
             return sb.toString().trim();

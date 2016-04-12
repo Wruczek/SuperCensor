@@ -9,10 +9,9 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
+import mr.wruczek.supercensor3.PPUtils.PPManager;
 import mr.wruczek.supercensor3.SCCheckEvent;
 import mr.wruczek.supercensor3.SCMain;
-import mr.wruczek.supercensor3.PPUtils.PPManager;
-import mr.wruczek.supercensor3.commands.subcommands.SubcommandInfo;
 import mr.wruczek.supercensor3.utils.LoggerUtils;
 import mr.wruczek.supercensor3.utils.StringUtils;
 import mr.wruczek.supercensor3.utils.classes.SCLogger;
@@ -28,7 +27,6 @@ public class SpecialCheck implements Listener {
     private Random random = new Random();
     int addedPenaltyPoints;
     String wordToCheck;
-    String censoredWord = null;
 
     @EventHandler
     public void checkListener(final SCCheckEvent event) {
@@ -36,13 +34,10 @@ public class SpecialCheck implements Listener {
         if (event.isCensored())
             return;
 
-        String message = event.getMessage();
-
         for (String str : event.getMessage().split(" ")) {
             wordToCheck = str.toLowerCase();
 
             for (final ConfigurationSection specialLists : CensorData.special) {
-
                 for (final String specialEntries : specialLists.getKeys(false)) {
 
                     if (specialLists.contains(specialEntries + ".SimpleRegex")) {
@@ -52,7 +47,7 @@ public class SpecialCheck implements Listener {
                         boolean found = false;
 
                         for (String regex : regexList) {
-                            if ((censoredWord = StringUtils.checkRegex(regex, wordToCheck, true)) != null) {
+                            if (StringUtils.checkRegex(regex, wordToCheck)) {
                                 found = true;
                                 break;
                             }
@@ -60,6 +55,7 @@ public class SpecialCheck implements Listener {
 
                         if (!found)
                             continue; // This is horrible. I know.
+
 
                     } else if (specialLists.contains(specialEntries + ".RegexIds")) {
                         List<String> regexList = specialLists.getStringList(specialEntries + ".RegexIds");
@@ -73,8 +69,7 @@ public class SpecialCheck implements Listener {
                                 if (regexFinder.getKey().equalsIgnoreCase(regexName))
                                     regex = regexFinder.getValue();
 
-                            if (regex != null
-                                    && (censoredWord = StringUtils.checkRegex(regex, wordToCheck, true)) != null) {
+                            if (regex != null && StringUtils.checkRegex(regex, wordToCheck)) {
                                 found = true;
                                 break;
                             }
@@ -90,23 +85,17 @@ public class SpecialCheck implements Listener {
                         wordToCheck = event.getMessage();
                     }
 
-                    if (censoredWord == null)
-                        censoredWord = wordToCheck;
-
                     // Check for bypass permission
                     if (event.getPlayer().hasPermission("supercensor.bypass.special." + specialEntries))
                         continue;
 
-                    SubcommandInfo.latestFilter = "S:" + specialEntries;
-
-                    /* **************************** */
-                    /* CHECKS */
-                    /* **************************** */
+					/* **************************** */
+					/* CHECKS */
+					/* **************************** */
 
                     // region Caps percent check
                     if (specialLists.contains(specialEntries + ".OnCapsPercent"))
-                        if (specialLists.getDouble(specialEntries + ".OnCapsPercent") > StringUtils
-                                .getCapsPercent(message))
+                        if (specialLists.getDouble(specialEntries + ".OnCapsPercent") > StringUtils.getCapsPercent(wordToCheck))
                             continue;
                     // endregion
 
@@ -114,19 +103,19 @@ public class SpecialCheck implements Listener {
 
                     // region Minimum length check
                     if (specialLists.contains(specialEntries + ".MinLength"))
-                        if (message.length() < specialLists.getInt(specialEntries + ".MinLength"))
+                        if (wordToCheck.length() < specialLists.getInt(specialEntries + ".MinLength"))
                             continue;
                     // endregion
 
                     // region Maximum length
                     if (specialLists.contains(specialEntries + ".MaxLength"))
-                        if (message.length() > specialLists.getInt(specialEntries + ".MaxLength"))
+                        if (wordToCheck.length() > specialLists.getInt(specialEntries + ".MaxLength"))
                             continue;
                     // endregion
 
-                    /* **************************** */
-                    /* RUNNING ACTIONS */
-                    /* **************************** */
+					/* **************************** */
+					/* RUNNING ACTIONS */
+					/* **************************** */
 
                     // region Action Cancel event
                     if (specialLists.contains(specialEntries + ".CancelChatEvent")
@@ -145,13 +134,12 @@ public class SpecialCheck implements Listener {
 
                     // region Action Message player
                     if (specialLists.contains(specialEntries + ".MessagePlayer"))
-                        event.getPlayer()
-                                .sendMessage(StringUtils
-                                        .color(specialLists.getString(specialEntries + ".MessagePlayer")
-                                                .replace("%nick%", event.getPlayer().getDisplayName()))
-                                        .replace("%addedpenaltypoints%", String.valueOf(addedPenaltyPoints))
-                                        .replace("%censoredword%", censoredWord));
-                                    // endregion
+                        event.getPlayer().sendMessage(StringUtils
+                                .color(specialLists.getString(specialEntries + ".MessagePlayer")
+                                        .replace("%nick%", event.getPlayer().getDisplayName()))
+                                .replace("%addedpenaltypoints%", String.valueOf(addedPenaltyPoints))
+                                .replace("%censoredword%", wordToCheck));
+                    // endregion
 
                     // region Action Run commands
                     if (specialLists.contains(specialEntries + ".RunCommands")) {
@@ -163,29 +151,17 @@ public class SpecialCheck implements Listener {
                             public void run() {
                                 for (String command : specialLists.getStringList(specialEntries + ".RunCommands")) {
                                     try {
-                                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
-                                                command.replace("%nick%", event.getPlayer().getName())
-                                                        .replace("%addedpenaltypoints%",
-                                                                String.valueOf(addedPenaltyPoints))
-                                                .replace("%censoredword%", censoredWord));
+                                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command
+                                                .replace("%nick%", event.getPlayer().getName())
+                                                .replace("%addedpenaltypoints%", String.valueOf(addedPenaltyPoints))
+                                                .replace("%censoredword%", wordToCheck));
                                     } catch (Exception e) {
-                                        SCLogger.logError(
-                                                "There was exception when executing command \"" + command
-                                                        + "\" on player \"" + event.getPlayer().getName(),
-                                                LoggerUtils.LogType.PLUGIN);
+                                        SCLogger.logError("There was exception when executing command \"" + command
+                                                + "\" on player \"" + event.getPlayer().getName(), LoggerUtils.LogType.PLUGIN);
                                     }
                                 }
                             }
                         });
-                    }
-                    // endregion
-
-                    // region Action Log
-                    if (specialLists.contains(specialEntries + ".Log")) {
-                        SCLogger.logInfo(specialLists.getString(specialEntries + ".Log")
-                                .replace("%date%", LoggerUtils.getDate()).replace("%time%", LoggerUtils.getTime())
-                                .replace("%nick%", event.getPlayer().getName()).replace("%swearword%", censoredWord)
-                                .replace("%message%", event.getOriginalMessage()), LoggerUtils.LogType.CENSOR);
                     }
                     // endregion
 
@@ -203,7 +179,16 @@ public class SpecialCheck implements Listener {
                         String replaceTo = replaceToList.get(random.nextInt(replaceToList.size()));
 
                         event.setMessage(StringUtils.replaceIgnoreCase(event.getMessage().toLowerCase(),
-                                censoredWord.toLowerCase(), replaceTo));
+                                wordToCheck.toLowerCase(), replaceTo));
+                    }
+                    // endregion
+
+                    // region Action Log
+                    if (specialLists.contains(specialEntries + ".Log")) {
+                        SCLogger.logInfo(specialLists.getString(specialEntries + ".Log")
+                                .replace("%date%", LoggerUtils.getDate()).replace("%time%", LoggerUtils.getTime())
+                                .replace("%nick%", event.getPlayer().getName()).replace("%swearword%", wordToCheck)
+                                .replace("%message%", event.getOriginalMessage()), LoggerUtils.LogType.CENSOR);
                     }
                     // endregion
                 }
