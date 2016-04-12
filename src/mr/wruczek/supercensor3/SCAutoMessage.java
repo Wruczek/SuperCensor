@@ -12,8 +12,8 @@ import mr.wruczek.supercensor3.utils.StringUtils;
 import mr.wruczek.supercensor3.utils.classes.SCLogger;
 
 /**
- * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
- * http://creativecommons.org/licenses/by-nd/4.0/
+ * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0
+ * International License. http://creativecommons.org/licenses/by-nd/4.0/
  *
  * @author Wruczek
  */
@@ -65,12 +65,22 @@ public class SCAutoMessage {
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     player.sendMessage(StringUtils.color(nextMessage).replace("%nick%", player.getName()));
 
-                    if (playNiceSoundOnDisplay())
-                        player.playSound(player.getLocation(), Sound.ITEM_PICKUP, 1, 1);
+                    if (playNiceSoundOnDisplay()) {
+
+                        // Support for < 1.8 and 1.9
+
+                        Sound pickupSound = Sound.valueOf("ENTITY_ITEM_PICKUP");
+
+                        if (pickupSound == null)
+                            pickupSound = Sound.valueOf("ITEM_PICKUP");
+
+                        player.playSound(player.getLocation(), pickupSound, 1, 1);
+                    }
                 }
 
                 if (displayInConsole())
-                    // New lines in console is waste of space, and it doesn't look good. Lets remove it
+                    // New lines in console is waste of space, and it doesn't
+                    // look good. Lets remove it
                     SCLogger.logInfo(nextMessage.replace("\n", " ").replace("%nick%", "CONSOLE"));
             }
         }, getIntervalInSeconds() * 20L, getIntervalInSeconds() * 20L);
