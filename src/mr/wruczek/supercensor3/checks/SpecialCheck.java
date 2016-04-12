@@ -12,6 +12,11 @@ import org.bukkit.event.Listener;
 import mr.wruczek.supercensor3.PPUtils.PPManager;
 import mr.wruczek.supercensor3.SCCheckEvent;
 import mr.wruczek.supercensor3.SCMain;
+<<<<<<< HEAD
+=======
+import mr.wruczek.supercensor3.PPUtils.PPManager;
+import mr.wruczek.supercensor3.commands.subcommands.SubcommandInfo;
+>>>>>>> origin/master
 import mr.wruczek.supercensor3.utils.LoggerUtils;
 import mr.wruczek.supercensor3.utils.StringUtils;
 import mr.wruczek.supercensor3.utils.classes.SCLogger;
@@ -24,6 +29,7 @@ import mr.wruczek.supercensor3.utils.classes.SCLogger;
  */
 public class SpecialCheck implements Listener {
 
+<<<<<<< HEAD
     private Random random = new Random();
     int addedPenaltyPoints;
     String wordToCheck;
@@ -112,6 +118,98 @@ public class SpecialCheck implements Listener {
                         if (wordToCheck.length() > specialLists.getInt(specialEntries + ".MaxLength"))
                             continue;
                     // endregion
+=======
+	private Random random = new Random();
+	int addedPenaltyPoints;
+	String wordToCheck;
+	
+	@EventHandler
+	public void checkListener(final SCCheckEvent event) {
+
+		if (event.isCensored())
+			return;
+
+		for (String str : event.getMessage().split(" ")) {
+			wordToCheck = str.toLowerCase();
+
+			for (final ConfigurationSection specialLists : CensorData.special) {
+				for (final String specialEntries : specialLists.getKeys(false)) {
+
+					if (specialLists.contains(specialEntries + ".SimpleRegex")) {
+						
+						List<String> regexList = specialLists.getStringList(specialEntries + ".SimpleRegex");
+
+						boolean found = false;
+
+						for (String regex : regexList) {
+							if (StringUtils.checkRegex(regex, wordToCheck, true)) {
+								found = true;
+								break;
+							}
+						}
+
+						if (!found)
+							continue; // This is horrible. I know.
+
+						
+					} else if (specialLists.contains(specialEntries + ".RegexIds")) {
+						List<String> regexList = specialLists.getStringList(specialEntries + ".RegexIds");
+
+						boolean found = false;
+
+						for (String regexName : regexList) {
+							String regex = null;
+
+							for (Entry<String, String> regexFinder : CensorData.regexList.entrySet())
+								if (regexFinder.getKey().equalsIgnoreCase(regexName))
+									regex = regexFinder.getValue();
+
+							if (regex != null && StringUtils.checkRegex(regex, wordToCheck, true)) {
+								found = true;
+								break;
+							}
+						}
+
+						if (!found)
+							continue;
+
+					} else if (specialLists.contains(specialEntries + ".Normal")) {
+						if (!specialLists.getString(specialEntries + ".Normal").equalsIgnoreCase(wordToCheck))
+							continue;
+					} else if (specialLists.contains(specialEntries + ".CheckFullMessage")) {
+						wordToCheck = event.getMessage();
+					}
+					
+					// Check for bypass permission
+					if (event.getPlayer().hasPermission("supercensor.bypass.special." + specialEntries))
+						continue;
+					
+					SubcommandInfo.latestFilter = "S:" + specialEntries;
+					
+					/* **************************** */
+					/* CHECKS */
+					/* **************************** */
+					
+					// region Caps percent check
+					if (specialLists.contains(specialEntries + ".OnCapsPercent"))
+						if (specialLists.getDouble(specialEntries + ".OnCapsPercent") > StringUtils.getCapsPercent(str))
+							continue;
+					// endregion
+
+					// wordToCheck is passing...
+
+					// region Minimum length check
+					if (specialLists.contains(specialEntries + ".MinLength"))
+						if (wordToCheck.length() < specialLists.getInt(specialEntries + ".MinLength"))
+							continue;
+					// endregion
+					
+					// region Maximum length
+					if (specialLists.contains(specialEntries + ".MaxLength"))
+						if (wordToCheck.length() > specialLists.getInt(specialEntries + ".MaxLength"))
+							continue;
+					// endregion
+>>>>>>> origin/master
 
 					/* **************************** */
 					/* RUNNING ACTIONS */

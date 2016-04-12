@@ -24,6 +24,7 @@ import mr.wruczek.supercensor3.utils.classes.WordlistUpdater;
  * @author Wruczek
  */
 public class SCInitManager {
+<<<<<<< HEAD
 
     public static void init() {
 
@@ -73,4 +74,55 @@ public class SCInitManager {
         // endregion
     }
 
+=======
+	
+	public static void init() {
+		
+		SCMain instance = SCMain.getInstance();
+		
+		// region Utils
+		SCConfigManager2.load();
+		new SCCommandHeader();
+		SCAutoMessage.run();
+		
+		new AntiSpam();
+		
+		Bukkit.getScheduler().runTaskAsynchronously(instance, new Runnable() {
+			public void run() {
+				try {
+					new WordlistUpdater().run();
+				} catch (Exception e) {
+					SCLogger.logError("Exception occurred while running WordlistUpdater! " + e);
+					LoggerUtils.handleException(e);
+				}
+			}
+		});
+		// endregion
+		
+		// region Commands
+		instance.getCommand("supercensor").setExecutor(new SCMainCommand());
+		instance.getCommand("screport").setExecutor(new SCReportCommand());
+		// endregion
+	}
+	
+	public static void registerListeners() {
+		
+		PluginManager pluginManager = Bukkit.getPluginManager();
+		SCMain instance = SCMain.getInstance();
+		
+		// region Listeners
+		pluginManager.registerEvents(new SCPlayerJoinListener(), instance);
+		pluginManager.registerEvents(new SCPlayerQuitListener(), instance);
+		pluginManager.registerEvents(new SCAsyncPlayerChatListener(), instance);
+		// enderegion
+		
+		// region Checks
+		pluginManager.registerEvents(new AntiSpam(), instance);
+		pluginManager.registerEvents(new SlowModeCheck(), instance);
+		pluginManager.registerEvents(new SpecialCheck(), instance);
+		pluginManager.registerEvents(new WordlistCheck(), instance);
+		// endregion
+	}
+	
+>>>>>>> origin/master
 }
