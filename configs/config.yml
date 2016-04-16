@@ -1,4 +1,4 @@
-# SuperCensor v3.1-DEV-ALPHA configuration file
+# SuperCensor v3.3 configuration file
 # Dev bukkit page: http://goo.gl/VNPQmp
 # For more informations and complete tutorial please visit: https://github.com/Wruczek/SuperCensor/wiki
 # Invalid configuration can crash the plugin. Before saving please check your config here: http://goo.gl/4QIux6
@@ -8,6 +8,9 @@
 # > SlowMode is an old SlowChat
 
 Language: en
+
+General:
+  UseUUID: true
 
 AutoUpdater:
   Enabled: true

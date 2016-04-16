@@ -12,7 +12,6 @@ import mr.wruczek.supercensor3.utils.StringUtils;
 import mr.wruczek.supercensor3.utils.classes.GravityUpdater.UpdateResult;
 import mr.wruczek.supercensor3.utils.classes.SCLogger;
 import mr.wruczek.supercensor3.utils.classes.SCUpdater;
-import mr.wruczek.supercensor3.utils.uuid.UUIDCache;
 
 /**
  * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
@@ -24,7 +23,6 @@ public class SCMain extends JavaPlugin {
 
     private static SCMain instance;
     private static File pluginFile;
-    private static UUIDCache uuidcache;
 
     @Override
     public void onEnable() {
@@ -35,8 +33,6 @@ public class SCMain extends JavaPlugin {
         SCLogger.logInfo("Loading SuperCensor. Version: " + instance.getDescription().getVersion());
 
         pluginFile = instance.getFile();
-
-        uuidcache = new UUIDCache(getInstance());
 
         SCInitManager.init();
         SCInitManager.registerListeners();
@@ -107,9 +103,4 @@ public class SCMain extends JavaPlugin {
     public static File getPluginFile() {
         return pluginFile;
     }
-
-    public static UUIDCache getUUIDCacher() {
-        return uuidcache;
-    }
-
 }

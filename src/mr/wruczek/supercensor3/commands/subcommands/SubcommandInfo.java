@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -118,13 +117,6 @@ public class SubcommandInfo extends SCSubcommand {
 
             for (AntiSpamData data : AntiSpam.getData())
                 sender.sendMessage(data.toString());
-
-            sender.sendMessage(" ");
-
-            sender.sendMessage("UUID CACHE (" + SCMain.getUUIDCacher().getMap().size() + " total)");
-
-            for (Entry<String, UUID> entry : SCMain.getUUIDCacher().getMap().entrySet())
-                sender.sendMessage("UUID CACHE: " + entry.getKey() + " - " + entry.getValue());
 
             sender.sendMessage(" ");
 
