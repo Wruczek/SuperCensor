@@ -17,7 +17,7 @@ Updater:
   ToConsole:
     Success: "%updaterprefix% Success! New version \"%newversion%\" has been downloaded and it will be installed on next server startup!"
     UpdateAvailable: "%updaterprefix% Update for SuperCensor is available! Your version: %currentversion%, new version: %newversion%, download link: %downloadlink%"
-    NoUpdate: "%updaterprefix% You are using newest version of SuperCensor"
+    NoUpdate: "%updaterprefix% SuperCensor is up to date"
   ToPlayer:
     Success: "%prefix% %updaterprefix% Success! New version \"%newversion%\" has been downloaded and it will be installed on next server startup!"
     UpdateAvailable: |-

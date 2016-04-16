@@ -5,8 +5,8 @@
 # REMEMBER: YOU DO NOT NEED TO TRANSLATE THIS FILE! Just change "Language" in your config.yml
 # REMEMBER: Do not use %prefix% if you are sending message to the console!
 LocalizationInformations:
-  Language: "Dutch -> Nederlands"
-  LanguageCode: "Dutch -> NL"
+  Language: Nederlands
+  LanguageCode: NL
 Misc:
   PluginPrefix: "&8[&6SC&8]&7"
 SystemEnable:

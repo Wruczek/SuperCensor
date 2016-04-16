@@ -17,7 +17,7 @@ Updater:
   ToConsole:
     Success: "%updaterprefix% Sukces! Nowa wersja \"%newversion%\" zostala pobrana i bedzie zainstalowana przy nastepnym uruchomieniu serwera!"
     UpdateAvailable: "%updaterprefix% Aktualizacja SuperCensora jest dostepna! Obecna wersja: %currentversion%, nowa wersja: %newversion%, link do pobrania: %downloadlink%"
-    NoUpdate: "%updaterprefix% Uzywasz najnowszej dostepnej wersji SuperCensora"
+    NoUpdate: "%updaterprefix% SuperCensor jest aktualny"
   ToPlayer:
     Success: "%prefix% %updaterprefix% Sukces! Nowa wersja \"%newversion%\" zostala pobrana i bedzie zainstalowana przy nastepnym uruchomieniu serwera!"
     UpdateAvailable: |-
