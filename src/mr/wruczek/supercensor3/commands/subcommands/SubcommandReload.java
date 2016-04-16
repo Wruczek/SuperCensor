@@ -55,10 +55,12 @@ public class SubcommandReload extends SCSubcommand {
                     .replace("%time%", String.valueOf(time)));
         } catch (Exception e) {
 
-            if (ConfigUtils.getMessageFromMessagesFile("Commands.Reload.Exception") != null) {
-                sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.Reload.Exception"));
+            String reloadExceptionMessage = ConfigUtils.getMessageFromMessagesFile("Commands.Reload.Exception");
+            
+            if (reloadExceptionMessage != null) {
+                sender.sendMessage(reloadExceptionMessage);
             } else {
-                sender.sendMessage(ChatColor.RED + "An exception occurred while attemping to reload plugin! "
+                sender.sendMessage(SCUtils.getPluginPrefix() + ChatColor.RED + "An exception occurred while attemping to reload plugin! "
                         + "Please check console for more informations");
             }
 

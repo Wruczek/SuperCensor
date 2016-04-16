@@ -27,7 +27,7 @@ public class ConfigUtils {
             return original;
         }
 
-        return SCUtils.getPluginPrefix() + StringUtils.color("&cFatal error: message " + path + " cannot be found!");
+        return SCUtils.getPluginPrefix() + StringUtils.color("&cFatal error: message \"" + path + "\" cannot be found!");
     }
 
     public static Object getFromConfig(String path, boolean bool) {
@@ -46,7 +46,7 @@ public class ConfigUtils {
             return original;
         }
 
-        return SCUtils.getPluginPrefix() + StringUtils.color("&cFatal error: config variable " + path + " cannot be found!");
+        return SCUtils.getPluginPrefix() + StringUtils.color("&cFatal error: config variable \"" + path + "\" cannot be found!");
     }
 
     public static boolean configContains(String path) {
