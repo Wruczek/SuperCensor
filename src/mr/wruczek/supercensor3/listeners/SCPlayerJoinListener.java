@@ -8,6 +8,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import mr.wruczek.supercensor3.SCMain;
 import mr.wruczek.supercensor3.commands.subcommands.SCMuteChatManager;
 import mr.wruczek.supercensor3.commands.subcommands.SCSelfMuteManager;
+import mr.wruczek.supercensor3.commands.subcommands.SubcommandSetlang;
 import mr.wruczek.supercensor3.utils.ConfigUtils;
 import mr.wruczek.supercensor3.utils.SCUtils;
 import mr.wruczek.supercensor3.utils.StringUtils;
@@ -33,6 +34,7 @@ public class SCPlayerJoinListener implements Listener {
             @Override
             public void run() {
                 remind(event);
+                SubcommandSetlang.greetPlayer(event.getPlayer());
 
                 String uuid = event.getPlayer().getUniqueId().toString();
 

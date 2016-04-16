@@ -41,6 +41,7 @@ public class SubcommandHelp extends SCSubcommand {
         TellrawUtils.sendCommandUsage(sender, "reload", "Commands.Reload.HelpDescription");
         TellrawUtils.sendCommandUsage(sender, "info", "Commands.Info.HelpDescription");
         TellrawUtils.sendCommandUsage(sender, "perms", "Commands.Permissions.HelpDescription");
+        TellrawUtils.sendCommandUsage(sender, "setlang", "Use to change plugin language");
 
         if (TellrawUtils.isTellrawSupported(sender)) {
             sender.sendMessage("\n" + ConfigUtils.getMessageFromMessagesFile("Commands.HoverCommandTip"));
@@ -50,7 +51,7 @@ public class SubcommandHelp extends SCSubcommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        return Arrays.asList("clear", "mute", "selfmute", "ppm", "reload", "info", "perms");
+        return Arrays.asList("clear", "mute", "selfmute", "ppm", "reload", "info", "perms", "setlang");
     }
 
 }

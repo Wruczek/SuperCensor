@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import mr.wruczek.supercensor3.SCConfigManager2;
 import mr.wruczek.supercensor3.utils.classes.MessagesCreator;
 import mr.wruczek.supercensor3.utils.classes.MessagesCreator.ChatExtra;
 import mr.wruczek.supercensor3.utils.classes.Reflection;
@@ -18,7 +19,10 @@ public class TellrawUtils {
 
     public static void sendCommandUsage(CommandSender sender, String command, String descriptionPath) {
 
-        String description = ConfigUtils.getMessageFromMessagesFile(descriptionPath);
+        String description = descriptionPath;
+        
+        if(SCConfigManager2.messages.contains(descriptionPath) || SCConfigManager2.messages_original.contains(descriptionPath))
+            description = ConfigUtils.getMessageFromMessagesFile(descriptionPath);
 
         if (isTellrawSupported(sender)) {
             String commandUsageFormat = ConfigUtils.getColoredStringFromConfig("MessageFormat.HelpEntryFormat");

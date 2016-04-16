@@ -30,6 +30,7 @@ public class SCConfigManager2 {
     public static File disabledRulesFolder;
     public static File logsFolder;
     public static File PPFolder;
+    public static boolean freshlyInstalled;
 
     public static String pluginPrefix;
 
@@ -38,12 +39,16 @@ public class SCConfigManager2 {
     }
 
     public static void load() {
-
+        
+        freshlyInstalled = false;
+        
         // region Logs
         logsFolder = new File(SCMain.getInstance().getDataFolder() + File.separator + "logs");
 
-        if (!logsFolder.exists())
+        if (!logsFolder.exists()) {
             logsFolder.mkdirs();
+            freshlyInstalled = true;
+        }
         // endregion
 
         // region Config File
@@ -63,6 +68,7 @@ public class SCConfigManager2 {
 
         if (!config.getString("Language").equals(messagesLanguage)) {
             SCLogger.logInfo("Saving corrected messages file...", LoggerUtils.LogType.PLUGIN);
+            SCConfigManager2.config.set("Language", messagesLanguage);
             SCConfigManager2.save();
         }
 
@@ -161,7 +167,10 @@ public class SCConfigManager2 {
     }
 
     public static void save() {
-        config.save();
-        messages.save();
+        if (config != null)
+            config.save();
+
+        if (messages != null)
+            messages.save();
     }
 }

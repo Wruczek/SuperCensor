@@ -21,6 +21,7 @@ import mr.wruczek.supercensor3.commands.subcommands.SubcommandInfo;
 import mr.wruczek.supercensor3.commands.subcommands.SubcommandPPM;
 import mr.wruczek.supercensor3.commands.subcommands.SubcommandPerms;
 import mr.wruczek.supercensor3.commands.subcommands.SubcommandReload;
+import mr.wruczek.supercensor3.commands.subcommands.SubcommandSetlang;
 import mr.wruczek.supercensor3.utils.ConfigUtils;
 import mr.wruczek.supercensor3.utils.LoggerUtils;
 import mr.wruczek.supercensor3.utils.SCUtils;
@@ -39,6 +40,7 @@ public class SCMainCommand implements CommandExecutor, TabCompleter {
         new SubcommandInfo();
         new SubcommandClearchat();
         new SubcommandPPM();
+        new SubcommandSetlang();
         new SCMuteChatManager();
         new SCSelfMuteManager();
     }
