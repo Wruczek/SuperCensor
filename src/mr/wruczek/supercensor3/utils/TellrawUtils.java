@@ -20,7 +20,7 @@ public class TellrawUtils {
     public static void sendCommandUsage(CommandSender sender, String command, String descriptionPath) {
 
         String description = descriptionPath;
-        
+
         if(SCConfigManager2.messages.contains(descriptionPath) || SCConfigManager2.messages_original.contains(descriptionPath))
             description = ConfigUtils.getMessageFromMessagesFile(descriptionPath);
 

@@ -59,7 +59,7 @@ public class IOUtils {
     /**
      * List directory contents for a resource folder. Not recursive. This is
      * basically a brute-force implementation.
-     * 
+     *
      * @author Greg Briggs
      * @param clazz
      *            Any java class that lives in the same place as the resources

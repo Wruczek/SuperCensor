@@ -62,7 +62,7 @@ public class SCReportCommand implements CommandExecutor {
      * @param data
      *            Message body
      * @return URL to paste
-     * @throws ParseException 
+     * @throws ParseException
      */
     public static URL hastebinPost(String data) throws IOException, ParseException {
         URL url = new URL("http://hastebin.com/documents");

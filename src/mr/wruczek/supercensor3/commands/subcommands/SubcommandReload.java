@@ -56,7 +56,7 @@ public class SubcommandReload extends SCSubcommand {
         } catch (Exception e) {
 
             String reloadExceptionMessage = ConfigUtils.getMessageFromMessagesFile("Commands.Reload.Exception");
-            
+
             if (reloadExceptionMessage != null) {
                 sender.sendMessage(reloadExceptionMessage);
             } else {

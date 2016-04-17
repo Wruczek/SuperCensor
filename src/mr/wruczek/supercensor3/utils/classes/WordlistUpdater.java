@@ -74,9 +74,9 @@ public class WordlistUpdater {
         JSONObject jsonObject = (JSONObject) parser.parse(result);
 
         String checksum = (String) jsonObject.get("checksum");
-        
+
         JSONArray wordlist = (JSONArray) jsonObject.get("wordlist");
-        
+
         FileConfiguration saveToConfig = YamlConfiguration.loadConfiguration(saveTo);
 
         if (checksum.equalsIgnoreCase(SCUtils.getListChecksum(saveToConfig.getStringList("Wordlist")))) {
@@ -127,5 +127,4 @@ public class WordlistUpdater {
 
         return url != null && saveTo != null;
     }
-
 }

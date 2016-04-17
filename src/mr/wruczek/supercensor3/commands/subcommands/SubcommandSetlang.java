@@ -34,7 +34,7 @@ import mr.wruczek.supercensor3.utils.classes.SCPermissionsEnum;
 public class SubcommandSetlang extends SCSubcommand {
 
     private static boolean playerGreeted;
-    
+
     public SubcommandSetlang() {
         SCMainCommand.registerSubcommand(this, "setlang", "sl");
         SCMainCommand.registerTabCompletion(this);
@@ -98,13 +98,13 @@ public class SubcommandSetlang extends SCSubcommand {
         if (!player.hasPermission(SCPermissionsEnum.BASICADMIN.toString()) || !SCConfigManager2.freshlyInstalled || playerGreeted) {
             return;
         }
-        
+
         playerGreeted = true;
-        
+
         String message = "\n&6SuperCensor has been successfully installed!\n"
                 + "&6You can use command &e/sc setlang [language code]&6\n"
                 + "&6to change plugin language." + getAvailableLangsMessage() + "\n ";
-        
+
         message = StringUtils.color(message);
 
         SCLogger.logInfo(message);
@@ -127,10 +127,10 @@ public class SubcommandSetlang extends SCSubcommand {
         StringBuilder sb = new StringBuilder();
 
         for (String str : getAvailableLangsList()) {
-            
+
             if(str.equalsIgnoreCase(SCConfigManager2.config.getString("Language")))
                 str = StringUtils.color("&a" + str + " (CURRENT)&7");
-            
+
             sb.append(str + ", ");
         }
 
@@ -140,19 +140,19 @@ public class SubcommandSetlang extends SCSubcommand {
     }
 
     public static List<String> getAvailableLangsList() throws IOException, URISyntaxException {
-        
+
         List<String> result = new ArrayList<>();
-        
+
         for(String str : IOUtils.getResourceListing(SCMain.class, "messages/")) {
-            
+
             str = str.toLowerCase();
-            
+
             if(str.endsWith(".yml"))
                 result.add(str.replace("messages_", "").replace(".yml", "").toUpperCase());
         }
-        
+
         Collections.sort(result);
-        
+
         return result;
     }
 
