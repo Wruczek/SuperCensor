@@ -5,13 +5,13 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import mr.wruczek.supercensor3.SCConfigManager2;
 import mr.wruczek.supercensor3.SCMain;
@@ -62,7 +62,7 @@ public class WordlistUpdater {
         this.url = url;
     }
 
-    public void run() throws NoSuchAlgorithmException, IOException {
+    public void run() throws NoSuchAlgorithmException, IOException, ParseException {
         if (!enabled)
             return;
 
@@ -70,13 +70,13 @@ public class WordlistUpdater {
 
         String result = IOUtils.getContentFromURL(url);
 
-        Gson gson = new Gson();
-        JsonObject jsonobj = gson.fromJson(result, JsonObject.class);
+        JSONParser parser = new JSONParser();
+        JSONObject jsonObject = (JSONObject) parser.parse(result);
 
-        String checksum = jsonobj.get("checksum").getAsString();
-        @SuppressWarnings("unchecked")
-        ArrayList<String> wordlist = gson.fromJson(jsonobj.getAsJsonArray("wordlist"), ArrayList.class);
-
+        String checksum = (String) jsonObject.get("checksum");
+        
+        JSONArray wordlist = (JSONArray) jsonObject.get("wordlist");
+        
         FileConfiguration saveToConfig = YamlConfiguration.loadConfiguration(saveTo);
 
         if (checksum.equalsIgnoreCase(SCUtils.getListChecksum(saveToConfig.getStringList("Wordlist")))) {

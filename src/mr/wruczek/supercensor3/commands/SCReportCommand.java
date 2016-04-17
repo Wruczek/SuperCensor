@@ -10,7 +10,9 @@ import java.net.URL;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import mr.wruczek.supercensor3.utils.LoggerUtils;
 import mr.wruczek.supercensor3.utils.SCUtils;
@@ -45,22 +47,24 @@ public class SCReportCommand implements CommandExecutor {
         try {
             sender.sendMessage("[SC] Link to report: " + hastebinPost(sb.toString()));
             sender.sendMessage("Please use this link when creating new issue.");
-        } catch (IOException e) {
+        } catch (Exception e) {
             sender.sendMessage("[SC] Cannot send error report! " + e);
             e.printStackTrace();
         }
         return false;
     }
-    
+
     /**
      * Simple API for uploading data to hastebin.com<br>
      * (c) 2016 Wruczek<br>
      * MIT license
      *
-     * @param data Message body
+     * @param data
+     *            Message body
      * @return URL to paste
+     * @throws ParseException 
      */
-    public static URL hastebinPost(String data) throws IOException {
+    public static URL hastebinPost(String data) throws IOException, ParseException {
         URL url = new URL("http://hastebin.com/documents");
 
         byte[] postData = data.getBytes("UTF-8");
@@ -75,14 +79,15 @@ public class SCReportCommand implements CommandExecutor {
         Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
 
         StringBuilder sb = new StringBuilder();
-        for (int c; (c = in.read()) >= 0; )
+        for (int c; (c = in.read()) >= 0;)
             sb.append((char) c);
 
         String response = sb.toString();
-        
-        JSONObject json = new JSONObject(response);
-        
-        String id = json.getString("key");
+
+        JSONParser parser = new JSONParser();
+        JSONObject jsonObject = (JSONObject) parser.parse(response);
+
+        String id = (String) jsonObject.get("key");
 
         return new URL("http://hastebin.com/" + id);
     }
