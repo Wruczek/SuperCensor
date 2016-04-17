@@ -30,7 +30,8 @@ public class WordlistCheck implements Listener {
     @EventHandler
     public void checkListener(final SCCheckEvent event) {
 
-        if (event.isCensored() || SCPermissionsEnum.WORDLIST_BYPASS.hasPermission(event.getPlayer()))
+        if (event.isCensored() || (SCPermissionsEnum.WORDLIST_BYPASS.hasPermission(event.getPlayer())
+                && !SCConfigManager2.config.getBoolean("General.AdminCensor")))
             return;
 
         String messageToCheck = event.getOriginalMessage();
@@ -102,6 +103,9 @@ public class WordlistCheck implements Listener {
 
                 // Add PenaltyPoints
                 if (ConfigUtils.configContains("WordlistSettings.PenaltyPoints")) {
+                    if (SCPermissionsEnum.WORDLIST_BYPASS.hasPermission(event.getPlayer()))
+                        return;
+                    
                     int points = ConfigUtils.getIntFromConfig("WordlistSettings.PenaltyPoints");
                     PPManager.addPenaltyPoints(event.getPlayer(), points, true);
                 }

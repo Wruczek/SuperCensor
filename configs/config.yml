@@ -3,7 +3,7 @@
 # For more informations and complete tutorial please visit: https://github.com/Wruczek/SuperCensor/wiki
 # Invalid configuration can crash the plugin. Before saving please check your config here: http://goo.gl/4QIux6
 # *** Additional informations ***
-# > Language: available languages: en, de, fr, it, pl, ro, tr
+# > Language: please change language in-game using /sc setlang command
 # > WordlistUpdater can be used to update wordlist on every server startup from remote URL. More info and format on wiki.
 # > SlowMode is an old SlowChat
 
@@ -11,6 +11,8 @@ Language: en
 
 General:
   UseUUID: true
+  # Everyone (even admins with permissions) will be affected by censoring by Wordlist and SpecialArray.
+  AdminCensor: false
 
 AutoUpdater:
   Enabled: true

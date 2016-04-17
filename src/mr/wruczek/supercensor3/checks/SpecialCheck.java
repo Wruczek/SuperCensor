@@ -11,6 +11,7 @@ import org.bukkit.event.Listener;
 
 import mr.wruczek.supercensor3.PPUtils.PPManager;
 import mr.wruczek.supercensor3.SCCheckEvent;
+import mr.wruczek.supercensor3.SCConfigManager2;
 import mr.wruczek.supercensor3.SCMain;
 import mr.wruczek.supercensor3.utils.LoggerUtils;
 import mr.wruczek.supercensor3.utils.StringUtils;
@@ -86,7 +87,8 @@ public class SpecialCheck implements Listener {
                     }
 
                     // Check for bypass permission
-                    if (event.getPlayer().hasPermission("supercensor.bypass.special." + specialEntries))
+                    if (event.getPlayer().hasPermission("supercensor.bypass.special." + specialEntries)
+                            && !SCConfigManager2.config.getBoolean("General.AdminCensor"))
                         continue;
 
 					/* **************************** */
@@ -127,6 +129,10 @@ public class SpecialCheck implements Listener {
 
                     // region Action Add PenaltyPoints
                     if (specialLists.contains(specialEntries + ".PenaltyPoints")) {
+                        
+                        if (event.getPlayer().hasPermission("supercensor.bypass.special." + specialEntries))
+                            return;
+                        
                         addedPenaltyPoints = specialLists.getInt(specialEntries + ".PenaltyPoints");
                         PPManager.addPenaltyPoints(event.getPlayer(), addedPenaltyPoints, true);
                     }
