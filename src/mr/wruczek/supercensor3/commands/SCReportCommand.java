@@ -10,6 +10,7 @@ import java.net.URL;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.json.JSONObject;
 
 import mr.wruczek.supercensor3.utils.LoggerUtils;
 import mr.wruczek.supercensor3.utils.SCUtils;
@@ -50,8 +51,7 @@ public class SCReportCommand implements CommandExecutor {
         }
         return false;
     }
-
-
+    
     /**
      * Simple API for uploading data to hastebin.com<br>
      * (c) 2016 Wruczek<br>
@@ -79,7 +79,10 @@ public class SCReportCommand implements CommandExecutor {
             sb.append((char) c);
 
         String response = sb.toString();
-        String id = response.trim().substring(8, response.length() - 2); // You can also use JSON library and get "key" from response
+        
+        JSONObject json = new JSONObject(response);
+        
+        String id = json.getString("key");
 
         return new URL("http://hastebin.com/" + id);
     }

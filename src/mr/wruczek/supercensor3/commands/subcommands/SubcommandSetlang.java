@@ -33,7 +33,7 @@ import mr.wruczek.supercensor3.utils.classes.SCPermissionsEnum;
  */
 public class SubcommandSetlang extends SCSubcommand {
 
-    public static boolean playerGreeted;
+    private static boolean playerGreeted;
     
     public SubcommandSetlang() {
         SCMainCommand.registerSubcommand(this, "setlang", "sl");
