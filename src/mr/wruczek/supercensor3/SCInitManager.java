@@ -66,10 +66,11 @@ public class SCInitManager {
         // enderegion
 
         // region Checks
+        pluginManager.registerEvents(new SpecialCheck(), instance);
+        pluginManager.registerEvents(new WordlistCheck(), instance);
+
         pluginManager.registerEvents(new AntiSpam(), instance);
         pluginManager.registerEvents(new SlowModeCheck(), instance);
-        pluginManager.registerEvents(new WordlistCheck(), instance);
-        pluginManager.registerEvents(new SpecialCheck(), instance);
         // endregion
     }
 

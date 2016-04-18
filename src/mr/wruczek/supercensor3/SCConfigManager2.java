@@ -39,9 +39,9 @@ public class SCConfigManager2 {
     }
 
     public static void load() {
-        
+
         freshlyInstalled = false;
-        
+
         // region Logs
         logsFolder = new File(SCMain.getInstance().getDataFolder() + File.separator + "logs");
 
@@ -92,28 +92,16 @@ public class SCConfigManager2 {
             try {
                 IOUtils.copyResource("configs/Readme_rulesfolder.txt", new File(rulesFolder, "Readme.txt"), false);
 
-                // EXAMPLE CONFIG FILES
-                File exampleFile = new File(rulesFolder, "exampleFile.yml");
-                IOUtils.copyResource("configs/examples/exampleFile.yml", exampleFile, false);
-                // We dont want to comments go away after save()
-                // exampleFile.setReadOnly();
+                String dir = "examples";
 
-                File specialExample = new File(rulesFolder, "specialExample.yml");
-                IOUtils.copyResource("configs/examples/specialExample.yml", specialExample, false);
-                // We dont want to comments go away after save()
-                // specialExample.setReadOnly();
-
-                File wordreplacerExample = new File(rulesFolder, "wordreplacerExample.yml");
-                IOUtils.copyResource("configs/examples/wordreplacerExample.yml", wordreplacerExample, false);
-                // We dont want to comments go away after save()
-                // wordreplacerExample.setReadOnly();
-
-                File regexExample = new File(rulesFolder, "regexExample.regex");
-                IOUtils.copyResource("configs/examples/regexExample.regex", regexExample, false);
-                // We dont want to comments go away after save()
-                // regexExample.setReadOnly();
+                copyExampleFile(dir, rulesFolder, "exampleFile.yml");
+                copyExampleFile(dir, rulesFolder, "specialExample.yml");
+                copyExampleFile(dir, rulesFolder, "wordreplacerExample.yml");
+                copyExampleFile(dir, rulesFolder, "regexExample.regex");
+                copyExampleFile(dir, rulesFolder, "EnglishSwearWords.yml");
             } catch (IOException e) {
-                // ¯\_(ツ)_/¯
+                SCLogger.logError("Cannot copy example rules files! " + e);
+                LoggerUtils.handleException(e);
             }
         }
 
@@ -138,14 +126,11 @@ public class SCConfigManager2 {
         if (!PPFolder.exists()) {
             PPFolder.mkdirs();
             try {
-                // WARN PLAYER
-                IOUtils.copyResource("configs/ppr/warn-player.yml", new File(PPFolder, "warn-player.yml"), false);
+                String dir = "ppr";
 
-                // KICK PLAYER
-                IOUtils.copyResource("configs/ppr/kick-player.yml", new File(PPFolder, "kick-player.yml"), false);
-
-                // MUTE PLAYER
-                IOUtils.copyResource("configs/ppr/mute-player.yml", new File(PPFolder, "mute-player.yml"), false);
+                copyExampleFile(dir, PPFolder, "warn-player.yml");
+                copyExampleFile(dir, PPFolder, "kick-player.yml");
+                copyExampleFile(dir, PPFolder, "mute-player.yml");
             } catch (IOException e) {
                 SCLogger.logError("Cannot copy PenaltyPointsRules!");
                 LoggerUtils.handleException(e);
@@ -172,5 +157,13 @@ public class SCConfigManager2 {
 
         if (messages != null)
             messages.save();
+    }
+
+    private static void copyExampleFile(String fromDir, File toDir, String file) throws IOException {
+        copyExampleFile(fromDir, toDir, file, file);
+    }
+
+    private static void copyExampleFile(String fromDir, File toDir, String source, String saveTo) throws IOException {
+        IOUtils.copyResource("configs/" + fromDir + "/" + source, new File(toDir, saveTo), false);
     }
 }

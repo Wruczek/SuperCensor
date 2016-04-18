@@ -1,6 +1,7 @@
 package mr.wruczek.supercensor3.checks;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import org.bukkit.entity.Player;
@@ -18,7 +19,7 @@ public class SCSlowModeManager {
 
     public static SCSlowModeManager getManager = new SCSlowModeManager();
 
-    private HashMap<String, Long> map = new HashMap<String, Long>();
+    private Map<String, Long> map = new HashMap<String, Long>();
 
     public boolean isEnabled() {
         if (!SCConfigManager2.isInitialized())
@@ -65,7 +66,7 @@ public class SCSlowModeManager {
             getMap().remove(entry.getKey());
     }
 
-    public HashMap<String, Long> getMap() {
+    public Map<String, Long> getMap() {
         return map;
     }
 

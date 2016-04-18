@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
@@ -28,7 +29,7 @@ public class CensorData {
 
     private static Pattern hasNamePattern;
 
-    public static HashMap<String, String> regexList;
+    public static Map<String, String> regexList;
     public static List<String> wordlist;
     public static List<String> whitelist;
     public static List<ConfigurationSection> special;

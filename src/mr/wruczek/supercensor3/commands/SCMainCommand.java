@@ -2,8 +2,9 @@ package mr.wruczek.supercensor3.commands;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import org.bukkit.Bukkit;
@@ -30,7 +31,7 @@ import mr.wruczek.supercensor3.utils.classes.SCLogger;
 
 public class SCMainCommand implements CommandExecutor, TabCompleter {
 
-    private static HashMap<SCSubcommand, String[]> subcommands = new HashMap<SCSubcommand, String[]>();
+    private static Map<SCSubcommand, String[]> subcommands = new LinkedHashMap<SCSubcommand, String[]>();
     private static ArrayList<SCSubcommand> tabComplete = new ArrayList<>();
 
     public SCMainCommand() {
@@ -45,7 +46,7 @@ public class SCMainCommand implements CommandExecutor, TabCompleter {
         new SCSelfMuteManager();
     }
 
-    public static HashMap<SCSubcommand, String[]> getSubcommands() {
+    public static Map<SCSubcommand, String[]> getSubcommands() {
         return subcommands;
     }
 
@@ -65,8 +66,7 @@ public class SCMainCommand implements CommandExecutor, TabCompleter {
 
         SCSubcommand execute = null;
 
-        searchLoop:
-        for (Entry<SCSubcommand, String[]> entry : subcommands.entrySet()) {
+        searchLoop: for (Entry<SCSubcommand, String[]> entry : subcommands.entrySet()) {
             for (String cmd : entry.getValue()) {
                 if (cmd.equalsIgnoreCase(commandName)) {
                     execute = entry.getKey();
@@ -82,8 +82,8 @@ public class SCMainCommand implements CommandExecutor, TabCompleter {
                 sender.sendMessage(SCUtils.getPluginPrefix() + StringUtils.color("&cAn unknown error "
                         + "occurred while attempting to perform this command: " + e));
 
-                SCLogger.logError("An error occurred while attemping to perform command \""
-                        + commandName + "\" with args \"" + args + "\"", LoggerUtils.LogType.PLUGIN);
+                SCLogger.logError("An error occurred while attemping to perform command \"" + commandName
+                        + "\" with args \"" + args + "\"", LoggerUtils.LogType.PLUGIN);
 
                 LoggerUtils.handleException(e);
             }

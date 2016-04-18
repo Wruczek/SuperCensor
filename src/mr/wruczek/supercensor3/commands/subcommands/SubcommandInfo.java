@@ -1,8 +1,9 @@
 package mr.wruczek.supercensor3.commands.subcommands;
 
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import org.bukkit.Bukkit;
@@ -41,28 +42,26 @@ import mr.wruczek.supercensor3.utils.classes.SCUpdater;
 public class SubcommandInfo extends SCSubcommand {
 
     private static String pluginInfoJSON;
-    private static HashMap<String, String> links;
+    private static Map<String, String> links;
+    public static String latestFilter;
 
     public SubcommandInfo() {
-        SCMainCommand.registerSubcommand(this, "info", "informations", "about", "author");
+        SCMainCommand.registerSubcommand(this, "info", "informations", "about", "author", "version");
         SCMainCommand.registerTabCompletion(this);
-    }
 
-    static {
-
-        links = new HashMap<>();
+        links = new LinkedHashMap<>();
 
         // TITLE, URL
-        links.put(ConfigUtils.getMessageFromMessagesFile("Commands.Info.BungeeCord"), "Comming soon!");
-        links.put(ConfigUtils.getMessageFromMessagesFile("Commands.Info.BugReporting"), "https://goo.gl/0H6qfY");
-        links.put(ConfigUtils.getMessageFromMessagesFile("Commands.Info.BukkitDev"), "https://goo.gl/HCXb1p");
-        links.put(ConfigUtils.getMessageFromMessagesFile("Commands.Info.SpigotMC"), "Comming soon!");
-        links.put(ConfigUtils.getMessageFromMessagesFile("Commands.Info.GitHub"), "https://goo.gl/xvMzsJ");
-        links.put(ConfigUtils.getMessageFromMessagesFile("Commands.Info.Donate"), "https://goo.gl/sY8Gvi");
+        // links.put(ConfigUtils.getMessageFromMessagesFile("Commands.Info.BungeeCord"), "Comming soon!");
+        links.put(ConfigUtils.getMessageFromMessagesFile("Commands.Info.BukkitDev"),        "https://goo.gl/HCXb1p");
+        links.put(ConfigUtils.getMessageFromMessagesFile("Commands.Info.SpigotMC"),         "https://goo.gl/nUL9ur");
+        links.put(ConfigUtils.getMessageFromMessagesFile("Commands.Info.Wiki"),             "https://goo.gl/kAUyu8");
+        links.put(ConfigUtils.getMessageFromMessagesFile("Commands.Info.BugReporting"),     "https://goo.gl/0H6qfY");
+        links.put(ConfigUtils.getMessageFromMessagesFile("Commands.Info.GitHub"),           "https://goo.gl/xvMzsJ");
+        links.put(ConfigUtils.getMessageFromMessagesFile("Commands.Info.Collaborate"),      "https://goo.gl/qAFW2A");
 
-        if (TellrawUtils.isTellrawSupportedByServer()) {
+        if (TellrawUtils.isTellrawSupportedByServer())
             pluginInfoJSON = generateJSONString(links);
-        }
     }
 
     @Override
@@ -120,6 +119,10 @@ public class SubcommandInfo extends SCSubcommand {
 
             sender.sendMessage(" ");
 
+            sender.sendMessage("Latest filter: " + latestFilter);
+
+            sender.sendMessage(" ");
+
             return;
         }
 
@@ -152,7 +155,7 @@ public class SubcommandInfo extends SCSubcommand {
                 sender.sendMessage("");
                 sender.sendMessage(ConfigUtils.getMessageFromMessagesFile("Commands.Info.UsefulLinks"));
 
-                if (TellrawUtils.isTellrawSupported(sender)) {
+                if (TellrawUtils.isTellrawSupported(sender) && pluginInfoJSON != null && !pluginInfoJSON.isEmpty()) {
                     try {
                         Reflection.sendMessage((Player) sender, pluginInfoJSON);
                     } catch (Exception e) {
@@ -177,7 +180,7 @@ public class SubcommandInfo extends SCSubcommand {
         return Arrays.asList("-dev");
     }
 
-    private static String generateJSONString(HashMap<String, String> links) {
+    private static String generateJSONString(Map<String, String> links) {
 
         StringBuilder sb = new StringBuilder("[");
 
