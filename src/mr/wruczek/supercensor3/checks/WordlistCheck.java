@@ -7,10 +7,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import mr.wruczek.supercensor3.PPUtils.PPManager;
 import mr.wruczek.supercensor3.SCCheckEvent;
 import mr.wruczek.supercensor3.SCConfigManager2;
 import mr.wruczek.supercensor3.SCMain;
+import mr.wruczek.supercensor3.PPUtils.PPManager;
+import mr.wruczek.supercensor3.commands.subcommands.SubcommandInfo;
 import mr.wruczek.supercensor3.utils.ConfigUtils;
 import mr.wruczek.supercensor3.utils.LoggerUtils;
 import mr.wruczek.supercensor3.utils.StringUtils;
@@ -18,14 +19,15 @@ import mr.wruczek.supercensor3.utils.classes.SCLogger;
 import mr.wruczek.supercensor3.utils.classes.SCPermissionsEnum;
 
 /**
- * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
- * http://creativecommons.org/licenses/by-nd/4.0/
+ * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0
+ * International License. http://creativecommons.org/licenses/by-nd/4.0/
  *
  * @author Wruczek
  */
 public class WordlistCheck implements Listener {
 
     private Random random = new Random();
+    String matcherResult;
 
     @EventHandler
     public void checkListener(final SCCheckEvent event) {
@@ -34,7 +36,7 @@ public class WordlistCheck implements Listener {
                 && !SCConfigManager2.config.getBoolean("General.AdminCensor")))
             return;
 
-        String messageToCheck = event.getOriginalMessage();
+        String messageToCheck = event.getMessage();
 
         // Replace @ to a, $ to s and remove spaces to avoid exploits
         if (ConfigUtils.getBooleanFromConfig("WordlistSettings.DeepSearch")) {
@@ -43,102 +45,125 @@ public class WordlistCheck implements Listener {
             messageToCheck = messageToCheck.replace("$", "s");
         }
 
-        mainLoop:
-        for (String message : messageToCheck.split(" ")) {
+        mainLoop: for (String message : messageToCheck.split(" ")) {
 
             // Replace special charters
             for (char specialChar : ConfigUtils.getStringFromConfig("WordlistSettings.SpecialCharters").toCharArray()) {
                 message = message.replace(String.valueOf(specialChar), "");
             }
 
-            // Check for whitelist
-            for (String whitelist : CensorData.whitelist) {
-                if (message.toLowerCase().contains(whitelist.toLowerCase())) {
-                    continue mainLoop;
-                }
-            }
+            for (final String checkAgainst : CensorData.wordlist) {
 
-            for (final String censoredWord : CensorData.wordlist) {
+                /*
+                System.out.println("--> " + censoredWord);
 
-				/*
-				System.out.println("--> " + censoredWord);
-				
-				System.out.println(message.toLowerCase().contains(censoredWord.toLowerCase()));
-				System.out.println(message.matches(censoredWord));
-				
-				System.out.println(!(message.toLowerCase().contains(censoredWord.toLowerCase()) && message.matches(censoredWord)));
-				System.out.println(!(message.toLowerCase().contains(censoredWord.toLowerCase()) || message.matches(censoredWord)));
-				*/
+                System.out.println(message.toLowerCase().contains(censoredWord.toLowerCase()));
+                System.out.println(message.matches(censoredWord));
+
+                System.out.println(!(message.toLowerCase().contains(censoredWord.toLowerCase()) && message.matches(censoredWord)));
+                System.out.println(!(message.toLowerCase().contains(censoredWord.toLowerCase()) || message.matches(censoredWord)));
+                */
 
                 String lowerCaseMessage = message.toLowerCase();
 
-                if (!(lowerCaseMessage.contains(censoredWord.toLowerCase()) || StringUtils.checkRegex(censoredWord, lowerCaseMessage))) {
+                matcherResult = StringUtils.checkRegex(checkAgainst, lowerCaseMessage, true);
+
+                if (!lowerCaseMessage.contains(checkAgainst.toLowerCase()) && matcherResult == null) {
                     continue;
                 }
 
-                // Cancel event
+                if (matcherResult == null)
+                    matcherResult = checkAgainst.toLowerCase();
+
+                // Check for whitelist - TODO
+                for (String whitelist : CensorData.whitelist) {
+                    if (matcherResult.toLowerCase().contains(whitelist.toLowerCase())) {
+                        continue mainLoop;
+                    }
+                }
+
+                SubcommandInfo.latestFilter = "W:" + checkAgainst;
+
+                // region Cancel event
                 if (ConfigUtils.getBooleanFromConfig("WordlistSettings.CancelMessage"))
                     event.setCensored(true);
+                // endregion
 
-                // Send message to player
+                // region Send message to player
                 String mtp = SCConfigManager2.messages.getString("WordlistSettings.MessageToPlayer");
                 if (mtp != null)
                     event.getPlayer().sendMessage(StringUtils.color(mtp));
+                // endregion
 
-                // Replace all swear words
-                if (ConfigUtils.getBooleanFromConfig("WordlistSettings.Replace.Enabled") && !event.isCensored()) {
-
-                    List<String> replaceToList = ConfigUtils.getStringListFromConfig("WordlistSettings.Replace.ReplaceTo");
-                    String replaceTo = replaceToList.get(random.nextInt(replaceToList.size()));
-
-                    String newMessage = event.getMessage();
-
-                    for (final String target : CensorData.wordlist) {
-                        replaceTo = replaceToList.get(random.nextInt(replaceToList.size()));
-                        newMessage = StringUtils.replaceIgnoreCase(newMessage, target, replaceTo);
-                    }
-
-                    event.setMessage(newMessage);
-                }
-
-                // Add PenaltyPoints
+                // region Add PenaltyPoints
                 if (ConfigUtils.configContains("WordlistSettings.PenaltyPoints")) {
+
                     if (SCPermissionsEnum.WORDLIST_BYPASS.hasPermission(event.getPlayer()))
                         return;
-                    
+
                     int points = ConfigUtils.getIntFromConfig("WordlistSettings.PenaltyPoints");
                     PPManager.addPenaltyPoints(event.getPlayer(), points, true);
                 }
+                // endregion
 
-                // Run commands
+                // region Run commands
                 if (ConfigUtils.getBooleanFromConfig("WordlistSettings.RunCommands.Enabled")) {
-                    for (final String command : ConfigUtils.getStringListFromConfig("WordlistSettings.RunCommands.Commands")) {
+                    for (final String command : ConfigUtils
+                            .getStringListFromConfig("WordlistSettings.RunCommands.Commands")) {
                         // We want to sync it with Bukkit thread to avoid
-                        //	java.lang.IllegalStateException and allow things like kicking players
+                        // java.lang.IllegalStateException and allow things like
+                        // kicking players
                         Bukkit.getScheduler().scheduleSyncDelayedTask(SCMain.getInstance(), new Runnable() {
                             public void run() {
                                 try {
-                                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command
-                                            .replace("%nick%", event.getPlayer().getName())
-                                            .replace("%swearword%", censoredWord));
+                                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
+                                            command.replace("%nick%", event.getPlayer().getName())
+                                                    .replace("%swearword%", matcherResult));
                                 } catch (Exception e) {
-                                    SCLogger.logError("There was exception when executing command \"" + command
-                                            + "\" on player \"" + event.getPlayer().getName(), LoggerUtils.LogType.PLUGIN);
+                                    SCLogger.logError(
+                                            "There was exception when executing command \"" + command
+                                                    + "\" on player \"" + event.getPlayer().getName(),
+                                            LoggerUtils.LogType.PLUGIN);
                                 }
                             }
                         });
                     }
                 }
+                // endregion
 
-                // Log
+                // region Log
                 if (ConfigUtils.getBooleanFromConfig("WordlistSettings.Log.Enabled")) {
                     SCLogger.logInfo(ConfigUtils.getStringFromConfig("WordlistSettings.Log.Format")
-                            .replace("%date%", LoggerUtils.getDate())
-                            .replace("%time%", LoggerUtils.getTime())
-                            .replace("%nick%", event.getPlayer().getName())
-                            .replace("%swearword%", censoredWord)
+                            .replace("%date%", LoggerUtils.getDate()).replace("%time%", LoggerUtils.getTime())
+                            .replace("%nick%", event.getPlayer().getName()).replace("%swearword%", matcherResult)
                             .replace("%message%", event.getOriginalMessage()), LoggerUtils.LogType.CENSOR);
                 }
+                // endregion
+
+                // region Replace all swear words
+                if (ConfigUtils.getBooleanFromConfig("WordlistSettings.Replace.Enabled")) {
+
+                    // REPLACING
+                    List<String> replaceToList = ConfigUtils
+                            .getStringListFromConfig("WordlistSettings.Replace.ReplaceTo");
+                    String replaceTo = replaceToList.get(random.nextInt(replaceToList.size()));
+                    // String newMessage =
+                    // StringUtils.replaceIgnoreCase(event.getMessage(),
+                    // matcherResult, replaceTo);
+                    // String newMessage =
+                    // event.getMessage().replaceAll(lowerCaseMessage,
+                    // replaceTo);
+
+                    // System.out.println(lowerCaseMessage);
+
+                    String newMessage = StringUtils.replaceIgnoreCase(event.getMessage(), lowerCaseMessage, replaceTo);
+
+                    event.setMessage(newMessage);
+
+                    if (event.isCensored())
+                        event.setCensored(false);
+                }
+                // endregion
 
                 return; // Cancel the loops after taking action
             }

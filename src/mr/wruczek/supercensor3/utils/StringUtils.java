@@ -1,5 +1,6 @@
 package mr.wruczek.supercensor3.utils;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.bukkit.ChatColor;
@@ -10,8 +11,8 @@ import mr.wruczek.supercensor3.utils.classes.GravityUpdater;
 import mr.wruczek.supercensor3.utils.classes.SCUpdater;
 
 /**
- * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0 International License.
- * http://creativecommons.org/licenses/by-nd/4.0/
+ * This work is licensed under a Creative Commons Attribution-NoDerivatives 4.0
+ * International License. http://creativecommons.org/licenses/by-nd/4.0/
  *
  * @author Wruczek
  */
@@ -41,7 +42,8 @@ public class StringUtils {
     public static String formatUpdaterMessage(String message) {
         GravityUpdater updater = SCUpdater.instance.getUpdater();
 
-        if (updater == null) return null;
+        if (updater == null)
+            return null;
 
         return message.replace("%updaterprefix%", ConfigUtils.getColoredStringFromConfig("MessageFormat.UpdaterPrefix"))
                 .replace("%currentversion%", SCMain.getInstance().getDescription().getFullName())
@@ -50,9 +52,11 @@ public class StringUtils {
     }
 
     public static String usageFormatter(String command, String... args) {
-        if (command == null || args == null) return null;
+        if (command == null || args == null)
+            return null;
 
-        String prefix = ConfigUtils.getColoredStringFromConfig("MessageFormat.CommandUsageFormat").replace("%command%", command);
+        String prefix = ConfigUtils.getColoredStringFromConfig("MessageFormat.CommandUsageFormat").replace("%command%",
+                command);
 
         StringBuilder usageBuilder = new StringBuilder();
 
@@ -106,8 +110,30 @@ public class StringUtils {
         return sbSource.toString();
     }
 
-    public static boolean checkRegex(String regex, String string) {
-        return Pattern.compile(regex).matcher(string).find();
+    public static String checkRegex(String regex, String string, boolean extraPrecautions) {
+        String specialCharsRegex = "[^!@#$%^&*-.]*";
+        String newregex = specialCharsRegex + "(" + regex + ")" + specialCharsRegex;
+
+        String enchantedRegex = checkRegex(newregex, string);
+
+        if (!extraPrecautions || enchantedRegex == null) {
+            return checkRegex(regex, string);
+        } else {
+            return enchantedRegex;
+        }
+    }
+
+    private static String checkRegex(String regex, String string) {
+        Pattern pattern = Pattern.compile(regex);
+
+        Matcher matcher = pattern.matcher(string);
+
+        while (matcher.find()) {
+            // System.out.println(matcher.group(0));
+            return matcher.group(0);
+        }
+
+        return null;
     }
 
     public static double getCapsPercent(String str) {
@@ -126,7 +152,9 @@ public class StringUtils {
             }
         }
 
+        if (total == 0 && uppers == 0)
+            return 0D;
+
         return (uppers * 1D) / (total * 1D) * 100D;
     }
-
 }
