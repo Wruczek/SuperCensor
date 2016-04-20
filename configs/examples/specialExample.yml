@@ -30,12 +30,14 @@ Special:
     # We want to block posting IPs on chat.
     RegexIds:
     - IP
+    - Hostname
+    - URL
     CancelChatEvent: true
     # Add to player`s account 20 Penalty Points.
     PenaltyPoints: 20
    # Run command to kick player
     RunCommands:
-      - "kick %nick% Advertising is NOT allowed!"
+      - "kick %nick% Posting IPs or URLs is not allowed and can get you perm banned!"
   # Rule name
   # Permission to bypass is: supercensor.bypass.special.ExampleWithNormal
   ExampleWithNormal:
