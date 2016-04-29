@@ -100,7 +100,7 @@ public class PPCheck {
 
     public static List<String> getPunishments(OfflinePlayer player) {
         SCPlayerDataManger pdm = new SCPlayerDataManger(player);
-        return pdm.getConfig().getStringList("PushmentList");
+        return pdm.getConfig().getStringList("PunishmentList");
     }
 
     public static void addPunishment(OfflinePlayer player, String punishmentName) {
@@ -108,13 +108,13 @@ public class PPCheck {
         punishments.add(punishmentName);
 
         SCPlayerDataManger pdm = new SCPlayerDataManger(player);
-        pdm.getConfig().set("PushmentList", punishments);
+        pdm.getConfig().set("PunishmentList", punishments);
         pdm.saveConfig();
     }
 
     public static void clearPunishments(OfflinePlayer player) {
         SCPlayerDataManger pdm = new SCPlayerDataManger(player);
-        pdm.getConfig().set("PushmentList", null);
+        pdm.getConfig().set("PunishmentList", null);
         pdm.saveConfig();
     }
 
