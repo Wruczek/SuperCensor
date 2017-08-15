@@ -58,7 +58,7 @@ public class PPCheck {
                         public void run() {
                             for (String command : cs.getStringList(rule + ".RunCommands")) {
                                 try {
-                                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%nick%", player.getDisplayName()));
+                                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%nick%", player.getName()));
                                 } catch (Exception e) {
                                     SCLogger.logError("There was exception when executing command \"" + command
                                             + "\" on player \"" + player.getName(), LoggerUtils.LogType.PLUGIN);
