@@ -1,7 +1,8 @@
-﻿package mr.wruczek.supercensor3.utils.classes;
+package mr.wruczek.supercensor3.utils.classes;
 
 import java.util.List;
 
+import org.bukkit.ChatColor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -12,10 +13,6 @@ import org.json.simple.JSONObject;
  */
 public class MessagesCreator {
 
-    private static final String[] colors = new String[]{
-            "&0", "&1", "&2", "&3", "&4", "&5", "&6", "&7", "&8", "&9", "&a", "&b", "&c", "&d", "&e", "&f", "&k", "&l", "&m", "&n", "&o", "&r",
-            "§0", "§1", "§2", "§3", "§4", "§5", "§6", "§7", "§8", "§9", "§a", "§b", "§c", "§d", "§e", "§f", "§k", "§l", "§m", "§n", "§o", "§r"
-    };
     private JSONObject chatObject;
 
     public MessagesCreator(String text, Color color, List<ChatFormat> formats) {
@@ -46,10 +43,11 @@ public class MessagesCreator {
     }
 
     public static String stripColor(String input) {
-        for (String s : colors) {
-            input = input.replaceAll(s, "");
+        if (input == null) {
+            return null;
         }
-        return input;
+
+        return ChatColor.stripColor(input);
     }
 
     public static class ChatExtra {

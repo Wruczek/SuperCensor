@@ -41,7 +41,7 @@ public class SCReportCommand implements CommandExecutor {
         StringBuilder sb = new StringBuilder();
 
         for (String str : LoggerUtils.lastError) {
-            sb.append(str + "\n");
+            sb.append(str).append("\n");
         }
 
         try {
@@ -65,7 +65,7 @@ public class SCReportCommand implements CommandExecutor {
      * @throws ParseException
      */
     public static URL hastebinPost(String data) throws IOException, ParseException {
-        URL url = new URL("http://hastebin.com/documents");
+        URL url = new URL("https://hastebin.com/documents");
 
         byte[] postData = data.getBytes("UTF-8");
 

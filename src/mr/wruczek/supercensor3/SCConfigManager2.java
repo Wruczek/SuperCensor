@@ -2,7 +2,10 @@ package mr.wruczek.supercensor3;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Scanner;
 
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import mr.wruczek.supercensor3.PPUtils.PPLoader;
@@ -141,8 +144,8 @@ public class SCConfigManager2 {
         // endregion
 
         try {
-            messages_original = YamlConfiguration.loadConfiguration(SCMain.getInstance().getResource("messages/messages_en.yml"));
-            config_original = YamlConfiguration.loadConfiguration(SCMain.getInstance().getResource("configs/config.yml"));
+            messages_original = configFromResource("messages/messages_en.yml");
+            config_original = configFromResource("configs/config.yml");
         } catch (Exception e) {
             SCLogger.logError("Cannot load original messages files! " + e);
             LoggerUtils.handleException(e);
@@ -165,5 +168,28 @@ public class SCConfigManager2 {
 
     private static void copyExampleFile(String fromDir, File toDir, String source, String saveTo) throws IOException {
         IOUtils.copyResource("configs/" + fromDir + "/" + source, new File(toDir, saveTo), false);
+    }
+
+    public static YamlConfiguration configFromResource(String resourcePath) throws InvalidConfigurationException {
+        InputStream is = SCMain.getInstance().getResource(resourcePath);
+
+        if (is == null) {
+            return null;
+        }
+
+        String config = null;
+
+        // https://stackoverflow.com/a/5445161
+        try (Scanner scanner = new Scanner(is)) {
+            config = scanner.useDelimiter("\\A").hasNext() ? scanner.next() : null;
+        }
+
+        if (config == null) {
+            return null;
+        }
+
+        YamlConfiguration yamlConfiguration = new YamlConfiguration();
+        yamlConfiguration.loadFromString(config);
+        return yamlConfiguration;
     }
 }

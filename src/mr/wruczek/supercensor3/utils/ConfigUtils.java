@@ -46,7 +46,8 @@ public class ConfigUtils {
             return original;
         }
 
-        return SCUtils.getPluginPrefix() + StringUtils.color("&cFatal error: config variable \"" + path + "\" cannot be found!");
+        SCLogger.logError("Cannot find " + path + " in config.yml file");
+        return null;
     }
 
     public static boolean configContains(String path) {

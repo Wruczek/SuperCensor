@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.json.simple.JSONArray;
@@ -114,7 +115,7 @@ public class WordlistUpdater {
 
     private boolean getDataFromJarEmbeddedConfig() {
         try {
-            YamlConfiguration jarconfig = YamlConfiguration.loadConfiguration(SCMain.getInstance().getResource("wordlistupdater.yml"));
+            YamlConfiguration jarconfig = SCConfigManager2.configFromResource("wordlistupdater.yml");
 
             if (jarconfig.getBoolean("WordlistUpdater.Enabled") && jarconfig.contains("WordlistUpdater.URL") && jarconfig.contains("WordlistUpdater.SaveTo")) {
                 this.url = new URL(jarconfig.getString("WordlistUpdater.URL"));
@@ -122,6 +123,9 @@ public class WordlistUpdater {
             }
         } catch (MalformedURLException e) {
             SCLogger.logError(prefix + "The given url in Jar-Embedded WordlistUpdater is malformed. WordlistUpdater has been disabled.");
+            return false;
+        } catch (InvalidConfigurationException e) {
+            SCLogger.logError(prefix + "Cannot load configuration from " + this.url);
             return false;
         }
 
